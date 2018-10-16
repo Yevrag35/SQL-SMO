@@ -73,6 +73,7 @@
 			Tags = 'SQL','Server','Instance','Property','Setting','Settings','Set','Change','SMO','Management','Object','Memory','Tables','Columns',
 			'Max','Min','MB','Megabyte','Feature','Microsoft','New','Value','Configuration','Alter','Authentication','Connection','Get','Set','RAM',
 			'Credential','Integrated','Security','Documenting','default','connection','string','data','context','format','Database','Query','Progress','bar'
+			ProjectUri = 'https://github.com/Yevrag35/SQL-SMO'
 			# ReleaseNotes of this module
 			ReleaseNotes = 'Added progress bars to Get-SMOTable & Get-SMOColumn cmdlets.'
 		}
