@@ -52,7 +52,10 @@ namespace SQL.SMO.Cmdlets
             {
                 string[] tbls = Database.Tables.OrderBy(x => x).ToArray();
                 WriteObject(tbls, false);
-                return;
+            }
+            else if (Name != null)
+            {
+                list.AddRange(Database.GetTables(Name));
             }
             else
             {
@@ -62,13 +65,16 @@ namespace SQL.SMO.Cmdlets
         protected override void EndProcessing()
         {
             base.EndProcessing();
-            for (int i = 1; i <= Count; i++)
+            if (!_no)
             {
-                UpdateProgress(ProgressId, i);
-                var tbl = list[i - 1];
-                WriteObject(tbl);
+                for (int i = 1; i <= Count; i++)
+                {
+                    UpdateProgress(ProgressId, i);
+                    var tbl = list[i - 1];
+                    WriteObject(tbl);
+                }
+                UpdateProgress(ProgressId);
             }
-            UpdateProgress(ProgressId);
         }
     }
 }
