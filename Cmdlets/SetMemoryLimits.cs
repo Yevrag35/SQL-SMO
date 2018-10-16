@@ -47,15 +47,15 @@ namespace SQL.SMO.Cmdlets
         {
             base.ProcessRecord();
 
-            List<PropertyChanged> col = new List<PropertyChanged>();
+            var col = new List<PropertyChanged>();
 
             Configuration conf = ((Server)Context.Connection).Configuration;
-            MemoryProperty serverMemory = new MemoryProperty(
+            var serverMemory = new MemoryProperty(
                 conf.MinServerMemory,
                 conf.MaxServerMemory,
                 MeasurementUnit.MB
             );
-            MemoryProperty newProp = new MemoryProperty(
+            var newProp = new MemoryProperty(
                 MinServerMemory,
                 MaxServerMemory,
                 InUnitsOf
@@ -69,7 +69,7 @@ namespace SQL.SMO.Cmdlets
                 }
                 else if (_force || ShouldProcess(conf.MinServerMemory.DisplayName, "Change config value"))
                 {
-                    PropertyChanged changed = new PropertyChanged("MinServerMemory");
+                    var changed = new PropertyChanged("MinServerMemory");
                     changed.SetOldValue(serverMemory.ToString(MemoryProperty.MemType.Min, InUnitsOf));
                     conf.MinServerMemory.ConfigValue = Convert.ToInt32(newProp.MinimumMemory.Value);
                     conf.Alter();
@@ -85,7 +85,7 @@ namespace SQL.SMO.Cmdlets
                 }
                 else if (_force || ShouldProcess(conf.MaxServerMemory.DisplayName, "Change config value"))
                 {
-                    PropertyChanged changed = new PropertyChanged("MaxServerMemory");
+                    var changed = new PropertyChanged("MaxServerMemory");
                     changed.SetOldValue(serverMemory.ToString(MemoryProperty.MemType.Max, InUnitsOf));
                     conf.MaxServerMemory.ConfigValue = Convert.ToInt32(newProp.MaximumMemory.Value);
                     conf.Alter();

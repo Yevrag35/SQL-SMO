@@ -25,7 +25,7 @@ namespace SQL.SMO.Cmdlets
         public string ServerName = "localhost";
 
         [Parameter(Mandatory = false, Position = 1)]
-        public string InstanceName = String.Empty;
+        public string InstanceName = string.Empty;
 
         [Parameter(Mandatory = false, HelpMessage = "The SQL Authentication credentials for the chosen server/instance.")]
         public PSCredential SQLCredential;
@@ -49,8 +49,8 @@ namespace SQL.SMO.Cmdlets
                 throw new ContextExecutionError("An invalid operation occurred while setting the context!  " + e.Message, e);
             }
             //ConfigProperty
-            ServerConnection conn = new ServerConnection(sqlConn);
-            Server smo = new Server(conn);
+            var conn = new ServerConnection(sqlConn);
+            var smo = new Server(conn);
             WriteObject(smo, false);
         }
 
@@ -58,21 +58,15 @@ namespace SQL.SMO.Cmdlets
         #region Cmdlet Methods
         private SqlConnection MakeConnection(string name, string instance, PSCredential sqlCreds)
         {
-            string srvStr;
-            if (!String.IsNullOrEmpty(instance) && instance != "MSSQLSERVER")
-            {
-                srvStr = String.Format(constr, name + "\\" + instance);
-            }
-            else
-            {
-                srvStr = String.Format(constr, name);
-            }
-            SqlConnection sqlConn = new SqlConnection();
+            string srvStr = !string.IsNullOrEmpty(instance) && instance != "MSSQLSERVER"
+                ? string.Format(constr, name + "\\" + instance)
+                : string.Format(constr, name);
+            var sqlConn = new SqlConnection();
             if (sqlCreds != null)
             {
                 SecureString pass = sqlCreds.Password;
                 pass.MakeReadOnly();
-                SqlCredential sc = new SqlCredential(sqlCreds.UserName, pass);
+                var sc = new SqlCredential(sqlCreds.UserName, pass);
                 sqlConn.Credential = sc;
             }
             else

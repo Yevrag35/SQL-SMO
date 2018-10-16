@@ -1,0 +1,1554 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<helpItems schema="maml" xmlns="http://msh">
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>New-SMO</command:name>
+			<maml:description>
+				<maml:para>Creates a SQL Management Object.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>New</command:verb>
+			<command:noun>SMO</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Creates a SQL Management Object against the specified SQL server/instance using either current session credentials (Kerberos/NTLM) or specified credentials for SQL Authentication.  The object is the typical .NET object that you normally would get if ran through the connection process normally.  Be cautious when enumerating this object as it can put quite a load on the SQL server and consume quite a bit of memory in the PowerShell session.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="AllParameters">
+				<!--NAME: AllParameters-->
+				<maml:name>New-SMO</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+					<maml:name>ServerName</maml:name>
+					<maml:description>
+						<maml:para>The Fully-Qualified Domain Name or NetBIOS name of the server to connect to.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+					<dev:type>
+						<maml:name>string</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue>localhost</dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="1">
+					<maml:name>InstanceName</maml:name>
+					<maml:description>
+						<maml:para>The name of the SQL Instance on the specified SQL server to connect to.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+					<dev:type>
+						<maml:name>string</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>SQLCredential</maml:name>
+					<maml:description />
+					<dev:type>
+						<maml:name />
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>ServerName</maml:name>
+				<maml:description>
+					<maml:para>The Fully-Qualified Domain Name or NetBIOS name of the server to connect to.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+				<dev:type>
+					<maml:name>string</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue>localhost</dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="1">
+				<maml:name>InstanceName</maml:name>
+				<maml:description>
+					<maml:para>The name of the SQL Instance on the specified SQL server to connect to.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+				<dev:type>
+					<maml:name>string</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="named">
+				<maml:name>SQLCredential</maml:name>
+				<maml:description />
+				<dev:type>
+					<maml:name />
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>Microsoft.SqlServer.Management.Smo.Server</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<maml:alertSet>
+			<!--Notes-->
+			<maml:title>CPU and Memory Warning</maml:title>
+			<maml:alert>
+				<maml:para>Be cautious when enumerating this object as it can put quite a load on the SQL server and consume quite a bit of memory in the PowerShell session.</maml:para>
+			</maml:alert>
+		</maml:alertSet>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>All Parameters</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; $smo = New-SMO -ServerName "sql.contoso.com" -InstanceName "DataWarehouse" -SQLCredential (Get-Credential sa)</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/New-SMO</maml:uri>
+			</maml:navigationLink>
+			<maml:navigationLink xmlns:maml="http://schemas.microsoft.com/maml/2004/10">
+				<maml:linkText>Microsoft Docs</maml:linkText>
+				<maml:uri>https://docs.microsoft.com/en-us/dotnet/api/microsoft.sqlserver.management.smo.server</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Set-SMOContext</command:name>
+			<maml:description>
+				<maml:para>Stores an SMO for use in the current PowerShell session.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Set</command:verb>
+			<command:noun>SMOContext</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Sets the session's context so all other SMO cmdlets reference the given SMO for the duration of the PowerShell session.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="AllParameters">
+				<!--NAME: AllParameters-->
+				<maml:name>Set-SMOContext</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="0">
+					<maml:name>SMO</maml:name>
+					<maml:description>
+						<maml:para>The SQL Management Object to be set as the session's context.  Use the 'New-SMO' cmdlet to generate.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">Microsoft.SqlServer.Management.Smo.Server</command:parameterValue>
+					<dev:type>
+						<maml:name>Microsoft.SqlServer.Management.Smo.Server</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>Force</maml:name>
+					<maml:description>
+						<maml:para>Specifies the cmdlet to overwrite the existing SMO session context if one exists.  Without this, if the session's context had been set previously, the cmdlet will fail.</maml:para>
+					</maml:description>
+					<dev:type>
+						<maml:name>switch</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="0">
+				<maml:name>SMO</maml:name>
+				<maml:description>
+					<maml:para>The SQL Management Object to be set as the session's context.  Use the 'New-SMO' cmdlet to generate.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">Microsoft.SqlServer.Management.Smo.Server</command:parameterValue>
+				<dev:type>
+					<maml:name>Microsoft.SqlServer.Management.Smo.Server</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="named">
+				<maml:name>Force</maml:name>
+				<maml:description>
+					<maml:para>Specifies the cmdlet to overwrite the existing SMO session context if one exists.  Without this, if the session's context had been set previously, the cmdlet will fail.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">switch</command:parameterValue>
+				<dev:type>
+					<maml:name>switch</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>Microsoft.SqlServer.Management.Smo.Server</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Specified SMO</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; $smo = New-SMO
+C:\PS&gt; Set-SMOContext -SMO $smo</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>From the Pipeline</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; New-SMO "sql.contoso.com" | Set-SMOContext</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Set-SMOContext</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Disconnect-SMO</command:name>
+			<maml:description>
+				<maml:para>Disconnects from the current SMO context.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Disconnect</command:verb>
+			<command:noun>SMO</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Disconnects and disposes of the SQL Management Object in the PowerShell session's context, after which it runs the garbage collector.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="AllParameters">
+				<!--NAME: AllParameters-->
+				<maml:name>Disconnect-SMO</maml:name>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>With Verbose Output</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Disconnect-SMO -Verbose</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Disconnect-SMO</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SMOConnection</command:name>
+			<maml:description>
+				<maml:para>Displays the SMO context information.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SMOConnection</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Returns details about the current session's SMO.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="AllParameters">
+				<!--NAME: AllParameters-->
+				<maml:name>Get-SMOConnection</maml:name>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Framework.SMOConnection</maml:name>
+					<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Framework/SMOConnection.cs</maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para>A read-only display of the current context's connection.</maml:para>
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Run Command</maml:title>
+				<dev:code>C:\PS&gt; Get-SMOConnection</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SMOConnection</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>SMOConnection Object</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Framework/SMOConnection.cs</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SMOConfiguration</command:name>
+			<maml:description>
+				<maml:para>Gets one or more Configuration Properties from the current SMO context.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SMOConfiguration</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Retrieves one, more, or all of the configuration properties within the given SQL server/instance, and displays their values.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="All Parameters">
+				<!--NAME: All Parameters-->
+				<maml:name>Get-SMOConfiguration</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="0" dynamic="true">
+					<maml:name>Property</maml:name>
+					<maml:description>
+						<maml:para>The name(s) of the desired configuration properties to display.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+					<dev:type>
+						<maml:name>string[]</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>IncludeInvalidProperties</maml:name>
+					<maml:description>
+						<maml:para>When specified without providing property values, it will also return configuration properties that do not have values.</maml:para>
+					</maml:description>
+					<dev:type>
+						<maml:name>switch</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0" dynamic="true">
+				<maml:name>Property</maml:name>
+				<maml:description>
+					<maml:para>The name(s) of the desired configuration properties to display.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="named">
+				<maml:name>IncludeInvalidProperties</maml:name>
+				<maml:description>
+					<maml:para>When specified without providing property values, it will also return configuration properties that do not have values.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">switch</command:parameterValue>
+				<dev:type>
+					<maml:name>switch</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.SMOProperty</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para>Displays the name, config value, and whether the running value matches the config value.</maml:para>
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Get all properties</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMOConfiguration</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get specific properties</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMOConfiguration MaxDegreeOfParallelism, NetworkPacketSize, DefaultFullTextLanguage</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SMOConfiguration</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>SMOProperty</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Config/SMOProperty.cs</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SMODatabase</command:name>
+			<maml:description>
+				<maml:para>Gets one or more SQL databases from the current context's connection.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SMODatabase</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Retrieves information about the specified SQL databases from the SMO context.  The list of databases to query will be pulled dynamically.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="SpecificDBs" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: SpecificDBs-->
+				<maml:name>Get-SMODatabase</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="0" dynamic="true">
+					<maml:name>Database</maml:name>
+					<maml:description>
+						<maml:para>The name of the database(s) to retrieve information for.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+					<dev:type>
+						<maml:name>string[]</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+			<command:syntaxItem parametersetname="NamesOnly">
+				<!--NAME: NamesOnly-->
+				<maml:name>Get-SMODatabase</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>NamesOnly</maml:name>
+					<maml:description>
+						<maml:para>Only displays the database name in the resulting output.</maml:para>
+					</maml:description>
+					<dev:type>
+						<maml:name>switch</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0" dynamic="true">
+				<maml:name>Database</maml:name>
+				<maml:description>
+					<maml:para>The name of the database(s) to retrieve information for.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="named">
+				<maml:name>NamesOnly</maml:name>
+				<maml:description>
+					<maml:para>Only displays the database name in the resulting output.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">switch</command:parameterValue>
+				<dev:type>
+					<maml:name>switch</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMODatabase</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+			<command:returnValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Get the 'master' database</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMODatabase master</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get 'all' databases.</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMODatabase</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get the DB names only</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMODatabase -NamesOnly</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SMODatabase</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>SMODatabase</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Databases/SMODatabase.cs</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SMOTable</command:name>
+			<maml:description>
+				<maml:para>Gets the SQL tables for a given database.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SMOTable</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Details table information from one or more databases.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="SpecificTables" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: SpecificTables-->
+				<maml:name>Get-SMOTable</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="0">
+					<maml:name>Name</maml:name>
+					<maml:description>
+						<maml:para>Specifies the name(s) of specific SQL tables to retrieve.  If this parameter is not specified, all tables will be returned.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+					<dev:type>
+						<maml:name>string[]</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+					<maml:name>Database</maml:name>
+					<maml:description>
+						<maml:para>Specifies the SQL database to retrieve the tables from.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMODatabase</command:parameterValue>
+					<dev:type>
+						<maml:name>SQL.SMO.Databases.SMODatabase</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+			<command:syntaxItem parametersetname="NamesOnly">
+				<!--NAME: NamesOnly-->
+				<maml:name>Get-SMOTable</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>NamesOnly</maml:name>
+					<maml:description>
+						<maml:para>Specifies to return only the names of all database tables.</maml:para>
+					</maml:description>
+					<dev:type>
+						<maml:name>switch</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+					<maml:name>Database</maml:name>
+					<maml:description>
+						<maml:para>Specifies the SQL database to retrieve the tables from.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMODatabase</command:parameterValue>
+					<dev:type>
+						<maml:name>SQL.SMO.Databases.SMODatabase</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+				<maml:name>Database</maml:name>
+				<maml:description>
+					<maml:para>Specifies the SQL database to retrieve the tables from.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMODatabase</command:parameterValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMODatabase</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>Name</maml:name>
+				<maml:description>
+					<maml:para>Specifies the name(s) of specific SQL tables to retrieve.  If this parameter is not specified, all tables will be returned.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="named">
+				<maml:name>NamesOnly</maml:name>
+				<maml:description>
+					<maml:para>Specifies to return only the names of all database tables.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">switch</command:parameterValue>
+				<dev:type>
+					<maml:name>switch</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMODatabase</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMOTable</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+			<command:returnValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Get all tables</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; $db = Get-SMODatabase master
+C:\PS&gt; Get-SMOTable -Database $db</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get specific tables</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMODatabase master | Get-SMOTable -Name "MSreplication_options", "spt_monitor"</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get only the table names</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; $db = Get-SMODatabase master
+C:\PS&gt; $db | Get-SMOTable -NamesOnly</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SMOTable</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>SMOTable</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Databases/SMOTable.cs</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SMOColumn</command:name>
+			<maml:description>
+				<maml:para>Gets the SQL columns for a given table.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SMOColumn</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Details column information from one or more tables in a database.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="SpecificColumns" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: SpecificColumns-->
+				<maml:name>Get-SMOColumn</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="0">
+					<maml:name>Name</maml:name>
+					<maml:description>
+						<maml:para>The specific name(s) of (a) column(s) to retrieve.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+					<dev:type>
+						<maml:name>string[]</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+					<maml:name>Table</maml:name>
+					<maml:description>
+						<maml:para>Specifies the SQL table from which the columns' information is retrieved.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMOTable</command:parameterValue>
+					<dev:type>
+						<maml:name>SQL.SMO.Databases.SMOTable</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+			<command:syntaxItem parametersetname="NamesOnly">
+				<!--NAME: NamesOnly-->
+				<maml:name>Get-SMOColumn</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="false" variableLength="false" position="named">
+					<maml:name>NamesOnly</maml:name>
+					<maml:description>
+						<maml:para>Specifies to return only the names of a given table's columns.</maml:para>
+					</maml:description>
+					<dev:type>
+						<maml:name>switch</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+					<maml:name>Table</maml:name>
+					<maml:description>
+						<maml:para>Specifies the SQL table from which the columns' information is retrieved.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMOTable</command:parameterValue>
+					<dev:type>
+						<maml:name>SQL.SMO.Databases.SMOTable</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+				<maml:name>Table</maml:name>
+				<maml:description>
+					<maml:para>Specifies the SQL table from which the columns' information is retrieved.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SQL.SMO.Databases.SMOTable</command:parameterValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMOTable</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>Name</maml:name>
+				<maml:description>
+					<maml:para>The specific name(s) of (a) column(s) to retrieve.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string[]</command:parameterValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="named">
+				<maml:name>NamesOnly</maml:name>
+				<maml:description>
+					<maml:para>Specifies to return only the names of a given table's columns.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">switch</command:parameterValue>
+				<dev:type>
+					<maml:name>switch</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMOTable</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Databases.SMOColumn</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+			<command:returnValue>
+				<dev:type>
+					<maml:name>string[]</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Get all columns</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; $tbl = Get-SMODatabase master | Get-SMOTable -Name "spt_monitor"
+C:\PS&gt; Get-SMOColumn -Table $tbl</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get all columns from all tables from all databases</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMODatabase | Get-SMOTable | Get-SMOColumn</dev:code>
+				<dev:remarks>
+					<maml:para>This could be extremely resource intensive.</maml:para>
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SMOColumn</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+			<maml:navigationLink>
+				<maml:linkText>SMOColumn</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/blob/master/Databases/SMOColumn.cs</maml:uri>
+			</maml:navigationLink>
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Set-SMOConfiguration</command:name>
+			<maml:description>
+				<maml:para>Sets one or more Configuration Properties from the current SMO context with new values.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Set</command:verb>
+			<command:noun>SMOConfiguration</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Alters one or more of configuration properties within the given SQL server/instance with different values.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="ViaCommandInput" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: ViaCommandInput-->
+				<maml:name>Set-SMOConfiguration</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="false" variableLength="false" position="0">
+					<maml:name>Property</maml:name>
+					<maml:description>
+						<maml:para>The name of the desired configuration property to alter.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+					<dev:type>
+						<maml:name>string</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="1">
+					<maml:name>NewValue</maml:name>
+					<maml:description>
+						<maml:para>Specifies the new value to be given to the specified configuration properties.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">object</command:parameterValue>
+					<dev:type>
+						<maml:name>object</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+			<command:syntaxItem parametersetname="ViaPipelineInput">
+				<!--NAME: ViaPipelineInput-->
+				<maml:name>Set-SMOConfiguration</maml:name>
+				<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="1">
+					<maml:name>NewValue</maml:name>
+					<maml:description>
+						<maml:para>Specifies the new value to be given to the specified configuration properties.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">object</command:parameterValue>
+					<dev:type>
+						<maml:name>object</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+				<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+					<maml:name>SMOProperty</maml:name>
+					<maml:description>
+						<maml:para>The SMOProperty values that are to be altered with new values.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Config.SMOProperty</command:parameterValue>
+					<dev:type>
+						<maml:name>SQL.SMO.Config.SMOProperty</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue />
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>Property</maml:name>
+				<maml:description>
+					<maml:para>The name of the desired configuration property to alter.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">string</command:parameterValue>
+				<dev:type>
+					<maml:name>string</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="true" globbing="false" pipelineInput="True (ByValue)" variableLength="false" position="named">
+				<maml:name>SMOProperty</maml:name>
+				<maml:description>
+					<maml:para>The SMOProperty values that are to be altered with new values.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SQL.SMO.Config.SMOProperty</command:parameterValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.SMOProperty</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+			<command:parameter required="true" globbing="false" pipelineInput="False" variableLength="false" position="1">
+				<maml:name>NewValue</maml:name>
+				<maml:description>
+					<maml:para>Specifies the new value to be given to the specified configuration properties.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">object</command:parameterValue>
+				<dev:type>
+					<maml:name>object</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue />
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.SMOProperty</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.PropertyChanged</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<maml:alertSet>
+			<!--Notes-->
+			<maml:title>Warning</maml:title>
+			<maml:alert>
+				<maml:para>This is an 'INSTANT' change on the SQL server's configuration.  Be cautious when adjusting values.</maml:para>
+			</maml:alert>
+		</maml:alertSet>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>EXAMPLE 1</maml:title>
+				<maml:introduction>
+					<maml:para>Change the specified property to a different value</maml:para>
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SMOConfiguration MaxDegreeOfParallelism | Set-SMOConfiguration -NewValue 1</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Set-SMOConfiguration</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--Command-->
+		<command:details>
+			<command:name>Get-SQLMemoryLimit</command:name>
+			<maml:description>
+				<maml:para>Displays the memory limits.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Get</command:verb>
+			<command:noun>SQLMemoryLimit</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Shows what the current SQL server/instance's memory limit in the given unit of measurement.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="Default" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: Default-->
+				<maml:name>Get-SQLMemoryLimit</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+					<maml:name>InUnitsOf</maml:name>
+					<maml:description>
+						<maml:para>Specifies the unit of bytes to display the results in.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">SQL.SMO.Config.MeasurementUnit</command:parameterValue>
+					<command:parameterValueGroup>
+						<command:parameterValue required="false" variableLength="false">Bytes</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">KB</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">MB</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">GB</command:parameterValue>
+					</command:parameterValueGroup>
+					<dev:type>
+						<maml:name>SQL.SMO.Config.MeasurementUnit</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue>MB</dev:defaultValue>
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>InUnitsOf</maml:name>
+				<maml:description>
+					<maml:para>Specifies the unit of bytes to display the results in.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">SQL.SMO.Config.MeasurementUnit</command:parameterValue>
+				<command:parameterValueGroup>
+					<command:parameterValue required="false" variableLength="false">Bytes</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">KB</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">MB</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">GB</command:parameterValue>
+				</command:parameterValueGroup>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.MeasurementUnit</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue>MB</dev:defaultValue>
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.MemoryProperty</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Get the memory limit</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SQLMemoryLimit</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+			<command:example>
+				<maml:title>Get the limit in Gigabytes</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Get-SQLMemoryLimit -InUnitsOf GB</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Get-SQLMemoryLimit</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+	<command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+		<!--TAG: HASCOMMONPARAMETERS-->
+		<!--Command-->
+		<command:details>
+			<command:name>Set-SQLMemoryLimit</command:name>
+			<maml:description>
+				<maml:para>Akters the memory limits.</maml:para>
+			</maml:description>
+			<maml:copyright>
+				<maml:para />
+			</maml:copyright>
+			<command:verb>Set</command:verb>
+			<command:noun>SQLMemoryLimit</command:noun>
+			<dev:version />
+		</command:details>
+		<maml:description>
+			<maml:para>Changes what the current SQL server/instance's memory limit is in the given unit of measurement.</maml:para>
+		</maml:description>
+		<command:syntax>
+			<!--Parameter Sets-->
+			<command:syntaxItem parametersetname="Default" default="true">
+				<!--TAG: DEFAULT-->
+				<!--NAME: Default-->
+				<maml:name>Set-SQLMemoryLimit</maml:name>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="0">
+					<maml:name>MinServerMemory</maml:name>
+					<maml:description>
+						<maml:para>Specifies a new value for the minimum SQL memory limit.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">Nullable&lt;int&gt;</command:parameterValue>
+					<dev:type>
+						<maml:name>Nullable&lt;int&gt;</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue>null</dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="1">
+					<maml:name>MaxServerMemory</maml:name>
+					<maml:description>
+						<maml:para>Specifies a new value for the maximum SQL memory limit.</maml:para>
+					</maml:description>
+					<command:parameterValue required="false" variableLength="false">Nullable&lt;int&gt;</command:parameterValue>
+					<dev:type>
+						<maml:name>Nullable&lt;int&gt;</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue>null</dev:defaultValue>
+				</command:parameter>
+				<command:parameter required="false" globbing="false" pipelineInput="false" variableLength="false" position="2">
+					<maml:name>InUnitsOf</maml:name>
+					<maml:description>
+						<maml:para>Specifies the unit of bytes to set the given values in.</maml:para>
+					</maml:description>
+					<command:parameterValue required="true" variableLength="false">SQL.SMO.Config.MeasurementUnit</command:parameterValue>
+					<command:parameterValueGroup>
+						<command:parameterValue required="false" variableLength="false">Bytes</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">KB</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">MB</command:parameterValue>
+						<command:parameterValue required="false" variableLength="false">GB</command:parameterValue>
+					</command:parameterValueGroup>
+					<dev:type>
+						<maml:name>SQL.SMO.Config.MeasurementUnit</maml:name>
+						<maml:uri />
+					</dev:type>
+					<dev:defaultValue>MB</dev:defaultValue>
+				</command:parameter>
+			</command:syntaxItem>
+		</command:syntax>
+		<command:parameters>
+			<!--All Parameters-->
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="0">
+				<maml:name>MinServerMemory</maml:name>
+				<maml:description>
+					<maml:para>Specifies a new value for the minimum SQL memory limit.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">Nullable&lt;int&gt;</command:parameterValue>
+				<dev:type>
+					<maml:name>Nullable&lt;int&gt;</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue>null</dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="1">
+				<maml:name>MaxServerMemory</maml:name>
+				<maml:description>
+					<maml:para>Specifies a new value for the maximum SQL memory limit.</maml:para>
+				</maml:description>
+				<command:parameterValue required="false" variableLength="false">Nullable&lt;int&gt;</command:parameterValue>
+				<dev:type>
+					<maml:name>Nullable&lt;int&gt;</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue>null</dev:defaultValue>
+			</command:parameter>
+			<command:parameter required="false" globbing="false" pipelineInput="False" variableLength="false" position="2">
+				<maml:name>InUnitsOf</maml:name>
+				<maml:description>
+					<maml:para>Specifies the unit of bytes to set the given values in.</maml:para>
+				</maml:description>
+				<command:parameterValue required="true" variableLength="false">SQL.SMO.Config.MeasurementUnit</command:parameterValue>
+				<command:parameterValueGroup>
+					<command:parameterValue required="false" variableLength="false">Bytes</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">KB</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">MB</command:parameterValue>
+					<command:parameterValue required="false" variableLength="false">GB</command:parameterValue>
+				</command:parameterValueGroup>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.MeasurementUnit</maml:name>
+					<maml:uri />
+				</dev:type>
+				<dev:defaultValue>MB</dev:defaultValue>
+			</command:parameter>
+		</command:parameters>
+		<command:inputTypes>
+			<!--Inputs-->
+			<command:inputType>
+				<dev:type>
+					<maml:name>None</maml:name>
+					<maml:uri />
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:inputType>
+		</command:inputTypes>
+		<command:returnValues>
+			<!--Outputs-->
+			<command:returnValue>
+				<dev:type>
+					<maml:name>SQL.SMO.Config.PropertyChanged</maml:name>
+					<maml:uri></maml:uri>
+				</dev:type>
+				<maml:description>
+					<maml:para />
+				</maml:description>
+			</command:returnValue>
+		</command:returnValues>
+		<command:examples>
+			<!--Examples-->
+			<command:example>
+				<maml:title>Set the limits in Gigabytes</maml:title>
+				<maml:introduction>
+					<maml:para />
+				</maml:introduction>
+				<dev:code>C:\PS&gt; Set-SQLMemoryLimit -MinServerMemory 8 -MaxServerMemory 12 -InUnitsOf GB</dev:code>
+				<dev:remarks>
+					<maml:para />
+				</dev:remarks>
+			</command:example>
+		</command:examples>
+		<maml:relatedLinks>
+			<maml:navigationLink>
+				<maml:linkText>Online Version:</maml:linkText>
+				<maml:uri>https://github.com/Yevrag35/SQL-SMO/wiki/Set-SQLMemoryLimit</maml:uri>
+			</maml:navigationLink>
+			<!--Links-->
+		</maml:relatedLinks>
+	</command:command>
+	<!--Edited with: SAPIEN PowerShell HelpWriter 2018 v2.2.41-->
+</helpItems>

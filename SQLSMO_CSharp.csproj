@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+    <DocumentationFile>bin\Debug\SQL.SMO.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -29,10 +31,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+    <DocumentationFile>bin\Release\SQL.SMO.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MG.Attributes">
-      <HintPath>..\MG.Attributes.dll</HintPath>
+    <Reference Include="MG.Attributes, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ReferencedAssemblies\MG.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Cmdlets\GetSMOColumn.cs" />
     <Compile Include="Cmdlets\GetSMOTable.cs" />
+    <Compile Include="Cmdlets\ProgressCmdlet.cs" />
     <Compile Include="Cmdlets\SetMemoryLimits.cs" />
     <Compile Include="Databases\SMOColumn.cs" />
     <Compile Include="Databases\SMOTable.cs" />

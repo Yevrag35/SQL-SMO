@@ -10,10 +10,19 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "SMODatabase")]
+    [Cmdlet(VerbsCommon.Get, "SMODatabase", DefaultParameterSetName = "SpecificDBs")]
+    [OutputType(typeof(SMODatabase))]
     public class GetSMODatabase : SharedCmdlet
     {
         private Dynamic _dyn;
+
+        private protected bool _no;
+        [Parameter(Mandatory = true, ParameterSetName = "NamesOnly")]
+        public SwitchParameter NamesOnly
+        {
+            get => _no;
+            set => _no = value;
+        }
 
         internal override RuntimeDefinedParameterDictionary GenerateFor()
         {
@@ -22,7 +31,7 @@ namespace SQL.SMO.Cmdlets
             {
                 Context.GetDatabaseNames();
             }
-            _source = _dyn.Generate(dName, Context.DBNames, false);
+            _source = _dyn.Generate(dName, Context.DBNames, false, "SpecificDBs");
             return _source;
         }
 
@@ -35,17 +44,26 @@ namespace SQL.SMO.Cmdlets
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            DatabaseCollection dbCol = ((Server)Context.Connection).Databases;
-            string[] chosen = _source[dName].Value as string[];
-            if (chosen == null)
+            if (!_no)
             {
-                chosen = Context.DBNames;
+                DatabaseCollection dbCol = ((Server)Context.Connection).Databases;
+                if (!(_source[dName].Value is string[] chosen))
+                {
+                    chosen = Context.DBNames;
+                }
+                for (int i = 0; i < chosen.Length; i++)
+                {
+                    string d = chosen[i];
+                    Database db = dbCol.OfType<Database>().Single(x => x.Name == d);
+                    WriteObject(new SMODatabase(db));
+                }
             }
-            for (int i = 0; i < chosen.Length; i++)
+            else
             {
-                string d = chosen[i];
-                Database db = dbCol.OfType<Database>().Single(x => x.Name == d);
-                WriteObject(new SMODatabase(db));
+                if (Context.DBNames == null)
+                    Context.GetDatabaseNames();
+
+                WriteObject(Context.DBNames, true);
             }
         }
     }

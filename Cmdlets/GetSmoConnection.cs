@@ -18,7 +18,7 @@ namespace SQL.SMO.Cmdlets
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            SMOConnection conn = new SMOConnection((Server)Context.Connection);
+            var conn = new SMOConnection((Server)Context.Connection);
             WriteObject(conn, false);
         }
     }

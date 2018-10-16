@@ -8,23 +8,14 @@ namespace SQL.SMO.Framework
     public static class Context
     {
         private static SqlSmoObject _context;
-    
-        public static SqlSmoObject Connection
-        {
-            get { return _context; }
-        }
+
+        public static SqlSmoObject Connection => _context;
 
         private static string[] _propNames = null;
-        internal static string[] ConfigProperties
-        {
-            get { return _propNames; }
-        }
+        internal static string[] ConfigProperties => _propNames;
 
         private static string[] _dbnames;
-        internal static string[] DBNames
-        {
-            get { return _dbnames; }
-        }
+        internal static string[] DBNames => _dbnames;
 
         internal static void GetConfigPropertyNames()
         {
@@ -50,7 +41,7 @@ namespace SQL.SMO.Framework
         {
             if (IsSet && IsConnected)
             {
-                DatabaseCollection dbCol = ((Server)Context.Connection).Databases;
+                DatabaseCollection dbCol = ((Server)Connection).Databases;
                 _dbnames = new string[dbCol.Count];
                 for (int i = 0; i < dbCol.Count; i++)
                 {
@@ -63,22 +54,10 @@ namespace SQL.SMO.Framework
             }
         }
 
-        internal static bool IsSet { get { return _context != null; } }
+        internal static bool IsSet => _context != null;
 
-        internal static bool IsConnected
-        {
-            get
-            {
-                if (_context != null)
-                {
-                    return ((Server)_context).ConnectionContext.IsOpen;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
+        internal static bool IsConnected => _context != null ? 
+            ((Server)_context).ConnectionContext.IsOpen : false;
 
         internal static void Disconnect(bool discconnect)
         {

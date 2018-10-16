@@ -13,8 +13,8 @@ namespace SQL.SMO.Framework
 
     public class SMOContextAlreadySetException : ArgumentException, ISMOException
     {
-        public bool HasDefaultMessage { get { return true; } }
-        public Exception ThisException { get { return this; } }
+        public bool HasDefaultMessage => true;
+        public Exception ThisException => this;
 
         private const string _def = "The SMO context is already set!  Use the \"Force\" parameter if overriding was intended.";
         
@@ -25,8 +25,8 @@ namespace SQL.SMO.Framework
     }
     public class SMOContextNotSetException : InvalidOperationException, ISMOException
     {
-        public bool HasDefaultMessage { get { return true; } }
-        public Exception ThisException { get { return this; } }
+        public bool HasDefaultMessage => true;
+        public Exception ThisException => this;
         private const string _def = "The SMO context is not set!  Set the context first then re-run this command.";
         public SMOContextNotSetException(string message = _def)
             : base(message)
@@ -35,8 +35,8 @@ namespace SQL.SMO.Framework
     }
     public class ContextExecutionError : InvalidOperationException, ISMOException
     {
-        public bool HasDefaultMessage { get { return false; } }
-        public Exception ThisException { get { return this; } }
+        public bool HasDefaultMessage => false;
+        public Exception ThisException => this;
         public ContextExecutionError(string message, SqlException e)
             : base(message, e)
         {
@@ -53,7 +53,7 @@ namespace SQL.SMO.Framework
     {
         public static ErrorRecord Throw(ISMOException e, object target = null)
         {
-            ErrorRecord rec = new ErrorRecord((System.Exception)e, e.GetType().FullName, ErrorCategory.InvalidOperation, target);
+            var rec = new ErrorRecord((System.Exception)e, e.GetType().FullName, ErrorCategory.InvalidOperation, target);
             return rec;
         }
     }

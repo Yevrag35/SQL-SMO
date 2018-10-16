@@ -5,6 +5,10 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
+    /// <summary>
+    /// <para type="synopsis">Disconnects from the current SMO context.</para>
+    /// <para type="description">Disconnects and disposes of the SQL Management Object in the PowerShell session's context, after which it runs the garbage collector.</para>
+    /// </summary>
     [Cmdlet(VerbsCommunications.Disconnect, "SMO")]
     public class DisconnectSMO : PSCmdlet
     {

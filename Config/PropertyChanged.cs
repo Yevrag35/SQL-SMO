@@ -10,12 +10,12 @@ namespace SQL.SMO.Config
     {
         private object _old;
         private object _new;
-        private SMOProperty _cfgProp;
+        private readonly SMOProperty _cfgProp;
 
-        public string Name { get { return _cfgProp.Name; } }
-        public object OldValue { get { return _old; } }
-        public object NewValue { get { return _new; } }
-        internal SMOProperty ConfigProperty { get { return _cfgProp; } }
+        public string Name => _cfgProp.Name;
+        public object OldValue => _old;
+        public object NewValue => _new;
+        internal SMOProperty ConfigProperty => _cfgProp;
 
         public PropertyChanged(SMOProperty smoProperty , object oldValue, object newValue)
         {
@@ -27,25 +27,16 @@ namespace SQL.SMO.Config
         internal PropertyChanged(SMOProperty smoProperty, object oldValue)
         {
             _cfgProp = smoProperty;
+            _old = oldValue;
         }
 
-        internal protected PropertyChanged(string property)
-        {
+        internal protected PropertyChanged(string property) => 
             _cfgProp = SharedCmdlet.GetPropertyValue(property);
-        }
 
-        internal PropertyChanged(ConfigProperty configProperty)
-        {
+        internal PropertyChanged(ConfigProperty configProperty) => 
             _cfgProp = new SMOProperty(configProperty);
-        }
 
-        internal void SetOldValue(object value)
-        {
-            _old = value;
-        }
-        internal void SetNewValue(object value)
-        {
-            _new = value;
-        }
+        internal void SetOldValue(object value) => _old = value;
+        internal void SetNewValue(object value) => _new = value;
     }
 }

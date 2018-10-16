@@ -14,23 +14,23 @@ namespace SQL.SMO.Databases
         private string[] _cols;
 
         public SqlSmoObject Database => _tbl.Parent;
-        public string Name { get { return _tbl.Name; } }
-        public long RowCount { get { return _tbl.RowCount; } }
-        public string Owner { get { return _tbl.Owner; } }
-        public long ID { get { return _tbl.ID; } }
-        public string FileGroup { get { return _tbl.FileGroup; } }
-        public double DataSpaceUsed { get { return _tbl.DataSpaceUsed; } }
-        public bool ChangeTrackingEnabled { get { return _tbl.ChangeTrackingEnabled; } }
-        public bool AnsiNullsStatus { get { return _tbl.AnsiNullsStatus; } }
-        public bool HasIndex { get { return _tbl.HasIndex; } }
-        public double IndexSpaceUsed { get { return _tbl.IndexSpaceUsed; } }
-        public bool Replicated { get { return _tbl.Replicated; } }
-        public bool TrackColumnsUpdatedEnabled { get { return _tbl.TrackColumnsUpdatedEnabled; } }
-        public TableEvents Events { get { return _tbl.Events; } }
-        public IndexCollection Indexes { get { return _tbl.Indexes; } }
-        public int MaxDegreeOfParallelism { get { return _tbl.MaximumDegreeOfParallelism; } }
-        public ForeignKeyCollection ForeignKeys { get { return _tbl.ForeignKeys; } }
-        public string Schema { get { return _tbl.Schema; } }
+        public string Name => _tbl.Name;
+        public long RowCount => _tbl.RowCount;
+        public string Owner => _tbl.Owner;
+        public long ID => _tbl.ID;
+        public string FileGroup => _tbl.FileGroup;
+        public double DataSpaceUsed => _tbl.DataSpaceUsed;
+        public bool ChangeTrackingEnabled => _tbl.ChangeTrackingEnabled;
+        public bool AnsiNullsStatus => _tbl.AnsiNullsStatus;
+        public bool HasIndex => _tbl.HasIndex;
+        public double IndexSpaceUsed => _tbl.IndexSpaceUsed;
+        public bool Replicated => _tbl.Replicated;
+        public bool TrackColumnsUpdatedEnabled => _tbl.TrackColumnsUpdatedEnabled;
+        public TableEvents Events => _tbl.Events;
+        public IndexCollection Indexes => _tbl.Indexes;
+        public int MaxDegreeOfParallelism => _tbl.MaximumDegreeOfParallelism;
+        public ForeignKeyCollection ForeignKeys => _tbl.ForeignKeys;
+        public string Schema => _tbl.Schema;
         public Type MSType => typeof(Table);
         public string[] Columns
         {
@@ -49,7 +49,7 @@ namespace SQL.SMO.Databases
 
         internal SMOColumn[] GetColumns()
         {
-            SMOColumn[] smoc = new SMOColumn[_tbl.Columns.Count];
+            var smoc = new SMOColumn[_tbl.Columns.Count];
             for (int i = 0; i < _tbl.Columns.Count; i++)
             {
                 Column c = _tbl.Columns[i];
@@ -60,7 +60,7 @@ namespace SQL.SMO.Databases
         
         internal SMOColumn[] GetColumns(string[] colNames)
         {
-            SMOColumn[] smoc = new SMOColumn[colNames.Length];
+            var smoc = new SMOColumn[colNames.Length];
             IEnumerable<Column> cols = _tbl.Columns.OfType<Column>();
             for (int i = 0; i < colNames.Length; i ++)
             {

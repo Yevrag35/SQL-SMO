@@ -1,8 +1,6 @@
-﻿using MG;
-using MG.Attributes;
+﻿using MG.Attributes;
 using Microsoft.SqlServer.Management.Smo;
 using System;
-using System.Reflection;
 
 namespace SQL.SMO.Config
 {
@@ -20,15 +18,15 @@ namespace SQL.SMO.Config
         [MGName("Gigabytes")]
         GB = 1073741824L
     }
-    public class MemoryProperty : MGNameResolver
+    public class MemoryProperty : AttributeResolver
     {
         // Fields
         private MeasurementUnit _u;
-        private long _min;
-        private long _max;
+        private readonly long _min;
+        private readonly long _max;
         public long? MinimumMemory => _min / (long)_u;
         public long? MaximumMemory => _max / (long)_u;
-        public string InUnitsOf => GetName(_u);
+        public string InUnitsOf => GetNameAttribute(_u);
 
         public MemoryProperty(ConfigProperty minMemory, ConfigProperty maxMemory, MeasurementUnit inUnits)
         {
@@ -69,7 +67,7 @@ namespace SQL.SMO.Config
 
         public string[] ToString(MeasurementUnit inUnits)
         {
-            string[] outStr = new string[2];
+            var outStr = new string[2];
             if (inUnits == MeasurementUnit.Bytes)
             {
                 outStr[0] = Convert.ToString(_min);

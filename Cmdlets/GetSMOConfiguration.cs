@@ -17,8 +17,8 @@ namespace SQL.SMO.Cmdlets
         [Parameter(Mandatory = false)]
         public SwitchParameter IncludeInvalidProperties
         {
-            get { return _includenulls; }
-            set { _includenulls = value; }
+            get => _includenulls;
+            set => _includenulls = value;
         }
 
         internal override RuntimeDefinedParameterDictionary GenerateFor()
@@ -39,7 +39,7 @@ namespace SQL.SMO.Cmdlets
             base.ProcessRecord();
 
             // Determine properties that were chosen.
-            string[] props = (string[])_source[pName].Value;
+            var props = (string[])_source[pName].Value;
             if (props == null)
             {
                 props = Context.ConfigProperties;

@@ -19,8 +19,8 @@ namespace SQL.SMO.Cmdlets
         [Parameter(Mandatory = false)]
         public SwitchParameter Force
         {
-            get { return _force; }
-            set { _force = value; }
+            get => _force;
+            set => _force = value;
         }
 
         #endregion

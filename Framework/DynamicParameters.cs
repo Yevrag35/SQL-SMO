@@ -19,33 +19,25 @@ namespace SQL.SMO.Framework
 
         internal RuntimeDefinedParameterDictionary Generate(string pName, string[] validatedItems, bool mandatory, string pSetName = null)
         {
-            Dictionary<string, object> atts = new Dictionary<string, object>()
+            var atts = new Dictionary<string, object>()
             {
                 { "Mandatory", mandatory },
                 { "Position", 0 }
             };
-            Type retType;
-            if (mandatory)
-            {
-                retType = typeof(string);
-            }
-            else
-            {
-                retType = typeof(string[]);
-            }
-            if (!String.IsNullOrEmpty(pSetName))
+            Type retType = mandatory ? typeof(string) : typeof(string[]);
+            if (!string.IsNullOrEmpty(pSetName))
             {
                 atts.Add("ParameterSetName", pSetName);
             }
             Collection<Attribute> attCol = CreateAttributes(atts);
-            ValidateSetAttribute valSet = new ValidateSetAttribute(validatedItems);
+            var valSet = new ValidateSetAttribute(validatedItems);
             attCol.Add(valSet);
-            AliasAttribute aliases = new AliasAttribute(new string[] { "prop", "p" });
+            var aliases = new AliasAttribute(new string[] { "prop", "p" });
             attCol.Add(aliases);
-            RuntimeDefinedParameter rtParam = new RuntimeDefinedParameter(
+            var rtParam = new RuntimeDefinedParameter(
                 pName, retType, attCol
             );
-            RuntimeDefinedParameterDictionary rtDict = new RuntimeDefinedParameterDictionary()
+            var rtDict = new RuntimeDefinedParameterDictionary()
             {
                 { pName, rtParam }
             };
@@ -54,8 +46,8 @@ namespace SQL.SMO.Framework
 
         internal protected Collection<Attribute> CreateAttributes(IDictionary hashtable)
         {
-            Collection<Attribute> colAtt = new Collection<Attribute>();
-            ParameterAttribute pAtt = new ParameterAttribute();
+            var colAtt = new Collection<Attribute>();
+            var pAtt = new ParameterAttribute();
             foreach (PropertyInfo info in pAtt.GetType().GetProperties())
             {
                 foreach (string key in hashtable.Keys)

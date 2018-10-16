@@ -13,17 +13,7 @@ namespace SQL.SMO.Cmdlets
         internal RuntimeDefinedParameterDictionary _source;
 
         #region Dynamic Parameters
-        public object GetDynamicParameters()
-        {
-            if (CheckSession(true))
-            {
-                return GenerateFor();
-            }
-            else
-            {
-                return null;
-            }
-        }
+        public object GetDynamicParameters() => CheckSession(true) ? GenerateFor() : null;
 
         internal abstract RuntimeDefinedParameterDictionary GenerateFor();
 
@@ -36,17 +26,8 @@ namespace SQL.SMO.Cmdlets
                 throw new SMOContextNotSetException();
             }
         }
-        internal static bool CheckSession(bool Is = true)
-        {
-            if (Context.IsSet.Equals(Is) && Context.IsConnected.Equals(Is))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        internal static bool CheckSession(bool Is = true) => 
+            Context.IsSet.Equals(Is) && Context.IsConnected.Equals(Is) ? true : false;
 
         internal protected static SMOProperty GetPropertyValue(string propName)
         {

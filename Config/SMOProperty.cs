@@ -7,65 +7,26 @@ namespace SQL.SMO.Config
     public class SMOProperty : ISMOObject
     {
         private ConfigProperty _prop;
-        private string goodName;
-        public string Name
-        {
-            get
-            {
-                if (String.IsNullOrEmpty(goodName) && _prop != null)
-                {
-                    return _prop.DisplayName;
-                }
-                else if (!String.IsNullOrEmpty(goodName))
-                {
-                    return goodName;
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
-        public string RealName
-        {
-            get { if (_prop != null) { return _prop.DisplayName; } else { return null; } }
-        }
-        public string Description
-        {
-            get { if (_prop != null) { return _prop.Description; } else { return null; } }
-        }
-        public object RunningValue
-        {
-            get { if (_prop != null) { return _prop.RunValue; } else { return null; } }
-        }
-        public object ConfigValue
-        {
-            get { if (_prop != null) { return _prop.ConfigValue; } else { return null; } }
-        }
-        public bool? ConfigMatchesRunning
-        {
-            get
-            {
-                if (_prop != null)
-                {
-                    return _prop.RunValue.Equals(_prop.ConfigValue);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-        }
+        private readonly string goodName;
+        public string Name => 
+            string.IsNullOrEmpty(goodName) && _prop != null ? 
+                _prop.DisplayName : !string.IsNullOrEmpty(goodName) ? 
+                    goodName : null;
+
+        public string RealName => _prop != null ? _prop.DisplayName : null;
+        public string Description => _prop != null ? _prop.Description : null;
+        public object RunningValue => _prop != null ? _prop.RunValue : (object)null;
+        public object ConfigValue => _prop != null ? _prop.ConfigValue : (object)null;
+
+        public bool? ConfigMatchesRunning => _prop != null ? 
+            _prop.RunValue.Equals(_prop.ConfigValue) : (bool?)null;
 
         public bool IsDefined => _prop != null;
 
         public Type MSType => typeof(ConfigProperty);
 
 
-        public SMOProperty(ConfigProperty prop)
-        {
-            _prop = prop;
-        }
+        public SMOProperty(ConfigProperty prop) => _prop = prop;
         public SMOProperty(string gname, ConfigProperty prop)
         {
             _prop = prop;
@@ -73,14 +34,7 @@ namespace SQL.SMO.Config
         }
         internal SMOProperty(string gname, object prop)
         {
-            if (prop == null)
-            {
-                _prop = null;
-            }
-            else
-            {
-                _prop = (ConfigProperty)prop;
-            }
+            _prop = prop == null ? null : (ConfigProperty)prop;
             goodName = gname;
         }
 

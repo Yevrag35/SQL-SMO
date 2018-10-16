@@ -35,7 +35,7 @@ namespace SQL.SMO.Cmdlets
                 SMO = (Server)Context.Connection;
             }
 
-            MemoryProperty memProp = new MemoryProperty(
+            var memProp = new MemoryProperty(
                 SMO.Configuration.MinServerMemory,
                 SMO.Configuration.MaxServerMemory,
                 InUnitsOf

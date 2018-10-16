@@ -54,7 +54,7 @@ namespace SQL.SMO.Cmdlets
 
         internal void ByPipelineInput(SMOProperty prop)
         {
-            PropertyChanged change = new PropertyChanged(prop, prop.ConfigValue, NewValue);
+            var change = new PropertyChanged(prop, prop.ConfigValue, NewValue);
             if (ShouldProcess(prop.Name, "Set to " + NewValue))
             {
                 prop.Alter(NewValue);
