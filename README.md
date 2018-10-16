@@ -2,9 +2,9 @@
 
 This is a module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects.
 
-(Link to PowerShell Gallery)[https://www.powershellgallery.com/packages/SQL-SMO]
+[Link to PowerShell Gallery](https://www.powershellgallery.com/packages/SQL-SMO)
 
-(Check out the Wiki)[https://github.com/Yevrag35/SQL-SMO/wiki] for information about each of the cmdlets.
+[Check out the wiki](https://github.com/Yevrag35/SQL-SMO/wiki) for information about each of the cmdlets.
 
 ---
 
