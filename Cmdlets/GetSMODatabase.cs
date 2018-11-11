@@ -1,6 +1,4 @@
-﻿using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-using SQL.SMO.Databases;
+﻿using SQL.SMO.Databases;
 using SQL.SMO.Framework;
 using System;
 using System.Collections;
@@ -10,61 +8,84 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "SMODatabase", DefaultParameterSetName = "SpecificDBs")]
+    [Cmdlet(VerbsCommon.Get, "SMODatabase", DefaultParameterSetName = "DynamicParameter")]
     [OutputType(typeof(SMODatabase))]
     public class GetSMODatabase : SharedCmdlet
     {
         private Dynamic _dyn;
-
-        private protected bool _no;
-        [Parameter(Mandatory = true, ParameterSetName = "NamesOnly")]
-        public SwitchParameter NamesOnly
-        {
-            get => _no;
-            set => _no = value;
-        }
+        private protected string[] _pns;
 
         internal override RuntimeDefinedParameterDictionary GenerateFor()
         {
-            if (_dyn == null) { _dyn = new Dynamic(); }
+            if (_dyn == null)
+                _dyn = new Dynamic();
+
             if (Context.DBNames == null)
-            {
                 Context.GetDatabaseNames();
-            }
-            _source = _dyn.Generate(dName, Context.DBNames, false, "SpecificDBs");
+
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMODatabase));
+
+            var param1 = _dyn.Generate(dName, Context.DBNames, false);
+            var param2 = _dyn.Generate("Properties", _pns, false, 1);
+            _source = Dynamic.ToDictionary(param1, param2);
+
             return _source;
+        }
+
+        private protected string[] GetChosenDatabases()
+        {
+            var chosen = _source[dName].Value;
+            if (chosen == null)
+                return Context.DBNames;
+
+            else
+            {
+                var chosenNames = ((IEnumerable)chosen).Cast<string>().ToArray();
+                var list = new List<string>();
+                for (int i = 0; i < Context.DBNames.Length; i++)
+                {
+                    var name = Context.DBNames[i];
+                    for (int n = 0; n < chosenNames.Length; n++)
+                    {
+                        var cname = chosenNames[n];
+                        if (string.Equals(cname, name, StringComparison.InvariantCultureIgnoreCase))
+                            list.Add(name);
+                    }
+                }
+                return list.ToArray();
+            }
         }
 
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
+            if (Context.DBNames == null)
+                Context.GetDatabaseNames();
+
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMODatabase));
+
             CheckSession();
         }
 
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            if (!_no)
+            var dbCol = (SMODatabaseCollection)Context.Connection.Databases;
+            dbCol.LoadProperties("Name");
+            string[] dbNames = GetChosenDatabases();
+            for (int i = dbCol.Count - 1; i >= 0; i--)
             {
-                DatabaseCollection dbCol = ((Server)Context.Connection).Databases;
-                if (!(_source[dName].Value is string[] chosen))
-                {
-                    chosen = Context.DBNames;
-                }
-                for (int i = 0; i < chosen.Length; i++)
-                {
-                    string d = chosen[i];
-                    Database db = dbCol.OfType<Database>().Single(x => x.Name == d);
-                    WriteObject(new SMODatabase(db));
-                }
+                var db = dbCol[i];
+                if (!dbNames.Contains(db.Name))
+                    dbCol.Remove(db);
             }
-            else
+            if (_source["Properties"].Value is string[] props)
             {
-                if (Context.DBNames == null)
-                    Context.GetDatabaseNames();
-
-                WriteObject(Context.DBNames, true);
+                dbCol.LoadProperties(props);
             }
+            WriteObject(dbCol, true);
         }
     }
 }

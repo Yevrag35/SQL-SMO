@@ -49,32 +49,34 @@ namespace SQL.SMO.Cmdlets
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            if (Name != null)
-                WriteObject(Table.GetColumns(Name));
 
-            else if (_no)
-                WriteObject(Table.Columns);
 
-            else
-            {
-                list.AddRange(Table.GetColumns());
-                skip = false;
-            }
+            //if (Name != null)
+            //    WriteObject(Table.GetColumns(Name));
+
+            //else if (_no)
+            //    WriteObject(Table.Columns);
+
+            //else
+            //{
+            //    list.AddRange(Table.GetColumns());
+            //    skip = false;
+            //}
         }
 
-        protected override void EndProcessing()
-        {
-            base.EndProcessing();
-            if (!skip)
-            {
-                for (int i = 1; i <= Count; i++)
-                {
-                    UpdateProgress(ProgressId, i);
-                    var col = list[i - 1];
-                    WriteObject(col);
-                }
-                UpdateProgress(ProgressId);
-            }
-        }
+        //protected override void EndProcessing()
+        //{
+        //    base.EndProcessing();
+        //    if (!skip)
+        //    {
+        //        for (int i = 1; i <= Count; i++)
+        //        {
+        //            UpdateProgress(ProgressId, i);
+        //            var col = list[i - 1];
+        //            WriteObject(col);
+        //        }
+        //        UpdateProgress(ProgressId);
+        //    }
+        //}
     }
 }

@@ -90,12 +90,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agent\SMOAgent.cs" />
+    <Compile Include="Agent\SMOAlert.cs" />
+    <Compile Include="Agent\SMOJob.cs" />
+    <Compile Include="Agent\SMOOperator.cs" />
+    <Compile Include="Agent\SMOProxyAccount.cs" />
+    <Compile Include="Cmdlets\Get-SMOSqlAgent.cs" />
     <Compile Include="Cmdlets\GetSMOColumn.cs" />
     <Compile Include="Cmdlets\GetSMOTable.cs" />
     <Compile Include="Cmdlets\ProgressCmdlet.cs" />
     <Compile Include="Cmdlets\SetMemoryLimits.cs" />
     <Compile Include="Databases\SMOColumn.cs" />
+    <Compile Include="Databases\SMOColumnCollection.cs" />
+    <Compile Include="Databases\SMODatabaseCollection.cs" />
     <Compile Include="Databases\SMOTable.cs" />
+    <Compile Include="Databases\SMOTableCollection.cs" />
     <Compile Include="Framework\Context.cs" />
     <Compile Include="Framework\DynamicParameters.cs" />
     <Compile Include="Cmdlets\DisconnectSMO.cs" />
@@ -105,9 +114,12 @@
     <Compile Include="Cmdlets\GetSMOConfiguration.cs" />
     <Compile Include="Config\MemoryProperty.cs" />
     <Compile Include="Cmdlets\NewSMO.cs" />
-    <Compile Include="Framework\ISMOObject.cs" />
+    <Compile Include="Framework\ISMOWrapper.cs" />
+    <Compile Include="Framework\SMOCollection.cs" />
+    <Compile Include="Framework\SMOPropertyError.cs" />
     <Compile Include="Framework\SMOConnection.cs" />
     <Compile Include="Framework\SMOEnum.cs" />
+    <Compile Include="Framework\SMOPropertyLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Cmdlets\SetSMOConfiguration.cs" />
     <Compile Include="Cmdlets\SharedCmdlet.cs" />

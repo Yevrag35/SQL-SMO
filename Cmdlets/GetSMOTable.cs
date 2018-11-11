@@ -21,13 +21,13 @@ namespace SQL.SMO.Cmdlets
         [Parameter(Mandatory = false, Position = 0, ParameterSetName = "SpecificTables")]
         public string[] Name { get; set; }
 
-        private bool _no;
-        [Parameter(Mandatory = true, ParameterSetName = "AllTables")]
-        public SwitchParameter NamesOnly
-        {
-            get => _no;
-            set => _no = value;
-        }
+        //private bool _no;
+        //[Parameter(Mandatory = true, ParameterSetName = "AllTables")]
+        //public SwitchParameter NamesOnly
+        //{
+        //    get => _no;
+        //    set => _no = value;
+        //}
 
         internal override string Activity => "Gathering Table Information";
 
@@ -48,33 +48,44 @@ namespace SQL.SMO.Cmdlets
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            if (_no)
+            if (Name == null)
             {
-                string[] tbls = Database.Tables.OrderBy(x => x).ToArray();
-                WriteObject(tbls, false);
-            }
-            else if (Name != null)
-            {
-                list.AddRange(Database.GetTables(Name));
+                this.Database.Load("Tables");
+
+                list.AddRange(this.Database.Tables);
             }
             else
             {
-                list.AddRange(Database.GetTables());
+                
             }
+
+            //if (_no)
+            //{
+            //    string[] tbls = Database.Tables.OrderBy(x => x).ToArray();
+            //    WriteObject(tbls, false);
+            //}
+            //else if (Name != null)
+            //{
+            //    list.AddRange(Database.GetTables(Name));
+            //}
+            //else
+            //{
+            //    list.AddRange(Database.GetTables());
+            //}
         }
-        protected override void EndProcessing()
-        {
-            base.EndProcessing();
-            if (!_no)
-            {
-                for (int i = 1; i <= Count; i++)
-                {
-                    UpdateProgress(ProgressId, i);
-                    var tbl = list[i - 1];
-                    WriteObject(tbl);
-                }
-                UpdateProgress(ProgressId);
-            }
-        }
+        //protected override void EndProcessing()
+        //{
+        //    base.EndProcessing();
+        //    if (!_no)
+        //    {
+        //        for (int i = 1; i <= Count; i++)
+        //        {
+        //            UpdateProgress(ProgressId, i);
+        //            var tbl = list[i - 1];
+        //            WriteObject(tbl);
+        //        }
+        //        UpdateProgress(ProgressId);
+        //    }
+        //}
     }
 }

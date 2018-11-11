@@ -7,7 +7,8 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Set, "SQLMemoryLimit", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Set, "SMOMemoryLimit", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [Alias("Set-SQLMemoryLimit")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(PropertyChanged))]
     public class SetSQLMemoryLimits : PSCmdlet

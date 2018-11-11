@@ -23,7 +23,7 @@ namespace SQL.SMO.Cmdlets
         internal override RuntimeDefinedParameterDictionary GenerateFor()
         {
             if (_dyn == null) { _dyn = new Dynamic(); }
-            _source = _dyn.Generate(pName, Context.ConfigProperties, true, pSetName);
+            _source = Dynamic.ToDictionary(_dyn.Generate(pName, Context.ConfigProperties, true, 0, pSetName));
             return _source;
         }
 
