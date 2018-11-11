@@ -3,7 +3,7 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
-    public abstract class ProgressCmdlet : PSCmdlet
+    public abstract class ProgressCmdlet : SharedCmdlet
     {
         internal abstract string Activity { get; }
         internal abstract string StatusFormat { get; }

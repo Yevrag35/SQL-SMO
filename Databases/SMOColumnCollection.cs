@@ -37,7 +37,6 @@ namespace SQL.SMO.Databases
             {
                 newColCol.Add(colCol[d]);
             }
-            newColCol.MakeReadOnly();
             return newColCol;
         }
     }

@@ -30,6 +30,11 @@ namespace SQL.SMO.Cmdlets
 
         private protected bool skip = true;
 
+        internal override RuntimeDefinedParameterDictionary GenerateFor()
+        {
+            throw new NotImplementedException();
+        }
+
         internal override string Activity => "Gathering Column Information";
 
         internal override string StatusFormat => "Retrieving column {0}/{1}...";

@@ -61,26 +61,35 @@ namespace SQL.SMO.Framework
                 case "Database":
                     return typeof(SMODatabase);
 
-                case "DatabaseCollection":
-                    return typeof(SMODatabaseCollection);
-
                 case "Table":
                     return typeof(SMOTable);
 
-                case "TableCollection":
-                    return typeof(SMOTableCollection);
-
                 case "Column":
                     return typeof(SMOColumn);
-
-                case "ColumnCollection":
-                    return typeof(SMOColumnCollection);
 
                 case "ConfigProperty":
                     return typeof(SMOProperty);
 
                 case "JobServer":
                     return typeof(SMOAgent);
+
+                default:
+                    return null;
+            }
+        }
+        internal Type GetSMOCollectionType<T>() where T : SmoCollectionBase
+        {
+            string name = typeof(T).Name;
+            switch (name)
+            {
+                case "DatabaseCollection":
+                    return typeof(SMODatabaseCollection);
+
+                case "TableCollection":
+                    return typeof(SMOTableCollection);
+
+                case "ColumnCollection":
+                    return typeof(SMOColumnCollection);
 
                 default:
                     return null;
@@ -110,6 +119,13 @@ namespace SQL.SMO.Framework
         {
             MethodInfo mi = this.GetType().GetMethod(
                 "GetSMOType", setFlags).MakeGenericMethod(t);
+            returnType = (Type)mi.Invoke(this, null);
+            return returnType != null;
+        }
+        private protected bool ToSMOColType(Type t, out Type returnType)
+        {
+            MethodInfo mi = this.GetType().GetMethod(
+                "GetSMOCollectionType", setFlags).MakeGenericMethod(t);
             returnType = (Type)mi.Invoke(this, null);
             return returnType != null;
         }
@@ -163,8 +179,14 @@ namespace SQL.SMO.Framework
                 {
                     if (thatObj is SqlSmoObject && ToSMOType(thatObj.GetType(), out Type newType))
                     {
-                        MethodInfo GenericCast = this.GetType().GetMethod(
+                        MethodInfo GenericCast = thisType.GetMethod(
                             "Cast", setFlags).MakeGenericMethod(newType);
+                        thatObj = GenericCast.Invoke(this, new object[1] { thatObj });
+                    }
+                    else if (thatObj is SmoCollectionBase && ToSMOColType(thatObj.GetType(), out Type newColType))
+                    {
+                        MethodInfo GenericCast = thisType.GetMethod(
+                            "Cast", setFlags).MakeGenericMethod(newColType);
                         thatObj = GenericCast.Invoke(this, new object[1] { thatObj });
                     }
                     propInfo.SetValue(this, thatObj, setFlags,

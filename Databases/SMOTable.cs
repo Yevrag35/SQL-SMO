@@ -81,7 +81,6 @@ namespace SQL.SMO.Databases
         public string RemoteTableName { get; internal set; }
         public bool? RemoteTableProvisioned { get; internal set; }
         public bool? Replicated { get; internal set; }
-        public long? RowCount { get; internal set; }
         public string ShardingColumnName { get; internal set; }
         public string SystemTimePeriodEndColumn { get; internal set; }
         public string SystemTimePeriodStartColumn { get; internal set; }
@@ -116,18 +115,20 @@ namespace SQL.SMO.Databases
         public SMOColumnCollection Columns { get; internal set; }
         public Urn Urn { get; internal set; }
         public SqlPropertyCollection Properties { get; internal set; }
-        public DatabaseEngineType DatabaseEngineType { get; internal set; }
-        public DatabaseEngineEdition DatabaseEngineEdition { get; internal set; }
+        public DatabaseEngineType? DatabaseEngineType { get; internal set; }
+        public DatabaseEngineEdition? DatabaseEngineEdition { get; internal set; }
         public ExecutionManager ExecutionManager { get; internal set; }
         public object UserData { get; internal set; }
-        public SqlSmoState State { get; internal set; }
+        public SqlSmoState? State { get; internal set; }
 
         #endregion
 
         #region Default Properties
 
         public override string Name { get; internal set; }
+        public string Database => _tbl.Parent.Name;
         public int? ID { get; internal set; }
+        public long? RowCount { get; internal set; }
         public double? DataSpaceUsed { get; internal set; }
         public DateTime? DateLastModified { get; internal set; }
         public override Type OriginalType => _type;
@@ -140,6 +141,7 @@ namespace SQL.SMO.Databases
             ID = t.ID;
             DataSpaceUsed = t.DataSpaceUsed;
             DateLastModified = t.DateLastModified;
+            RowCount = t.RowCount;
             _tbl = t;
         }
         

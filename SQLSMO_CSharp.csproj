@@ -37,7 +37,7 @@
     </DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MG.Attributes, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MG.Attributes, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferencedAssemblies\MG.Attributes.dll</HintPath>
     </Reference>

@@ -125,6 +125,11 @@ namespace SQL.SMO.Framework
             }
         }
 
+        public void AddRange(IEnumerable<T> tableCol) =>
+            _list.AddRange(tableCol);
+
+        public T[] ToArray() => _list.ToArray();
+
         #endregion
     }
 }
