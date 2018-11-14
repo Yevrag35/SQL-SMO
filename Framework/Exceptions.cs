@@ -41,6 +41,10 @@ namespace SQL.SMO.Framework
             : base(message, e)
         {
         }
+        public ContextExecutionError(string message, Exception e)
+            : base(message, e)
+        {
+        }
     }
 
     public class ReadOnlyCollectionException : NotSupportedException, ISMOException
