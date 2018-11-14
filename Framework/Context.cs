@@ -56,8 +56,9 @@ namespace SQL.SMO.Framework
 
         internal static bool IsSet => _context != null;
 
-        internal static bool IsConnected => _context != null ? 
-            _context.ConnectionContext.IsOpen : false;
+        internal static bool IsConnected => _context != null;
+            //? 
+            //_context.ConnectionContext.IsOpen : false;
 
         internal static void Disconnect(bool discconnect)
         {

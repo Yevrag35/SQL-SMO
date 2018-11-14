@@ -43,40 +43,40 @@
     </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Diagnostics.STrace">
-      <HintPath>..\Microsoft.SqlServer.Diagnostics.STrace.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.Diagnostics.STrace.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum">
-      <HintPath>..\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.Smo.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.Smo.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.SqlServer.SqlEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+      <HintPath>ReferencedAssemblies\Microsoft.SqlServer.SqlEnum.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

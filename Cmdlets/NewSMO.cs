@@ -35,45 +35,59 @@ namespace SQL.SMO.Cmdlets
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            SqlConnection sqlConn = MakeConnection(ServerName, InstanceName, SQLCredential);
-            try
-            {
-                sqlConn.Open();
-            }
-            catch (SqlException e)
-            {
-                throw new ContextExecutionError("A SQL error occurred while setting the context!  " + e.Message, e);
-            }
-            catch (InvalidOperationException e)
-            {
-                throw new ContextExecutionError("An invalid operation occurred while setting the context!  " + e.Message, e);
-            }
+            dynamic sqlConn = MakeConnection(ServerName, InstanceName, SQLCredential);
+            
             //ConfigProperty
-            var conn = new ServerConnection(sqlConn);
+            ServerConnection conn;
+            if (sqlConn is SqlConnection)
+            {
+                try
+                {
+                    sqlConn.Open();
+                }
+                catch (SqlException e)
+                {
+                    throw new ContextExecutionError("A SQL error occurred while setting the context!  " + e.Message, e);
+                }
+                catch (InvalidOperationException e)
+                {
+                    throw new ContextExecutionError("An invalid operation occurred while setting the context!  " + e.Message, e);
+                }
+                conn = new ServerConnection(sqlConn);
+            }
+            else
+            {
+                conn = sqlConn;
+            }
             var smo = new Server(conn);
             WriteObject(smo, false);
         }
 
         #endregion
         #region Cmdlet Methods
-        private SqlConnection MakeConnection(string name, string instance, PSCredential sqlCreds)
+        private dynamic MakeConnection(string name, string instance, PSCredential sqlCreds)
         {
             string srvStr = !string.IsNullOrEmpty(instance) && instance != "MSSQLSERVER"
                 ? string.Format(constr, name + "\\" + instance)
                 : string.Format(constr, name);
-            var sqlConn = new SqlConnection();
+
+            dynamic sqlConn;
             if (sqlCreds != null)
             {
-                SecureString pass = sqlCreds.Password;
-                pass.MakeReadOnly();
-                var sc = new SqlCredential(sqlCreds.UserName, pass);
-                sqlConn.Credential = sc;
+                sqlConn = new ServerConnection()
+                {
+                    LoginSecure = false,
+                    ServerInstance = name,
+                    Login = sqlCreds.UserName,
+                    SecurePassword = sqlCreds.Password
+                };
             }
             else
             {
+                sqlConn = new SqlConnection();
                 srvStr = srvStr + "Integrated Security=true;";
+                sqlConn.ConnectionString = srvStr;
             }
-            sqlConn.ConnectionString = srvStr;
             return sqlConn;
         }
 

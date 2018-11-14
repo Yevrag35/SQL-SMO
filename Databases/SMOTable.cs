@@ -94,7 +94,7 @@ namespace SQL.SMO.Databases
         public TableEvents Events { get; internal set; }
         public IndexCollection Indexes { get; internal set; }
         public CheckCollection Checks { get; internal set; }
-        public ResumableIndexCollection ResumableIndexes { get; internal set; }
+        //public ResumableIndexCollection ResumableIndexes { get; internal set; }
         public bool? OnlineHeapOperation { get; internal set; }
         public int? LowPriorityMaxDuration { get; internal set; }
         public bool? DataConsistencyCheck { get; internal set; }
