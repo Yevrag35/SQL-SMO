@@ -101,20 +101,5 @@ namespace SQL.SMO.Cmdlets
                 }
             }
         }
-
-        //protected override void EndProcessing()
-        //{
-        //    base.EndProcessing();
-        //    if (!skip)
-        //    {
-        //        for (int i = 1; i <= Count; i++)
-        //        {
-        //            UpdateProgress(ProgressId, i);
-        //            var col = list[i - 1];
-        //            WriteObject(col);
-        //        }
-        //        UpdateProgress(ProgressId);
-        //    }
-        //}
     }
 }

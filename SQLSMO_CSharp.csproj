@@ -93,6 +93,7 @@
     <Compile Include="Agent\SMOAgent.cs" />
     <Compile Include="Agent\SMOAlert.cs" />
     <Compile Include="Agent\SMOJob.cs" />
+    <Compile Include="Agent\SMOJobCollection.cs" />
     <Compile Include="Agent\SMOOperator.cs" />
     <Compile Include="Agent\SMOProxyAccount.cs" />
     <Compile Include="Cmdlets\Get-SMOSqlAgent.cs" />

@@ -10,7 +10,13 @@ namespace SQL.SMO
     public class SMOJob : SMOPropertyLoader
     {
         private protected Job _job;
+        internal static string[] SkipThese => new string[7]
+        {
+            "Name", "JobID", "IsEnabled", "Description",
+            "JobType", "DateLastModified", "HasSchedule"
+        };
 
+        #region All Properties
         public SMOAgent Parent { get; internal set; }
         public string Category { get; internal set; }
         public byte CategoryType { get; internal set; }
@@ -45,8 +51,11 @@ namespace SQL.SMO
         public DatabaseEngineEdition? DatabaseEngineEdition { get; internal set; }
         public ExecutionManager ExecutionManager { get; internal set; }
         public object UserData { get; internal set; }
-        public SqlSmoState State { get; internal set; }
+        public SqlSmoState? State { get; internal set; }
 
+        #endregion
+
+        #region Default Properties
         public Guid JobID { get; internal set; }
         public bool? IsEnabled { get; internal set; }
         public override string Name { get; internal set; }
@@ -56,6 +65,20 @@ namespace SQL.SMO
         public bool? HasSchedule { get; internal set; }
         public override Type OriginalType => _job.GetType();
 
+        #endregion
+
+        private SMOJob(Job j)
+        {
+            Name = j.Name;
+            JobID = j.JobID;
+            IsEnabled = j.IsEnabled;
+            Description = j.Description;
+            JobType = j.JobType;
+            DateLastModified = j.DateLastModified;
+            HasSchedule = j.HasSchedule;
+            _job = j;
+        }
+
         public override object ShowOriginal() => _job;
         public override void Load(params string[] propertyNames)
         {
@@ -64,5 +87,7 @@ namespace SQL.SMO
 
             LoadValue(_job, propertyNames);
         }
+
+        public static explicit operator SMOJob(Job job) => new SMOJob(job);
     }
 }

@@ -51,7 +51,7 @@ namespace SQL.SMO
         public OperatorCollection Operators { get; internal set; }
         public TargetServerCollection TargetServers { get; internal set; }
         public TargetServerGroupCollection TargetServerGroups { get; internal set; }
-        public JobCollection Jobs { get; internal set; }
+        public SMOJobCollection Jobs { get; internal set; }
         public JobScheduleCollection SharedSchedules { get; internal set; }
         public ProxyAccountCollection ProxyAccounts { get; internal set; }
         public bool? SysAdminOnly { get; internal set; }
@@ -62,6 +62,10 @@ namespace SQL.SMO
         public ExecutionManager ExecutionManager { get; internal set; }
         public object UserData { get; internal set; }
         public JobServerType? JobServerType { get; internal set; }
+
+        #endregion
+
+        #region Default Properties
         public override string Name { get; internal set; }
         public string ServiceAccount { get; internal set; }
         public SqlSmoState? State { get; internal set; }
@@ -70,7 +74,15 @@ namespace SQL.SMO
         #endregion
 
         #region Constructors
-        private SMOAgent(JobServer js) => _js = js;
+        private SMOAgent(JobServer js)
+        {
+            Name = js.Name;
+            JobServerType = js.JobServerType;
+            ServiceAccount = js.ServiceAccount;
+            State = js.State;
+            ServiceStartMode = js.ServiceStartMode;
+            _js = js;
+        }
 
         #endregion
 

@@ -85,6 +85,9 @@ namespace SQL.SMO.Framework
                 case "DatabaseCollection":
                     return typeof(SMODatabaseCollection);
 
+                case "JobCollection":
+                    return typeof(SMOJobCollection);
+
                 case "TableCollection":
                     return typeof(SMOTableCollection);
 
