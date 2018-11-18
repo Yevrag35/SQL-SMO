@@ -13,7 +13,7 @@ namespace SQL.SMO.Cmdlets
     public class GetSMODatabase : SharedCmdlet
     {
         private Dynamic _dyn;
-        private protected string[] _pns;
+        private string[] _pns;
 
         internal override RuntimeDefinedParameterDictionary GenerateFor()
         {
@@ -33,7 +33,7 @@ namespace SQL.SMO.Cmdlets
             return _source;
         }
 
-        private protected string[] GetChosenDatabases()
+        private string[] GetChosenDatabases()
         {
             var chosen = _source[dName].Value;
             if (chosen == null)

@@ -9,7 +9,7 @@ namespace SQL.SMO
 {
     public class SMOJob : SMOPropertyLoader
     {
-        private protected Job _job;
+        private Job _job;
         internal static string[] SkipThese => new string[7]
         {
             "Name", "JobID", "IsEnabled", "Description",

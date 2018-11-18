@@ -28,9 +28,9 @@ namespace SQL.SMO.Cmdlets
             set => _no = value;
         }
 
-        private protected bool skip = true;
-        private protected Dynamic _dyn;
-        private protected string[] _pns;
+        private bool skip = true;
+        private Dynamic _dyn;
+        private string[] _pns;
 
         internal override RuntimeDefinedParameterDictionary GenerateFor()
         {

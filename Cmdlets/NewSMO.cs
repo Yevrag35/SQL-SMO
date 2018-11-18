@@ -115,6 +115,7 @@ namespace SQL.SMO.Cmdlets
         }
 
         private const string TEST_MEMBER = "Status";
+
         private void TestSMO(Server srv, string memberToTest = TEST_MEMBER)
         {
             var t = srv.GetType();

@@ -16,7 +16,7 @@ namespace SQL.SMO.Cmdlets
     public class GetSMOTable : ProgressCmdlet
     {
         private Dynamic _dyn;
-        private protected string[] _pns;
+        private string[] _pns;
 
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public SMODatabase Database { get; set; }

@@ -13,11 +13,11 @@ namespace SQL.SMO.Cmdlets
     [CmdletBinding(PositionalBinding = false)]
     public class GetSMOSqlAgent : SharedCmdlet
     {
-        private protected Dynamic _dyn;
-        private protected SMOAgent smoagnt;
-        private protected string[] _pns;
+        private Dynamic _dyn;
+        private SMOAgent smoagnt;
+        private string[] _pns;
         
-        private protected const string ptl = "Properties";
+        private const string ptl = "Properties";
 
         [Parameter(Mandatory = true, ParameterSetName = "Non-DynamicParameter", DontShow = true)]
         [SupportsWildcards()]

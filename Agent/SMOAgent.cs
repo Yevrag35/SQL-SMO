@@ -10,7 +10,7 @@ namespace SQL.SMO
 {
     public class SMOAgent : SMOPropertyLoader
     {
-        private protected JobServer _js;
+        private JobServer _js;
 
         internal static readonly string[] SkipThese = new string[3] { "JobServerType", "ServiceAccount", "State" };
 

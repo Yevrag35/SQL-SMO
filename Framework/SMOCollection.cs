@@ -7,7 +7,7 @@ namespace SQL.SMO.Framework
 {
     public class SMOCollection<T> : IList<T>, ICollection where T : ISMOWrapper
     {
-        private protected List<T> _list;
+        private List<T> _list;
 
         #region Constructors
         internal protected SMOCollection()

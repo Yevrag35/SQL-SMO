@@ -52,7 +52,7 @@ namespace SQL.SMO.Framework
         public bool HasDefaultMessage => true;
         public string OffendingOperation { get; }
         public object[] OffendingArguments { get; }
-        private protected const string defMsg = "This collection object is read-only.  " +
+        private const string defMsg = "This collection object is read-only.  " +
             "'Add, AddRange, Remove, RemoveAt, RemoveAll, Clear, Insert, CopyTo' methods will not be available.";
         public ReadOnlyCollectionException(string methodName, params object[] arguments)
             : base(defMsg)

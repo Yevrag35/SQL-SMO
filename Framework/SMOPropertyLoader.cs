@@ -14,8 +14,8 @@ namespace SQL.SMO.Framework
     public abstract class SMOPropertyLoader : AttributeResolver, ISMOWrapper
     {
         #region Constants
-        private protected const BindingFlags getProp = BindingFlags.GetProperty;
-        private protected const BindingFlags setFlags = BindingFlags.NonPublic | BindingFlags.Instance;
+        private const BindingFlags getProp = BindingFlags.GetProperty;
+        private const BindingFlags setFlags = BindingFlags.NonPublic | BindingFlags.Instance;
 
         #endregion
 
@@ -118,14 +118,14 @@ namespace SQL.SMO.Framework
             return result;
         }
 
-        private protected bool ToSMOType(Type t, out Type returnType)
+        private bool ToSMOType(Type t, out Type returnType)
         {
             MethodInfo mi = this.GetType().GetMethod(
                 "GetSMOType", setFlags).MakeGenericMethod(t);
             returnType = (Type)mi.Invoke(this, null);
             return returnType != null;
         }
-        private protected bool ToSMOColType(Type t, out Type returnType)
+        private bool ToSMOColType(Type t, out Type returnType)
         {
             MethodInfo mi = this.GetType().GetMethod(
                 "GetSMOCollectionType", setFlags).MakeGenericMethod(t);

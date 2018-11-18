@@ -221,7 +221,7 @@ namespace SQL.SMO.Databases
 
         #endregion
 
-        private protected SMODatabase(Database db)
+        private SMODatabase(Database db)
         {
             _db = db;
             _compat = GetEnumFromValue<CompatTable>(_db.CompatibilityLevel, typeof(CompatAttribute));
