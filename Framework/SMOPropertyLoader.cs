@@ -136,7 +136,7 @@ namespace SQL.SMO.Framework
         #endregion
 
         #region The 'Load' Functionality
-        public abstract void Load(params string[] propertyNames);
+        public abstract object Load(params string[] propertyNames);
 
         internal void LoadValue<T>(T original, params string[] propertyNames) where T : SqlSmoObject
         {

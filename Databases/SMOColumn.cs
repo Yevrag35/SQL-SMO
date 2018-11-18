@@ -91,12 +91,13 @@ namespace SQL.SMO.Databases
 
 
         public override object ShowOriginal() => _c;
-        public override void Load(params string[] propertyNames)
+        public override object Load(params string[] propertyNames)
         {
             if (propertyNames == null)
-                return;
+                return null;
 
             LoadValue(_c, propertyNames);
+            return this;
         }
 
         public static implicit operator Column(SMOColumn smoc) => smoc.ShowOriginal() as Column;

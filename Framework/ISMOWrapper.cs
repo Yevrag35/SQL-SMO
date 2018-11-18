@@ -8,6 +8,6 @@ namespace SQL.SMO.Framework
         string Name { get; }
         Type OriginalType { get; }
         object ShowOriginal();
-        void Load(params string[] propertyNames);
+        object Load(params string[] propertyNames);
     }
 }

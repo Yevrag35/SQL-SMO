@@ -27,6 +27,6 @@ namespace SQL.SMO.Framework
         }
 
         public object ShowOriginal() => throw new NotImplementedException();
-        public void Load(params string[] vwha) => throw new NotImplementedException();
+        public object Load(params string[] vwha) => throw new NotImplementedException();
     }
 }

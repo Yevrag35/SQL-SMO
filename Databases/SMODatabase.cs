@@ -229,12 +229,13 @@ namespace SQL.SMO.Databases
 
         public override object ShowOriginal() => _db;
 
-        public override void Load(params string[] propertyNames)
+        public override object Load(params string[] propertyNames)
         {
             if (propertyNames == null)
-                return;
+                return null;
 
             LoadValue(_db, propertyNames);
+            return this;
         }
 
         public static implicit operator Database(SMODatabase smod) => smod.ShowOriginal() as Database;

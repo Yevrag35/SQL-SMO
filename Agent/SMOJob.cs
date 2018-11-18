@@ -19,12 +19,12 @@ namespace SQL.SMO
         #region All Properties
         public SMOAgent Parent { get; internal set; }
         public string Category { get; internal set; }
-        public byte CategoryType { get; internal set; }
+        public byte? CategoryType { get; internal set; }
         public int? CurrentRunRetryAttempt { get; internal set; }
         public JobExecutionStatus? CurrentRunStatus { get; internal set; }
         public string CurrentRunStep { get; internal set; }
         public DateTime? DateCreated { get; internal set; }
-        public CompletionAction DeleteLevel { get; internal set; }
+        public CompletionAction? DeleteLevel { get; internal set; }
         public CompletionAction? EmailLevel { get; internal set; }
         public CompletionAction? EventLogLevel { get; internal set; }
         public bool? HasServer { get; internal set; }
@@ -80,12 +80,13 @@ namespace SQL.SMO
         }
 
         public override object ShowOriginal() => _job;
-        public override void Load(params string[] propertyNames)
+        public override object Load(params string[] propertyNames)
         {
             if (propertyNames == null)
-                return;
+                return null;
 
             LoadValue(_job, propertyNames);
+            return this;
         }
 
         public static explicit operator SMOJob(Job job) => new SMOJob(job);

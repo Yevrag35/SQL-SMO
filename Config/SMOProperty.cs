@@ -44,7 +44,7 @@ namespace SQL.SMO.Config
             ((Server)Context.Connection).Configuration.Alter();
         }
 
-        public void Load(params string[] names) => throw new NotImplementedException();
+        public object Load(params string[] names) => throw new NotImplementedException();
         public object ShowOriginal() => _prop;
     }
 }

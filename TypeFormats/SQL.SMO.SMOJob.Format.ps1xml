@@ -6,40 +6,251 @@
             <ViewSelectedBy>
                 <TypeName>SQL.SMO.SMOJob</TypeName>
             </ViewSelectedBy>
-            <TableControl>
-                <TableHeaders>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-					<TableColumnHeader>
-						<Alignment>Left</Alignment>
-					</TableColumnHeader>
-                </TableHeaders>
-                <TableRowEntries>
-                    <TableRowEntry>
-                        <TableColumnItems>
-                            <TableColumnItem>
-                                <PropertyName>Name</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>JobID</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>IsEnabled</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <PropertyName>Category</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Category -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CategoryID</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CategoryID -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CategoryType</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CategoryType -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CurrentRunRetryAttempt</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CurrentRunRetryAttempt -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CurrentRunStatus</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CurrentRunStatus -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CurrentRunStep</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CurrentRunStep -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DatabaseEngineEdition</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DatabaseEngineEdition -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DatabaseEngineType</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DatabaseEngineType -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DateCreated</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DateCreated -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DateLastModified</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DeleteLevel</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DeleteLevel -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
                                 <PropertyName>Description</PropertyName>
-                            </TableColumnItem>
-                        </TableColumnItems>
-                    </TableRowEntry>
-                </TableRowEntries>
-            </TableControl>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>EmailLevel</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.EmailLevel -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>EventLogLevel</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.EventLogLevel -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ExecutionManager</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ExecutionManager -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasSchedule</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasServer</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasServer -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasStep</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasStep -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsEnabled</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>JobID</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>JobSchedules</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.JobSchedules -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>JobSteps</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.JobSteps -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>JobType</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LastRunDate</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LastRunDate -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LastRunOutcome</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LastRunOutcome -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LoadingErrors</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LoadingErrors -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Name</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>NetSendLevel</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.NetSendLevel -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>NextRunDate</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.NextRunDate -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>NextRunScheduleID</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.NextRunScheduleID -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OperatorToEmail</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OperatorToEmail -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OperatorToNetSend</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OperatorToNetSend -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OperatorToPage</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OperatorToPage -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OriginatingServer</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OriginatingServer -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OwnerLoginName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OwnerLoginName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>PageLevel</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.PageLevel -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Parent</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Parent -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Properties</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Properties -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>StartStepID</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.StartStepID -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>State</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.State -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Urn</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Urn -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>UserData</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.UserData -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>VersionNumber</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.VersionNumber -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
         </View>
     </ViewDefinitions>
 </Configuration>

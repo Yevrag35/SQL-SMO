@@ -89,12 +89,13 @@ namespace SQL.SMO
         #region Methods
         public override object ShowOriginal() => _js;
 
-        public override void Load(params string[] propertyNames)
+        public override object Load(params string[] propertyNames)
         {
             if (propertyNames == null)
-                return;
+                return null;
 
             LoadValue(_js, propertyNames);
+            return this;
         }
 
         #endregion

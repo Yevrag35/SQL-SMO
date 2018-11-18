@@ -174,12 +174,13 @@ namespace SQL.SMO.Databases
         //public SMODatabase GetParentDatabase() => (SMODatabase)(_tbl.Parent as Database);
 
         public override object ShowOriginal() => _tbl;
-        public override void Load(params string[] propertyNames)
+        public override object Load(params string[] propertyNames)
         {
             if (propertyNames == null)
-                return;
+                return null;
 
             LoadValue(_tbl, propertyNames);
+            return this;
         }
 
         public static implicit operator Table(SMOTable smot) => smot.ShowOriginal() as Table;

@@ -28,6 +28,6 @@ namespace SQL.SMO.Framework
         internal SMOConnection(Server server) => _srv = server;
 
         public object ShowOriginal() => _srv;
-        public void Load(params string[] vwha) => throw new NotImplementedException();
+        public object Load(params string[] vwha) => throw new NotImplementedException();
     }
 }
