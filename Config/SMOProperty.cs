@@ -4,7 +4,7 @@ using System;
 
 namespace SQL.SMO.Config
 {
-    public class SMOProperty : ISMOObject
+    public class SMOProperty : ISMOWrapper
     {
         private ConfigProperty _prop;
         private readonly string goodName;
@@ -23,7 +23,7 @@ namespace SQL.SMO.Config
 
         public bool IsDefined => _prop != null;
 
-        public Type MSType => typeof(ConfigProperty);
+        public Type OriginalType => typeof(ConfigProperty);
 
 
         public SMOProperty(ConfigProperty prop) => _prop = prop;
@@ -44,6 +44,7 @@ namespace SQL.SMO.Config
             ((Server)Context.Connection).Configuration.Alter();
         }
 
+        public object Load(params string[] names) => throw new NotImplementedException();
         public object ShowOriginal() => _prop;
     }
 }

@@ -28,13 +28,27 @@ namespace SQL.SMO.Cmdlets
             set => _no = value;
         }
 
-        private protected bool skip = true;
+        private bool skip = true;
+        private Dynamic _dyn;
+        private string[] _pns;
+
+        internal override RuntimeDefinedParameterDictionary GenerateFor()
+        {
+            if (_dyn == null)
+                _dyn = new Dynamic();
+
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMOColumn));
+
+            _source = Dynamic.ToDictionary(_dyn.Generate("Properties", _pns, false));
+            return _source;
+        }
 
         internal override string Activity => "Gathering Column Information";
 
         internal override string StatusFormat => "Retrieving column {0}/{1}...";
 
-        internal protected List<SMOColumn> list = new List<SMOColumn>();
+        internal protected List<Column> list = new List<Column>();
 
         internal override int Count => list.Count;
 
@@ -43,37 +57,48 @@ namespace SQL.SMO.Cmdlets
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            SharedCmdlet.CheckSession();
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMOColumn));
+
+            CheckSession();
         }
 
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            if (Name != null)
-                WriteObject(Table.GetColumns(Name));
 
-            else if (_no)
-                WriteObject(Table.Columns);
 
-            else
+            var realTab = this.Table.ShowOriginal() as Table;
+            for (int i = 0; i < realTab.Columns.Count; i++)
             {
-                list.AddRange(Table.GetColumns());
-                skip = false;
+                var col = realTab.Columns[i];
+                list.Add(col);
             }
         }
 
         protected override void EndProcessing()
         {
             base.EndProcessing();
-            if (!skip)
+            if (Name == null)
             {
                 for (int i = 1; i <= Count; i++)
                 {
                     UpdateProgress(ProgressId, i);
                     var col = list[i - 1];
-                    WriteObject(col);
+                    var smoc = (SMOColumn)col;
+                    smoc.Load((string[])_source["Properties"].Value);
+                    WriteObject(smoc);
                 }
                 UpdateProgress(ProgressId);
+            }
+            else
+            {
+                foreach (var col in list.Where(x => Name.Contains(x.Name)))
+                {
+                    var smoc = (SMOColumn)col;
+                    smoc.Load((string[])_source["Properties"].Value);
+                    WriteObject(smoc);
+                }
             }
         }
     }

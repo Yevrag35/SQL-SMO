@@ -15,65 +15,79 @@ namespace SQL.SMO.Cmdlets
     [CmdletBinding(PositionalBinding = false)]
     public class GetSMOTable : ProgressCmdlet
     {
+        private Dynamic _dyn;
+        private string[] _pns;
+
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public SMODatabase Database { get; set; }
 
         [Parameter(Mandatory = false, Position = 0, ParameterSetName = "SpecificTables")]
         public string[] Name { get; set; }
 
-        private bool _no;
-        [Parameter(Mandatory = true, ParameterSetName = "AllTables")]
-        public SwitchParameter NamesOnly
-        {
-            get => _no;
-            set => _no = value;
-        }
-
         internal override string Activity => "Gathering Table Information";
 
         internal override string StatusFormat => "Retrieving table {0}/{1}...";
 
-        internal protected List<SMOTable> list = new List<SMOTable>();
-
         internal override int Count => list.Count;
+
+        internal protected List<Table> list = new List<Table>();
+
+        internal override RuntimeDefinedParameterDictionary GenerateFor()
+        {
+            if (_dyn == null)
+                _dyn = new Dynamic();
+
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMOTable));
+
+            _source = Dynamic.ToDictionary(_dyn.Generate("Properties", _pns, false));
+            return _source;
+        }
 
         internal protected const int ProgressId = 1;
 
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            SharedCmdlet.CheckSession();
+            if (_pns == null)
+                _pns = SMOPropertyLoader.GetPropertyNames(typeof(SMOTable));
+
+            CheckSession();
         }
 
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-            if (_no)
+            var realDB = this.Database.ShowOriginal() as Database;
+            for (int i = 0; i < realDB.Tables.Count; i++)
             {
-                string[] tbls = Database.Tables.OrderBy(x => x).ToArray();
-                WriteObject(tbls, false);
-            }
-            else if (Name != null)
-            {
-                list.AddRange(Database.GetTables(Name));
-            }
-            else
-            {
-                list.AddRange(Database.GetTables());
+                var tbl = realDB.Tables[i];
+                list.Add(tbl);
             }
         }
         protected override void EndProcessing()
         {
             base.EndProcessing();
-            if (!_no)
+            if (Name == null)
             {
                 for (int i = 1; i <= Count; i++)
                 {
                     UpdateProgress(ProgressId, i);
                     var tbl = list[i - 1];
-                    WriteObject(tbl);
+                    var smot = (SMOTable)tbl;
+                    smot.Load((string[])_source["Properties"].Value);
+                    WriteObject(smot);
                 }
                 UpdateProgress(ProgressId);
+            }
+            else
+            {
+                foreach (var tbl in list.Where(x => Name.Contains(x.Name)))
+                {
+                    var smot = (SMOTable)tbl;
+                    smot.Load((string[])_source["Properties"].Value);
+                    WriteObject(smot);
+                }
             }
         }
     }

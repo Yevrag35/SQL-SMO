@@ -7,9 +7,9 @@ namespace SQL.SMO.Framework
 {
     public static class Context
     {
-        private static SqlSmoObject _context;
+        private static Server _context;
 
-        public static SqlSmoObject Connection => _context;
+        public static Server Connection => _context;
 
         private static string[] _propNames = null;
         internal static string[] ConfigProperties => _propNames;
@@ -21,7 +21,7 @@ namespace SQL.SMO.Framework
         {
             if (IsSet && IsConnected)
             {
-                Microsoft.SqlServer.Management.Smo.Configuration cfg = ((Server)_context).Configuration;
+                Configuration cfg = _context.Configuration;
                 PropertyInfo[] props = cfg.GetType().GetProperties().Where(
                     x => x.Name != "Properties" && x.Name != "Parent"
                 ).OrderBy(x => x.Name).ToArray();
@@ -41,7 +41,7 @@ namespace SQL.SMO.Framework
         {
             if (IsSet && IsConnected)
             {
-                DatabaseCollection dbCol = ((Server)Connection).Databases;
+                DatabaseCollection dbCol = Connection.Databases;
                 _dbnames = new string[dbCol.Count];
                 for (int i = 0; i < dbCol.Count; i++)
                 {
@@ -56,14 +56,15 @@ namespace SQL.SMO.Framework
 
         internal static bool IsSet => _context != null;
 
-        internal static bool IsConnected => _context != null ? 
-            ((Server)_context).ConnectionContext.IsOpen : false;
+        internal static bool IsConnected => _context != null;
+            //? 
+            //_context.ConnectionContext.IsOpen : false;
 
         internal static void Disconnect(bool discconnect)
         {
             if (discconnect)
             {
-                ((Server)_context).ConnectionContext.Disconnect();
+                _context.ConnectionContext.Disconnect();
                 _context = null;
             }
             else
@@ -72,7 +73,7 @@ namespace SQL.SMO.Framework
             }
         }
 
-        internal static void AddConnection(SqlSmoObject connection, bool force = false)
+        internal static void AddConnection(Server connection, bool force = false)
         {
             if (force || (!force && !IsSet))
             {

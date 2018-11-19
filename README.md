@@ -1,28 +1,21 @@
 # SQL-SMO PowerShell Module
 
-This is a module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects.
+This is a module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects __without__ the need for SQL Management Studio to be installed.
 
 [Link to PowerShell Gallery](https://www.powershellgallery.com/packages/SQL-SMO)
 
-[Check out the wiki](https://github.com/Yevrag35/SQL-SMO/wiki) for information about each of the cmdlets.
+[Check out the wiki](https://github.com/Yevrag35/SQL-SMO/wiki) for information about how to get started and information on each of the cmdlets.
 
 ---
 
-## How to Connect to SQL
+## What's new in 0.5.0.0?
 
-To connect to a SQL instance, simply use the <code>New-SMO</code> cmdlet (_the command will default to the localhost and MSSQLSERVER for the instance_).  You connect the same way you would as with SSMS; either with:
+New cmdlet structure and new Commands!  "Get-SMOSqlAgent" & "Get-SMOJob"
 
-1. Your current Windows session credentials
-1. Specify SQL Credentials used in SQL Authentication.
+I spent most of 0.5.0.0's development re-focusing on dynamic list views and dynamic property loading for each of the SQL objects you can retrieve (i.e. - databases, tables, columns, etc.).
 
-__In order to keep the memory and processing cost down, I'd advise immediately storing the SMO object as a variable.__
+The result is making available __ALL__ of the object's original properties without displaying them by default.  In a very similar way to MS's Active Directory PowerShell module, most commands now have a "-Properties" parameter that can load and display the desired properties (along with default ones) specified.
 
-Using the stored SMO variable, you are free to manipulate the SQL server instance as it correlates to your access.
+The best part about that is that __THEY'RE DYNAMICALLY RETRIEVED FOR YOU!__
 
-To provide a convenient method for working with SMO's and to use the other cmdlets in this module, pipe the SMO to the <code>Set-SMOContext</code> cmdlet.  After that, you can run the other cmdlets without having to carry around the SMO variable.
-
-* <code>New-SMO -ServerName "sql.contoso.com" -InstanceName "DataWarehouse" | Set-SMOContext</code>
-
-* <code>New-SMO -SQLCredential (Get-Credential sa) | Set-SMOContext</code>
-
-* <code>$smo = New-SMO -ServerName "sql.contoso.com";<br>Set-SMOContext -SMO $smo;</code>
+![DynamicProperties](https://images.yevrag35.com/DynamicProperties.gif)

@@ -17,12 +17,23 @@ namespace SQL.SMO.Framework
             return (T)o;
         }
 
-        internal RuntimeDefinedParameterDictionary Generate(string pName, string[] validatedItems, bool mandatory, string pSetName = null)
+        internal static RuntimeDefinedParameterDictionary ToDictionary(params RuntimeDefinedParameter[] parameters)
+        {
+            var rtDict = new RuntimeDefinedParameterDictionary();
+            for (int i = 0; i < parameters.Length; i++)
+            {
+                var rtParam = parameters[i];
+                rtDict.Add(rtParam.Name, rtParam);
+            }
+            return rtDict;
+        }
+
+        internal RuntimeDefinedParameter Generate(string pName, string[] validatedItems, bool mandatory, int position = 0, string pSetName = null)
         {
             var atts = new Dictionary<string, object>()
             {
                 { "Mandatory", mandatory },
-                { "Position", 0 }
+                { "Position", position }
             };
             Type retType = mandatory ? typeof(string) : typeof(string[]);
             if (!string.IsNullOrEmpty(pSetName))
@@ -32,16 +43,10 @@ namespace SQL.SMO.Framework
             Collection<Attribute> attCol = CreateAttributes(atts);
             var valSet = new ValidateSetAttribute(validatedItems);
             attCol.Add(valSet);
-            var aliases = new AliasAttribute(new string[] { "prop", "p" });
-            attCol.Add(aliases);
             var rtParam = new RuntimeDefinedParameter(
                 pName, retType, attCol
             );
-            var rtDict = new RuntimeDefinedParameterDictionary()
-            {
-                { pName, rtParam }
-            };
-            return rtDict;
+            return rtParam;
         }
 
         internal protected Collection<Attribute> CreateAttributes(IDictionary hashtable)

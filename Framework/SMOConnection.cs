@@ -5,7 +5,7 @@ using System;
 
 namespace SQL.SMO.Framework
 {
-    public class SMOConnection : ISMOObject
+    public class SMOConnection : ISMOWrapper
     {
         private Server _srv;
 
@@ -23,10 +23,11 @@ namespace SQL.SMO.Framework
         public int PhysicalMemory => _srv.PhysicalMemory;
         public ServerLoginMode LoginMode => _srv.LoginMode;
 
-        public Type MSType => typeof(Server);
+        public Type OriginalType => typeof(Server);
 
         internal SMOConnection(Server server) => _srv = server;
 
         public object ShowOriginal() => _srv;
+        public object Load(params string[] vwha) => throw new NotImplementedException();
     }
 }

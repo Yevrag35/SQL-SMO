@@ -6,7 +6,8 @@ using System.Management.Automation;
 
 namespace SQL.SMO.Cmdlets
 {
-    [Cmdlet(VerbsCommon.Get, "SQLMemoryLimit")]
+    [Cmdlet(VerbsCommon.Get, "SMOMemoryLimit")]
+    [Alias("Get-SQLMemoryLimit")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(MemoryProperty))]
     public class GetSQLMemoryLimit : PSCmdlet

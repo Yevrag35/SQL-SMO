@@ -47,10 +47,10 @@ namespace SQL.SMO.Cmdlets
             {
                 throw new ArgumentNullException("You can not set a \"null\" SMO context!");
             }
-            Context.AddConnection(SMO, _force);
-            if (Context.ConfigProperties == null)
+            SQL.SMO.Framework.Context.AddConnection(SMO, _force);
+            if (SQL.SMO.Framework.Context.ConfigProperties == null)
             {
-                Context.GetConfigPropertyNames();
+                SQL.SMO.Framework.Context.GetConfigPropertyNames();
             }
         }
 
