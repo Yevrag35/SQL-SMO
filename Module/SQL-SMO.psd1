@@ -117,7 +117,7 @@ FileList = @(
     "SQL.SMO.Databases.SMOTable.Format.ps1xml",
     "SQL.SMO.dll",
     "SQL.SMO.MemoryProperty.Format.ps1xml",
-    "SQL.SMO.psd1",
+    "SQL-SMO.psd1",
     "SQL.SMO.SMOAgent.Format.ps1xml",
     "SQL.SMO.SMOJob.Format.ps1xml",
     "SQL.SMO.SMOProperty.Format.ps1xml"
