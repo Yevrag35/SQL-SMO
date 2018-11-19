@@ -5,7 +5,7 @@ param
     [string] $SQLServer,
 
     [parameter(Mandatory=$false, Position=1)]
-    [pscredential] $SQLCredentials,
+    [string] $SQLLoginName,
 
     [parameter(Mandatory=$false)]
     [string] $Instance,
@@ -25,9 +25,17 @@ if ($PSBoundParameters.ContainsKey("Instance"))
 {
     $connArgs.InstanceName = $Instance;
 }
-if ($PSBoundParameters.ContainsKey("SQLCredentials"))
+if ($PSBoundParameters.ContainsKey("SQLLoginName"))
 {
-    $connArgs.SQLCredential = $SQLCredentials;
+	$SQLCredentials = Get-Credential $SQLLoginName;
+	if ($SQLCredentials.Password)
+	{
+		$connArgs.SQLCredential = $SQLCredentials;
+	}
+    else
+	{
+		exit;
+	}
 }
 
 New-SMO @connArgs | Set-SMOContext;

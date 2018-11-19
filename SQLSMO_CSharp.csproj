@@ -96,8 +96,9 @@
     <Compile Include="Agent\SMOJobCollection.cs" />
     <Compile Include="Agent\SMOOperator.cs" />
     <Compile Include="Agent\SMOProxyAccount.cs" />
-    <Compile Include="Cmdlets\Get-SMOSqlAgent.cs" />
+    <Compile Include="Cmdlets\GetSMOSqlAgent.cs" />
     <Compile Include="Cmdlets\GetSMOColumn.cs" />
+    <Compile Include="Cmdlets\GetSMOJob.cs" />
     <Compile Include="Cmdlets\GetSMOTable.cs" />
     <Compile Include="Cmdlets\ProgressCmdlet.cs" />
     <Compile Include="Cmdlets\SetMemoryLimits.cs" />

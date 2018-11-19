@@ -50,7 +50,7 @@ $manifest = @{
     RequiredAssemblies = $allDlls
     AliasesToExport    = 'Get-SQLMemoryLimit', 'Set-SQLMemoryLimit'
     CmdletsToExport    = @( 'Disconnect-SMO', 'Get-SMOColumn', 'Get-SMOConfiguration', 
-							'Get-SMOConnection', 'Get-SMODatabase', 'Get-SMOMemoryLimit', 
+							'Get-SMOConnection', 'Get-SMODatabase', 'Get-SMOJob', 'Get-SMOMemoryLimit', 
 							'Get-SMOSqlAgent', 'Get-SMOTable', 'New-SMO', 'Set-SMOConfiguration', 
 							'Set-SMOContext', 'Set-SMOMemoryLimit')
     FunctionsToExport  = @()

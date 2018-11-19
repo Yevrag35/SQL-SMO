@@ -3,7 +3,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <StartAction>Program</StartAction>
     <StartProgram>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</StartProgram>
-    <StartArguments>-NoExit -File "DebugScript.ps1" "garvmedia.yevrag35.com"</StartArguments>
+    <StartArguments>-NoExit -File "DebugScript.ps1" "dgrlab-sccmsql.dgrlab.com" "mikelogin"</StartArguments>
     <StartWorkingDirectory>
     </StartWorkingDirectory>
   </PropertyGroup>

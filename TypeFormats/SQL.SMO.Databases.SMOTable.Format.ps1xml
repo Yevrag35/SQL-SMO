@@ -6,40 +6,632 @@
             <ViewSelectedBy>
                 <TypeName>SQL.SMO.Databases.SMOTable</TypeName>
             </ViewSelectedBy>
-            <TableControl>
-                <TableHeaders>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Alignment>Left</Alignment>
-                    </TableColumnHeader>
-					<TableColumnHeader>
-						<Alignment>Center</Alignment>
-					</TableColumnHeader>
-                </TableHeaders>
-                <TableRowEntries>
-                    <TableRowEntry>
-                        <TableColumnItems>
-                            <TableColumnItem>
+            <ListControl>
+                <ListEntries>
+                    <ListEntry>
+                        <ListItems>
+                            <ListItem>
+                                <PropertyName>AnsiNullsStatus</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.AnsiNullsStatus -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ChangeTrackingEnabled</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ChangeTrackingEnabled -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Checks</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Checks -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Columns</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Columns -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>CreateDate</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.CreateDate -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
                                 <PropertyName>Database</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>Name</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>RowCount</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DatabaseEngineEdition</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DatabaseEngineEdition -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DatabaseEngineType</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DatabaseEngineType -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DataConsistencyCheck</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DataConsistencyCheck -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DataSourceName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DataSourceName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
                                 <PropertyName>DataSpaceUsed</PropertyName>
-                            </TableColumnItem>
-                        </TableColumnItems>
-                    </TableRowEntry>
-                </TableRowEntries>
-            </TableControl>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DateLastModified</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Durability</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Durability -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>DwTableDistribution</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.DwTableDistribution -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Events</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Events -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ExecutionManager</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ExecutionManager -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ExtendedProperties</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ExtendedProperties -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ExternalTableDistribution</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ExternalTableDistribution -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FakeSystemTable</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FakeSystemTable -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileFormatName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileFormatName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileGroup</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileGroup -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileStreamFileGroup</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileStreamFileGroup -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileStreamPartitionScheme</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileStreamPartitionScheme -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileTableDirectoryName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileTableDirectoryName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileTableNameColumnCollation</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileTableNameColumnCollation -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FileTableNamespaceEnabled</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FileTableNamespaceEnabled -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ForeignKeys</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ForeignKeys -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>FullTextIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.FullTextIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasAfterTrigger</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasAfterTrigger -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasClusteredColumnStoreIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasClusteredColumnStoreIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasClusteredIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasClusteredIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasCompressedPartitions</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasCompressedPartitions -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasDeleteTrigger</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasDeleteTrigger -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasHeapIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasHeapIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasInsertTrigger</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasInsertTrigger -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasInsteadOfTrigger</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasInsteadOfTrigger -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasNonClusteredColumnStoreIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasNonClusteredColumnStoreIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasNonClusteredIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasNonClusteredIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasPrimaryClusteredIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasPrimaryClusteredIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasSparseColumn</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasSparseColumn -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasSpatialData</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasSpatialData -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasSystemTimePeriod</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasSystemTimePeriod -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasUpdateTrigger</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasUpdateTrigger -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasXmlData</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasXmlData -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HasXmlIndex</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HasXmlIndex -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HistoryRetentionPeriod</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HistoryRetentionPeriod -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HistoryRetentionPeriodUnit</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HistoryRetentionPeriodUnit -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HistoryTableID</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HistoryTableID -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HistoryTableName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HistoryTableName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>HistoryTableSchema</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.HistoryTableSchema -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ID</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Indexes</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Indexes -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IndexSpaceUsed</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IndexSpaceUsed -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsEdge</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsEdge -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsExternal</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsExternal -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsFileTable</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsFileTable -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsIndexable</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsIndexable -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsMemoryOptimized</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsMemoryOptimized -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsNode</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsNode -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsPartitioned</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsPartitioned -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsSchemaOwned</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsSchemaOwned -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsSystemObject</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsSystemObject -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsSystemVersioned</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsSystemVersioned -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>IsVarDecimalStorageFormatEnabled</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.IsVarDecimalStorageFormatEnabled -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LoadingErrors</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LoadingErrors -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Location</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Location -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LockEscalation</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LockEscalation -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LowPriorityAbortAfterWait</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LowPriorityAbortAfterWait -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>LowPriorityMaxDuration</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.LowPriorityMaxDuration -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>MaximumDegreeOfParallelism</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.MaximumDegreeOfParallelism -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Name</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>OnlineHeapOperation</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.OnlineHeapOperation -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Owner</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Owner -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Parent</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Parent -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>PartitionScheme</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.PartitionScheme -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>PartitionSchemeParameters</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.PartitionSchemeParameters -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>PhysicalPartitions</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.PhysicalPartitions -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Properties</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Properties -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>QuotedIdentifierStatus</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.QuotedIdentifierStatus -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RejectedRowLocation</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RejectedRowLocation -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RejectSampleValue</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RejectSampleValue -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RejectType</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RejectType -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RejectValue</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RejectValue -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteDataArchiveDataMigrationState</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteDataArchiveDataMigrationState -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteDataArchiveEnabled</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteDataArchiveEnabled -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteDataArchiveFilterPredicate</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteDataArchiveFilterPredicate -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteObjectName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteObjectName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteSchemaName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteSchemaName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteTableName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteTableName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RemoteTableProvisioned</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RemoteTableProvisioned -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Replicated</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Replicated -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RowCount</PropertyName>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>RowCountAsDouble</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.RowCountAsDouble -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Schema</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Schema -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>ShardingColumnName</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.ShardingColumnName -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>State</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.State -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Statistics</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Statistics -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>SystemTimePeriodEndColumn</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.SystemTimePeriodEndColumn -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>SystemTimePeriodStartColumn</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.SystemTimePeriodStartColumn -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>TemporalType</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.TemporalType -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>TextFileGroup</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.TextFileGroup -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>TrackColumnsUpdatedEnabled</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.TrackColumnsUpdatedEnabled -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Triggers</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Triggers -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>Urn</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.Urn -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                            <ListItem>
+                                <PropertyName>UserData</PropertyName>
+                                <ItemSelectionCondition>
+                                    <ScriptBlock>$_.UserData -ne $null</ScriptBlock>
+                                </ItemSelectionCondition>
+                            </ListItem>
+                        </ListItems>
+                    </ListEntry>
+                </ListEntries>
+            </ListControl>
         </View>
     </ViewDefinitions>
 </Configuration>
