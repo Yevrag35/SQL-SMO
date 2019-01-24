@@ -1,4 +1,6 @@
 # SQL-SMO PowerShell Module
+[![version](https://img.shields.io/powershellgallery/v/SQL-SMO.svg)](https://www.powershellgallery.com/packages/SQL-SMO)
+[![downloads](https://img.shields.io/powershellgallery/dt/SQL-SMO.svg?label=downloads)](https://www.powershellgallery.com/stats/packages/SQL-SMO?groupby=Version)
 
 This is a module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects __without__ the need for SQL Management Studio to be installed.
 
