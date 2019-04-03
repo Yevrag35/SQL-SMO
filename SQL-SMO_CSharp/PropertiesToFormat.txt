@@ -1,0 +1,1 @@
+<ListItem>\r\n\t<PropertyName>$1</PropertyName>\r\n\t<ItemSelectionCondition>\r\n\t\t<ScriptBlock>\$_.$1 -ne \$null</ScriptBlock>\r\n\t</ItemSelectionCondition>\r\n</ListItem>

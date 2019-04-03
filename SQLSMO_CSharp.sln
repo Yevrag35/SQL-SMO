@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLSMO_CSharp", "SQLSMO_CSharp.csproj", "{0681087A-EBEF-4129-9ED6-697E5E296EE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLSMO_CSharp", "SQL-SMO_CSharp\SQLSMO_CSharp.csproj", "{0681087A-EBEF-4129-9ED6-697E5E296EE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQL-SMO_Reboot", "SQL-SMO_Reboot\SQL-SMO_Reboot.csproj", "{3C946A30-8121-46DE-9609-2C1629035EA4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{0681087A-EBEF-4129-9ED6-697E5E296EE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0681087A-EBEF-4129-9ED6-697E5E296EE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0681087A-EBEF-4129-9ED6-697E5E296EE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C946A30-8121-46DE-9609-2C1629035EA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C946A30-8121-46DE-9609-2C1629035EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C946A30-8121-46DE-9609-2C1629035EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C946A30-8121-46DE-9609-2C1629035EA4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
