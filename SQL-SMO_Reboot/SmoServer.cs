@@ -13,159 +13,296 @@ namespace MG.Sql
 {
     public class SmoServer
     {
-        public ServerActiveDirectory ActiveDirectory { get; internal set; }
-        public AffinityInfo AffinityInfo { get; internal set; }
-        public AuditLevel? AuditLevel { get; set; }
-        public AuditCollection Audits { get; internal set; }
-        public AvailabilityGroupCollection AvailabilityGroups { get; internal set; }
-        public BackupDeviceCollection BackupDevices { get; internal set; }
-        public string BackupDirectory { get; set; }
-        public string BrowserServiceAccount { get; internal set; }
-        public ServiceStartMode? BrowserStartMode { get; internal set; }
-        public Version BuildClrVersion { get; internal set; }
-        public string BuildClrVersionString { get; internal set; }
-        public int? BuildNumber { get; internal set; }
-        public string ClusterName { get; internal set; }
-        public ClusterQuorumState? ClusterQuorumState { get; internal set; }
-        public ClusterQuorumType? ClusterQuorumType { get; internal set; }
-        public string Collation { get; internal set; }
-        public int? CollationID { get; internal set; }
-        public int? ComparisonStyle { get; internal set; }
-        public string ComputerNamePhysicalNetBIOS { get; internal set; }
-        public Configuration Configuration { get; internal set; }
-        public ServerConnection ConnectionContext { get; internal set; }
-        public CredentialCollection Credentials { get; internal set; }
-        public CryptographicProviderCollection CryptographicProviders { get; internal set; }
-        public DatabaseEngineEdition? DatabaseEngineEdition { get; internal set; }
-        public DatabaseEngineType? DatabaseEngineType { get; internal set; }
-        public DatabaseCollection Databases { get; internal set; }
-        public AvailabilityGroupClusterType? DefaultAvailabilityGroupClusterType { get; internal set; }
-        public string DefaultFile { get; set; }
-        public string DefaultLog { get; set; }
-        public bool? DefaultTextMode { get; set; }
-        public string DomainInstanceName { get; internal set; }
-        public string DomainName { get; internal set; }
-        public string Edition { get; internal set; }
-        public EndpointCollection Endpoints { get; internal set; }
-        public Edition? EngineEdition { get; internal set; }
-        public string ErrorLogPath { get; internal set; }
-        public ServerEvents Events { get; internal set; }
-        public ExecutionManager ExecutionManager { get; internal set; }
-        public FileStreamEffectiveLevel? FilestreamLevel { get; internal set; }
-        public string FilestreamShareName { get; internal set; }
-        public FullTextService FullTextService { get; internal set; }
-        public HadrManagerStatus? HadrManagerStatus { get; internal set; }
-        public string HostDistribution { get; internal set; }
-        public string HostPlatform { get; internal set; }
-        public string HostRelease { get; internal set; }
-        public string HostServicePackLevel { get; internal set; }
-        public int? HostSku { get; internal set; }
-        public Information Information { get; internal set; }
-        public string InstallDataDirectory { get; internal set; }
-        public string InstallSharedDirectory { get; internal set; }
-        public string InstanceName { get; internal set; }
-        public bool? IsAvailabilityReplicaSeedingModeSupported { get; internal set; }
-        public bool? IsCaseSensitive { get; internal set; }
-        public bool? IsClustered { get; internal set; }
-        public bool? IsConfigurationOnlyAvailabilityReplicaSupported { get; internal set; }
-        public bool? IsCrossPlatformAvailabilityGroupSupported { get; internal set; }
-        public bool? IsDesignMode { get; internal set; }
-        public bool? IsFullTextInstalled { get; internal set; }
-        public bool? IsHadrEnabled { get; internal set; }
-        public bool? IsMemberOfWsfcCluster { get; internal set; }
-        public bool? IsPolyBaseInstalled { get; internal set; }
-        public bool? IsReadOnlyListWithLoadBalancingSupported { get; internal set; }
-        public bool? IsSingleUser { get; internal set; }
-        public bool? IsXTPSupported { get; internal set; }
-        public JobServer JobServer { get; internal set; }
-        public string Language { get; internal set; }
-        public LanguageCollection Languages { get; internal set; }
-        public LinkedServerCollection LinkedServers { get; internal set; }
-        public ServerLoginMode? LoginMode { get; set; }
-        public LoginCollection Logins { get; internal set; }
-        public SqlMail Mail { get; internal set; }
-        public string MailProfile { get; set; }
-        public string MasterDBLogPath { get; internal set; }
-        public string MasterDBPath { get; internal set; }
-        public byte MaxPrecision { get; internal set; }
-        public string Name { get; internal set; }
-        public bool? NamedPipesEnabled { get; internal set; }
-        public string NetName { get; internal set; }
-        public int? NumberOfLogFiles { get; set; }
-        public OleDbProviderSettingsCollection OleDbProviderSettings { get; internal set; }
-        public string OSVersion { get; internal set; }
-        public string PathSeparator { get; internal set; }
-        public PerfMonMode? PerfMonMode { get; set; }
-        public int? PhysicalMemory { get; internal set; }
-        public long PhysicalMemoryUsageInKB { get; internal set; }
-        public string Platform { get; internal set; }
-        public int? Processors { get; internal set; }
-        public int? ProcessorUsage { get; internal set; }
-        public string Product { get; internal set; }
-        public string ProductLevel { get; internal set; }
-        public SqlPropertyCollection Properties { get; internal set; }
-        public ServerProxyAccount ProxyAccount { get; internal set; }
-        public ResourceGovernor ResourceGovernor { get; internal set; }
-        public DateTime? ResourceLastUpdateDateTime { get; internal set; }
-        public Version ResourceVersion { get; internal set; }
-        public string ResourceVersionString { get; internal set; }
-        public ServerRoleCollection Roles { get; internal set; }
-        public string RootDirectory { get; internal set; }
-        public ServerAuditSpecificationCollection ServerAuditSpecifications { get; internal set; }
-        public DatabaseEngineType? ServerType { get; internal set; }
-        public string ServiceAccount { get; internal set; }
-        public string ServiceInstanceId { get; internal set; }
-        public ServiceMasterKey ServiceMasterKey { get; internal set; }
-        public string ServiceName { get; internal set; }
-        public ServiceStartMode? ServiceStartMode { get; internal set; }
-        public Settings Settings { get; internal set; }
-        public SmartAdmin SmartAdmin { get; internal set; }
-        public short? SqlCharSet { get; internal set; }
-        public string SqlCharSetName { get; internal set; }
-        public string SqlDomainGroup { get; internal set; }
-        public short? SqlSortOrder { get; internal set; }
-        public string SqlSortOrderName { get; internal set; }
-        public SqlSmoState? State { get; internal set; }
-        public ServerStatus? Status { get; internal set; }
-        public AvailabilityGroupClusterType[] SupportedAvailabilityGroupClusterTypes { get; internal set; }
-        public SystemDataTypeCollection SystemDataTypes { get; internal set; }
-        public SystemMessageCollection SystemMessages { get; internal set; }
-        public int? TapeLoadWaitTime { get; set; }
-        public bool? TcpEnabled { get; internal set; }
-        public ServerDdlTriggerCollection Triggers { get; internal set; }
-        public Urn Urn { get; internal set; }
-        public object UserData { get; internal set; }
-        public UserDefinedMessageCollection UserDefinedMessages { get; internal set; }
-        public UserOptions UserOptions { get; internal set; }
-        public Version Version { get; internal set; }
-        public int? VersionMajor { get; internal set; }
-        public int? VersionMinor { get; internal set; }
-        public string VersionString { get; internal set; }
+        private Server _sql;
+        private const BindingFlags PUB_INST = BindingFlags.Public | BindingFlags.Instance;
+        private static readonly PropertyInfo[] thisProps = typeof(SmoServer).GetProperties(PUB_INST);
+        private static readonly PropertyInfo[] origProps = typeof(Server).GetProperties(PUB_INST);
+
+        #region PUBLIC PROPERTIES
+        [Obsolete]
+        public ServerActiveDirectory ActiveDirectory { get; private set; }
+        public AffinityInfo AffinityInfo { get; private set; }
+        public AuditLevel AuditLevel
+        {
+            get => _sql.AuditLevel;
+            set => _sql.AuditLevel = value;
+        }
+        public AuditCollection Audits { get; private set; }
+        public AvailabilityGroupCollection AvailabilityGroups { get; private set; }
+        public BackupDeviceCollection BackupDevices { get; private set; }
+        public string BackupDirectory
+        {
+            get => _sql.BackupDirectory;
+            set => _sql.BackupDirectory = value;
+        }
+        public string BrowserServiceAccount => _sql.BrowserServiceAccount;
+        public ServiceStartMode BrowserStartMode => _sql.BrowserStartMode;
+        public Version BuildClrVersion => _sql.BuildClrVersion;
+        //public string BuildClrVersionString { get; private set; }
+        public int BuildNumber => _sql.BuildNumber;
+        public string ClusterName => _sql.ClusterName;
+        public ClusterQuorumState ClusterQuorumState => _sql.ClusterQuorumState;
+        public ClusterQuorumType ClusterQuorumType => _sql.ClusterQuorumType;
+        public string Collation => _sql.Collation;
+        public int CollationID => _sql.CollationID;
+        public int ComparisonStyle => _sql.ComparisonStyle;
+        public string ComputerNamePhysicalNetBIOS => _sql.ComputerNamePhysicalNetBIOS;
+        public Configuration Configuration { get; private set; }
+        public ServerConnection ConnectionContext { get; private set; }
+        public CredentialCollection Credentials { get; private set; }
+        public CryptographicProviderCollection CryptographicProviders { get; private set; }
+        public DatabaseEngineEdition DatabaseEngineEdition => _sql.DatabaseEngineEdition;
+        public DatabaseEngineType DatabaseEngineType => _sql.DatabaseEngineType;
+        public DatabaseCollection Databases { get; private set; }
+        public AvailabilityGroupClusterType DefaultAvailabilityGroupClusterType => _sql.DefaultAvailabilityGroupClusterType;
+        public string DefaultFile
+        {
+            get => _sql.DefaultFile;
+            set => _sql.DefaultFile = value;
+        }
+        public string DefaultLog
+        {
+            get => _sql.DefaultLog;
+            set => _sql.DefaultLog = value;
+        }
+        public bool DefaultTextMode
+        {
+            get => _sql.DefaultTextMode;
+            set => _sql.DefaultTextMode = value;
+        }
+        public string Edition => _sql.Edition;
+        public EndpointCollection Endpoints { get; private set; }
+        public Edition EngineEdition => _sql.EngineEdition;
+        public string ErrorLogPath => _sql.ErrorLogPath;
+        public ServerEvents Events { get; private set; }
+        public ExecutionManager ExecutionManager { get; private set; }
+        public FileStreamEffectiveLevel FilestreamLevel => _sql.FilestreamLevel;
+        public string FilestreamShareName => _sql.FilestreamShareName;
+        public FullTextService FullTextService { get; private set; }
+        public HadrManagerStatus HadrManagerStatus => _sql.HadrManagerStatus;
+        public string HostDistribution { get; private set; }
+        public string HostPlatform => _sql.HostPlatform;
+        public string HostRelease { get; private set; }
+        public string HostServicePackLevel { get; private set; }
+        public int? HostSku { get; private set; }
+        public Information Information { get; private set; }
+        public string InstallDataDirectory => _sql.InstallDataDirectory;
+        public string InstallSharedDirectory => _sql.InstallSharedDirectory;
+        public string InstanceName => _sql.InstanceName;
+        public bool IsAvailabilityReplicaSeedingModeSupported => _sql.IsAvailabilityReplicaSeedingModeSupported;
+        public bool IsCaseSensitive => _sql.IsCaseSensitive;
+        public bool IsClustered => _sql.IsClustered;
+        public bool IsConfigurationOnlyAvailabilityReplicaSupported => _sql.IsConfigurationOnlyAvailabilityReplicaSupported;
+        public bool IsCrossPlatformAvailabilityGroupSupported => _sql.IsCrossPlatformAvailabilityGroupSupported;
+        public bool IsFullTextInstalled => _sql.IsFullTextInstalled;
+        public bool IsHadrEnabled => _sql.IsHadrEnabled;
+        public bool IsMemberOfWsfcCluster => _sql.IsMemberOfWsfcCluster;
+        public bool IsPolyBaseInstalled => _sql.IsPolyBaseInstalled;
+        public bool IsReadOnlyListWithLoadBalancingSupported => _sql.IsReadOnlyListWithLoadBalancingSupported;
+        public bool IsSingleUser => _sql.IsSingleUser;
+        public bool IsXTPSupported => _sql.IsXTPSupported;
+        public JobServer JobServer { get; private set; }
+        public string Language => _sql.Language;
+        public LanguageCollection Languages { get; private set; }
+        public LinkedServerCollection LinkedServers { get; private set; }
+        public ServerLoginMode LoginMode
+        {
+            get => _sql.LoginMode;
+            set => _sql.LoginMode = value;
+        }
+        public LoginCollection Logins { get; private set; }
+        public SqlMail Mail { get; private set; }
+        public string MailProfile
+        {
+            get => _sql.MailProfile;
+            set => _sql.MailProfile = value;
+        }
+        public string MasterDBLogPath => _sql.MasterDBLogPath;
+        public string MasterDBPath => _sql.MasterDBPath;
+        public byte MaxPrecision => _sql.MaxPrecision;
+        public string Name => _sql.Name;
+        public bool NamedPipesEnabled => _sql.NamedPipesEnabled;
+        public string NetName => _sql.NetName;
+        public int NumberOfLogFiles
+        {
+            get => _sql.NumberOfLogFiles;
+            set => _sql.NumberOfLogFiles = value;
+        }
+        public OleDbProviderSettingsCollection OleDbProviderSettings { get; private set; }
+        public string OSVersion => _sql.OSVersion;
+        public string PathSeparator => _sql.PathSeparator;
+        public PerfMonMode PerfMonMode
+        {
+            get => _sql.PerfMonMode;
+            set => _sql.PerfMonMode = value;
+        }
+        public int PhysicalMemory => _sql.PhysicalMemory;
+        public long PhysicalMemoryUsageInKB => _sql.PhysicalMemoryUsageInKB;
+        public string Platform => _sql.Platform;
+        public int Processors => _sql.Processors;
+        public int ProcessorUsage => _sql.ProcessorUsage;
+        public string Product => _sql.Product;
+        public string ProductLevel => _sql.ProductLevel;
+        public SqlPropertyCollection Properties { get; private set; }
+        public ServerProxyAccount ProxyAccount { get; private set; }
+        public ResourceGovernor ResourceGovernor { get; private set; }
+        public DateTime ResourceLastUpdateDateTime { get; private set; }
+        public Version ResourceVersion => _sql.ResourceVersion;
+        //public string ResourceVersionString { get; private set; }
+        public ServerRoleCollection Roles { get; private set; }
+        public string RootDirectory => _sql.RootDirectory;
+        public ServerAuditSpecificationCollection ServerAuditSpecifications { get; private set; }
+        public DatabaseEngineType ServerType => _sql.ServerType;
+        public string ServiceAccount => _sql.ServiceAccount;
+        public string ServiceInstanceId => _sql.ServiceInstanceId;
+        public ServiceMasterKey ServiceMasterKey { get; private set; }
+        public string ServiceName => _sql.ServiceName;
+        public ServiceStartMode ServiceStartMode => _sql.ServiceStartMode;
+        public Settings Settings { get; private set; }
+        public SmartAdmin SmartAdmin { get; private set; }
+        public short SqlCharSet => _sql.SqlCharSet;
+        public string SqlCharSetName => _sql.SqlCharSetName;
+        public string SqlDomainGroup => _sql.SqlDomainGroup;
+        public short SqlSortOrder => _sql.SqlSortOrder;
+        public string SqlSortOrderName => _sql.SqlSortOrderName;
+        public SqlSmoState State => _sql.State;
+        public ServerStatus Status => _sql.Status;
+        public AvailabilityGroupClusterType[] SupportedAvailabilityGroupClusterTypes => _sql.SupportedAvailabilityGroupClusterTypes;
+        public SystemDataTypeCollection SystemDataTypes { get; private set; }
+        public SystemMessageCollection SystemMessages { get; private set; }
+        public int TapeLoadWaitTime
+        {
+            get => _sql.TapeLoadWaitTime;
+            set => _sql.TapeLoadWaitTime = value;
+        }
+        public bool TcpEnabled => _sql.TcpEnabled;
+        public ServerDdlTriggerCollection Triggers { get; private set; }
+        public Urn Urn { get; private set; }
+        public object UserData { get; private set; }
+        public UserDefinedMessageCollection UserDefinedMessages { get; private set; }
+        public UserOptions UserOptions { get; private set; }
+        public Version Version => _sql.Version;
+        //public int? VersionMajor { get; private set; }
+        //public int? VersionMinor { get; private set; }
+        //public string VersionString { get; private set; }
+
+        #endregion
 
         public SmoServer() { }
 
-        private SmoServer(Server server) => this.Translate(server);
-
-        private void Translate(Server server)
+        public SmoServer(Server server)
         {
-            PropertyInfo[] allProps = this.GetType().GetProperties(
-                (BindingFlags)52).Where(
-                    x => x.CanWrite).ToArray();
+            _sql = server;
+            //this.AuditLevel = _sql.AuditLevel;
+            //this.BackupDirectory = _sql.BackupDirectory;
+            //this.BrowserServiceAccount = _sql.BrowserServiceAccount;
+            //this.BrowserStartMode = _sql.BrowserStartMode;
+            //this.BuildClrVersion = _sql.BuildClrVersion;
+            //this.BuildNumber = _sql.BuildNumber;
+            //this.ClusterName = _sql.ClusterName;
+            //this.ClusterQuorumState = _sql.ClusterQuorumState;
+            //this.ClusterQuorumType = _sql.ClusterQuorumType;
+            //this.Collation = _sql.Collation;
+            //this.CollationID = _sql.CollationID;
+            //this.ComparisonStyle = _sql.ComparisonStyle;
+            //this.ComputerNamePhysicalNetBIOS = _sql.ComputerNamePhysicalNetBIOS;
+            //this.DatabaseEngineEdition = _sql.DatabaseEngineEdition;
+            //this.DatabaseEngineType = _sql.DatabaseEngineType;
+            //this.DefaultAvailabilityGroupClusterType = _sql.DefaultAvailabilityGroupClusterType;
+            //this.DefaultFile = _sql.DefaultFile;
+            //this.DefaultLog = _sql.DefaultLog;
+            //this.DefaultTextMode = _sql.DefaultTextMode;
+            //this.Edition = _sql.Edition;
+            //this.EngineEdition = _sql.EngineEdition;
+            //this.ErrorLogPath = _sql.ErrorLogPath;
+            //this.FilestreamLevel = _sql.FilestreamLevel;
+            //this.FilestreamShareName = _sql.FilestreamShareName;
+            //this.HadrManagerStatus = _sql.HadrManagerStatus;
+            ////this.HostDistribution = _sql.HostDistribution;
+            //this.HostPlatform = _sql.HostPlatform;
+            ////this.HostRelease = _sql.HostRelease;
+            ////this.HostServicePackLevel = _sql.HostServicePackLevel;
+            ////this.HostSku = _sql.HostSku;
+            //this.InstallDataDirectory = _sql.InstallDataDirectory;
+            //this.InstallSharedDirectory = _sql.InstallSharedDirectory;
+            //this.InstanceName = _sql.InstanceName;
+            //this.IsAvailabilityReplicaSeedingModeSupported = _sql.IsAvailabilityReplicaSeedingModeSupported;
+            //this.IsCaseSensitive = _sql.IsCaseSensitive;
+            //this.IsClustered = _sql.IsClustered;
+            //this.IsConfigurationOnlyAvailabilityReplicaSupported = _sql.IsConfigurationOnlyAvailabilityReplicaSupported;
+            //this.IsCrossPlatformAvailabilityGroupSupported = _sql.IsCrossPlatformAvailabilityGroupSupported;
+            //this.IsFullTextInstalled = _sql.IsFullTextInstalled;
+            //this.IsHadrEnabled = _sql.IsHadrEnabled;
+            //this.IsMemberOfWsfcCluster = _sql.IsMemberOfWsfcCluster;
+            //this.IsPolyBaseInstalled = _sql.IsPolyBaseInstalled;
+            //this.IsReadOnlyListWithLoadBalancingSupported = _sql.IsReadOnlyListWithLoadBalancingSupported;
+            //this.IsSingleUser = _sql.IsSingleUser;
+            //this.IsXTPSupported = _sql.IsXTPSupported;
+            //this.Language = _sql.Language;
+            //this.LoginMode = _sql.LoginMode;
+            //this.MailProfile = _sql.MailProfile;
+            //this.MasterDBLogPath = _sql.MasterDBLogPath;
+            //this.MasterDBPath = _sql.MasterDBPath;
+            //this.MaxPrecision = _sql.MaxPrecision;
+            //this.Name = _sql.Name;
+            //this.NamedPipesEnabled = _sql.NamedPipesEnabled;
+            //this.NetName = _sql.NetName;
+            //this.NumberOfLogFiles = _sql.NumberOfLogFiles;
+            //this.OSVersion = _sql.OSVersion;
+            //this.PathSeparator = _sql.PathSeparator;
+            //this.PerfMonMode = _sql.PerfMonMode;
+            //this.PhysicalMemory = _sql.PhysicalMemory;
+            //this.PhysicalMemoryUsageInKB = _sql.PhysicalMemoryUsageInKB;
+            //this.Platform = _sql.Platform;
+            //this.Processors = _sql.Processors;
+            //this.ProcessorUsage = _sql.ProcessorUsage;
+            //this.Product = _sql.Product;
+            //this.ProductLevel = _sql.ProductLevel;
+            //this.ResourceLastUpdateDateTime = _sql.ResourceLastUpdateDateTime;
+            //this.ResourceVersion = _sql.ResourceVersion;
+            //this.RootDirectory = _sql.RootDirectory;
+            //this.ServerType = _sql.ServerType;
+            //this.ServiceAccount = _sql.ServiceAccount;
+            //this.ServiceInstanceId = _sql.ServiceInstanceId;
+            //this.ServiceName = _sql.ServiceName;
+            //this.ServiceStartMode = _sql.ServiceStartMode;
+            //this.SqlCharSet = _sql.SqlCharSet;
+            //this.SqlCharSetName = _sql.SqlCharSetName;
+            //this.SqlDomainGroup = _sql.SqlDomainGroup;
+            //this.SqlSortOrder = _sql.SqlSortOrder;
+            //this.SqlSortOrderName = _sql.SqlSortOrderName;
+            //this.State = _sql.State;
+            //this.Status = _sql.Status;
+            //this.SupportedAvailabilityGroupClusterTypes = _sql.SupportedAvailabilityGroupClusterTypes;
+            //this.TapeLoadWaitTime = _sql.TapeLoadWaitTime;
+            //this.TcpEnabled = _sql.TcpEnabled;
+            //this.Version = _sql.Version;
+        }
 
-            foreach (Property prop in server.Properties)
+        public void LoadProperty(params string[] propertyNames)
+        {
+            foreach (PropertyInfo pi in this.MatchNames(propertyNames))
             {
-                for (int i = 0; i < allProps.Length; i++)
+                if (pi.GetValue(this) == null)
                 {
-                    PropertyInfo pi = allProps[i];
-                    if (prop.Name.Equals(pi.Name, StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        MethodInfo genMeth = CastMethod.MakeGenericMethod(pi.PropertyType);
-                        object castedObj = genMeth.Invoke(this, new object[1] { prop.Value });
-                        pi.SetValue(this, castedObj);
-                    }
+                    PropertyInfo origPi = this.GetOriginalProperty(pi);
+                    object origVal = origPi.GetValue(_sql);
+                    pi.SetValue(this, origVal);
                 }
             }
         }
+        
+        public void UpdatePropertyValue(params string[] propertyNames)
+        {
+            foreach (PropertyInfo pi in this.MatchNames(propertyNames))
+            {
+                PropertyInfo origPi = this.GetOriginalProperty(pi);
+                object origVal = origPi.GetValue(_sql);
+                pi.SetValue(this, origVal);
+            }
+        }
+        private PropertyInfo GetOriginalProperty(PropertyInfo thisPi) => origProps.Single(x => x.Name.Equals(thisPi.Name));
+        private IEnumerable<PropertyInfo> MatchNames(string[] propertyNames) => thisProps.Where(x => propertyNames.Contains(x.Name));
 
         private readonly MethodInfo CastMethod = typeof(SmoServer).GetMethod("Cast", BindingFlags.NonPublic | BindingFlags.Instance);
 
