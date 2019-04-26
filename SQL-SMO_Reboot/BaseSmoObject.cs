@@ -17,19 +17,6 @@ namespace MG.Sql
 
         public BaseSmoObject() { }
 
-        //public static T Translate<T>(SqlSmoObject smoObj) where T : BaseSmoObject
-        //{
-        //    T newObj = Activator.CreateInstance<T>();
-        //    IEnumerable<PropertyInfo> tProps = typeof(T).GetProperties(
-        //        (BindingFlags)52).Where(
-        //            x => x.CanWrite);
-
-        //    foreach (Property prop in smoObj.Properties)
-        //    {
-
-        //    }
-        //}
-
         private static T Cast<T>(dynamic o) => (T)o;
     }
 }

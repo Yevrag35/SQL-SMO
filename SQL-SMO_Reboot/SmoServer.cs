@@ -190,94 +190,7 @@ namespace MG.Sql
 
         public SmoServer() { }
 
-        public SmoServer(Server server)
-        {
-            _sql = server;
-            //this.AuditLevel = _sql.AuditLevel;
-            //this.BackupDirectory = _sql.BackupDirectory;
-            //this.BrowserServiceAccount = _sql.BrowserServiceAccount;
-            //this.BrowserStartMode = _sql.BrowserStartMode;
-            //this.BuildClrVersion = _sql.BuildClrVersion;
-            //this.BuildNumber = _sql.BuildNumber;
-            //this.ClusterName = _sql.ClusterName;
-            //this.ClusterQuorumState = _sql.ClusterQuorumState;
-            //this.ClusterQuorumType = _sql.ClusterQuorumType;
-            //this.Collation = _sql.Collation;
-            //this.CollationID = _sql.CollationID;
-            //this.ComparisonStyle = _sql.ComparisonStyle;
-            //this.ComputerNamePhysicalNetBIOS = _sql.ComputerNamePhysicalNetBIOS;
-            //this.DatabaseEngineEdition = _sql.DatabaseEngineEdition;
-            //this.DatabaseEngineType = _sql.DatabaseEngineType;
-            //this.DefaultAvailabilityGroupClusterType = _sql.DefaultAvailabilityGroupClusterType;
-            //this.DefaultFile = _sql.DefaultFile;
-            //this.DefaultLog = _sql.DefaultLog;
-            //this.DefaultTextMode = _sql.DefaultTextMode;
-            //this.Edition = _sql.Edition;
-            //this.EngineEdition = _sql.EngineEdition;
-            //this.ErrorLogPath = _sql.ErrorLogPath;
-            //this.FilestreamLevel = _sql.FilestreamLevel;
-            //this.FilestreamShareName = _sql.FilestreamShareName;
-            //this.HadrManagerStatus = _sql.HadrManagerStatus;
-            ////this.HostDistribution = _sql.HostDistribution;
-            //this.HostPlatform = _sql.HostPlatform;
-            ////this.HostRelease = _sql.HostRelease;
-            ////this.HostServicePackLevel = _sql.HostServicePackLevel;
-            ////this.HostSku = _sql.HostSku;
-            //this.InstallDataDirectory = _sql.InstallDataDirectory;
-            //this.InstallSharedDirectory = _sql.InstallSharedDirectory;
-            //this.InstanceName = _sql.InstanceName;
-            //this.IsAvailabilityReplicaSeedingModeSupported = _sql.IsAvailabilityReplicaSeedingModeSupported;
-            //this.IsCaseSensitive = _sql.IsCaseSensitive;
-            //this.IsClustered = _sql.IsClustered;
-            //this.IsConfigurationOnlyAvailabilityReplicaSupported = _sql.IsConfigurationOnlyAvailabilityReplicaSupported;
-            //this.IsCrossPlatformAvailabilityGroupSupported = _sql.IsCrossPlatformAvailabilityGroupSupported;
-            //this.IsFullTextInstalled = _sql.IsFullTextInstalled;
-            //this.IsHadrEnabled = _sql.IsHadrEnabled;
-            //this.IsMemberOfWsfcCluster = _sql.IsMemberOfWsfcCluster;
-            //this.IsPolyBaseInstalled = _sql.IsPolyBaseInstalled;
-            //this.IsReadOnlyListWithLoadBalancingSupported = _sql.IsReadOnlyListWithLoadBalancingSupported;
-            //this.IsSingleUser = _sql.IsSingleUser;
-            //this.IsXTPSupported = _sql.IsXTPSupported;
-            //this.Language = _sql.Language;
-            //this.LoginMode = _sql.LoginMode;
-            //this.MailProfile = _sql.MailProfile;
-            //this.MasterDBLogPath = _sql.MasterDBLogPath;
-            //this.MasterDBPath = _sql.MasterDBPath;
-            //this.MaxPrecision = _sql.MaxPrecision;
-            //this.Name = _sql.Name;
-            //this.NamedPipesEnabled = _sql.NamedPipesEnabled;
-            //this.NetName = _sql.NetName;
-            //this.NumberOfLogFiles = _sql.NumberOfLogFiles;
-            //this.OSVersion = _sql.OSVersion;
-            //this.PathSeparator = _sql.PathSeparator;
-            //this.PerfMonMode = _sql.PerfMonMode;
-            //this.PhysicalMemory = _sql.PhysicalMemory;
-            //this.PhysicalMemoryUsageInKB = _sql.PhysicalMemoryUsageInKB;
-            //this.Platform = _sql.Platform;
-            //this.Processors = _sql.Processors;
-            //this.ProcessorUsage = _sql.ProcessorUsage;
-            //this.Product = _sql.Product;
-            //this.ProductLevel = _sql.ProductLevel;
-            //this.ResourceLastUpdateDateTime = _sql.ResourceLastUpdateDateTime;
-            //this.ResourceVersion = _sql.ResourceVersion;
-            //this.RootDirectory = _sql.RootDirectory;
-            //this.ServerType = _sql.ServerType;
-            //this.ServiceAccount = _sql.ServiceAccount;
-            //this.ServiceInstanceId = _sql.ServiceInstanceId;
-            //this.ServiceName = _sql.ServiceName;
-            //this.ServiceStartMode = _sql.ServiceStartMode;
-            //this.SqlCharSet = _sql.SqlCharSet;
-            //this.SqlCharSetName = _sql.SqlCharSetName;
-            //this.SqlDomainGroup = _sql.SqlDomainGroup;
-            //this.SqlSortOrder = _sql.SqlSortOrder;
-            //this.SqlSortOrderName = _sql.SqlSortOrderName;
-            //this.State = _sql.State;
-            //this.Status = _sql.Status;
-            //this.SupportedAvailabilityGroupClusterTypes = _sql.SupportedAvailabilityGroupClusterTypes;
-            //this.TapeLoadWaitTime = _sql.TapeLoadWaitTime;
-            //this.TcpEnabled = _sql.TcpEnabled;
-            //this.Version = _sql.Version;
-        }
+        public SmoServer(Server server) => _sql = server;
 
         public void LoadProperty(params string[] propertyNames)
         {
@@ -303,10 +216,6 @@ namespace MG.Sql
         }
         private PropertyInfo GetOriginalProperty(PropertyInfo thisPi) => origProps.Single(x => x.Name.Equals(thisPi.Name));
         private IEnumerable<PropertyInfo> MatchNames(string[] propertyNames) => thisProps.Where(x => propertyNames.Contains(x.Name));
-
-        private readonly MethodInfo CastMethod = typeof(SmoServer).GetMethod("Cast", BindingFlags.NonPublic | BindingFlags.Instance);
-
-        private T Cast<T>(dynamic o) => (T)o;
 
         public static explicit operator SmoServer(Server server) => new SmoServer(server);
     }
