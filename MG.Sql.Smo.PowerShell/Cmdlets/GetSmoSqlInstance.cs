@@ -3,8 +3,8 @@ using Microsoft.SqlServer.Management.Smo;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Management.Automation;
 using System.Reflection;
@@ -12,16 +12,15 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
-using System.Timers;
 
-namespace MG.Sql.Cmdlets
+namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
     public class GetSmoSqlInstance : PSCmdlet
     {
+        #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";
         private const string DISPLAY_NAME = "DisplayName";
         private const string DNS_HOSTNAME = "DNSHostName";
@@ -40,12 +39,18 @@ namespace MG.Sql.Cmdlets
         private List<Task<IEnumerable<SqlInstanceResult>>> Tasks;
         private int TotalCount;
 
+        #endregion
+
         #region PARAMETERS
         [Parameter(Mandatory = false, ParameterSetName = "SpecifyComputerName", ValueFromPipeline = true, Position = 0)]
         public string ComputerName = Environment.GetEnvironmentVariable(COMPUTERNAME);
 
         [Parameter(Mandatory = true, ParameterSetName = "ByADComputerPipeline", DontShow = true, ValueFromPipeline = true)]
         public ADComputer InputObject { get; set; }
+
+        [Parameter(Mandatory = false)]
+        [SupportsWildcards]
+        public string Name { get; set; }
 
         [Parameter(Mandatory = false, Position = 1)]
         [ValidateSet(BOTH, REG, WMI)]
@@ -86,7 +91,19 @@ namespace MG.Sql.Cmdlets
                     if (t.IsCompleted)
                     {
                         if (t.Result != null)
-                            WriteObject(t.Result, true);
+                        {
+                            IEnumerable<SqlInstanceResult> outRes = null;
+                            if (!string.IsNullOrEmpty(Name))
+                            {
+                                WildcardPattern wc = this.GetWildcard(Name);
+                                outRes = this.FilterByNameParameter(t.Result, wc);
+                            }
+                            else
+                                outRes = t.Result;
+
+                            WriteObject(outRes, true);
+                        }
+
                         Tasks.Remove(t);
                     }
                     else if (t.IsCanceled)
@@ -204,6 +221,20 @@ namespace MG.Sql.Cmdlets
                 }
             }
         }
+
+        private IEnumerable<SqlInstanceResult> FilterByNameParameter(IEnumerable<SqlInstanceResult> results, WildcardPattern wc)
+        {
+            var list = results.ToList();
+            for (int i = list.Count - 1; i >= 0; i--)
+            {
+                SqlInstanceResult s = list[i];
+                if (!wc.IsMatch(s.InstanceName))
+                    list.Remove(s);
+            }
+            return list;
+        }
+
+        private WildcardPattern GetWildcard(string name) => new WildcardPattern(name, WildcardOptions.IgnoreCase);
 
         #endregion
     }

@@ -26,8 +26,11 @@ namespace MG.Sql.Smo.PowerShell
         public static bool IsSet => Connection != null;
         public static bool IsConnected => Connection.ConnectionContext.IsOpen;
 
-        public static void Disconnect() => Connection.ConnectionContext.Disconnect();
-
-
+        public static void Disconnect()
+        {
+            Connection.ConnectionContext.Disconnect();
+            Connection = null;
+            GC.Collect();
+        }
     }
 }

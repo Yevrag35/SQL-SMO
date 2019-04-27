@@ -310,7 +310,7 @@ namespace MG.Sql.Smo
         public void ExecuteWithModes(SqlExecutionModes modes, Action action) => _sql.ExecuteWithModes(modes, action);
         public bool FileExists(string filePath) => _sql.FileExists(filePath);
         public int GetActiveDBConnectionCount(string dbName) => _sql.GetActiveDBConnectionCount(dbName);
-        ISfcConnection ISfcHasConnection.GetConnection() => ((ISfcHasConnection)_sql).GetConnection();
+        public ISfcConnection GetConnection() => ((ISfcHasConnection)_sql).GetConnection();
         ISfcConnection ISfcHasConnection.GetConnection(SfcObjectQueryMode activeQueriesMode) => ((ISfcHasConnection)_sql).GetConnection(activeQueriesMode);
         public StringCollection GetDefaultInitFields(Type objectType) => _sql.GetDefaultInitFields(objectType);
         public StringCollection GetDefaultInitFields(Type oType, DatabaseEngineEdition edition) => _sql.GetDefaultInitFields(oType, edition);

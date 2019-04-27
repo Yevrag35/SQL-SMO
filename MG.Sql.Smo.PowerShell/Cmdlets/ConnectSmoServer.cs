@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Management.Common;
+﻿using MG.Sql.Smo.Exceptions;
+using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Data.SqlClient;
@@ -6,10 +7,11 @@ using System.Management.Automation;
 using System.Reflection;
 using System.Security;
 
-namespace MG.Sql.Cmdlets
+namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommunications.Connect, "SmoServer", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
     [Alias("consmo")]
+    [CmdletBinding(PositionalBinding = false)]
     public class ConnectSmoServer : PSCmdlet
     {
         #region PRIVATE CONSTANTS
@@ -21,11 +23,12 @@ namespace MG.Sql.Cmdlets
         #endregion
 
         #region PARAMETERS
-        [Parameter(Mandatory = false, Position = 0,
+
+        [Parameter(Mandatory = false, Position = 0, ValueFromPipelineByPropertyName = true,
             HelpMessage = "The name of the SQL server (preferably the FQDN)")]
         public string ServerName = "localhost";
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = false, Position = 1, ValueFromPipelineByPropertyName = true)]
         public string InstanceName { get; set; }
 
         [Parameter(Mandatory = false)]
@@ -43,8 +46,12 @@ namespace MG.Sql.Cmdlets
         #endregion
 
         #region CMDLET PROCESS
+
         protected override void ProcessRecord()
         {
+            if (InstanceName == "MSSQLSERVER")
+                InstanceName = null;
+
             var smo = new Server(
                 this.CreateConnection(
                     ServerName, InstanceName, SQLCredential, EncryptConnection.ToBool(), TrustServerCertificate

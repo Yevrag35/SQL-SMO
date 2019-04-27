@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Management.Automation;
 
-namespace MG.Sql.Cmdlets
+namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "SmoServer", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(SmoServer))]
@@ -54,7 +54,7 @@ namespace MG.Sql.Cmdlets
         #endregion
 
         #region CMDLET METHODS
-        private string[] GetPropsToLoad() => SmoServer.thisProps.Where(
+        private string[] GetPropsToLoad() => typeof(SmoServer).GetProperties().Where(
             x => x.CanWrite).Select(
                 x => x.Name).ToArray();
 
