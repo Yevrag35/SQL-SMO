@@ -15,7 +15,7 @@ namespace MG.Sql
     {
         private Server _sql;
         private const BindingFlags PUB_INST = BindingFlags.Public | BindingFlags.Instance;
-        private static readonly PropertyInfo[] thisProps = typeof(SmoServer).GetProperties(PUB_INST);
+        internal static readonly PropertyInfo[] thisProps = typeof(SmoServer).GetProperties(PUB_INST);
         private static readonly PropertyInfo[] origProps = typeof(Server).GetProperties(PUB_INST);
 
         #region PUBLIC PROPERTIES
@@ -218,5 +218,8 @@ namespace MG.Sql
         private IEnumerable<PropertyInfo> MatchNames(string[] propertyNames) => thisProps.Where(x => propertyNames.Contains(x.Name));
 
         public static explicit operator SmoServer(Server server) => new SmoServer(server);
+
+        public static implicit operator Server(SmoServer smoServer) => smoServer._sql;
+        public static implicit operator SqlSmoObject(SmoServer smoServer) => smoServer._sql;
     }
 }

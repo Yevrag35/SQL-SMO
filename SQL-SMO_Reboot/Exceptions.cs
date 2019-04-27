@@ -24,7 +24,7 @@ namespace MG.Sql
     public class SMOContextNotSetException : InvalidOperationException, ISMOException
     {
         public bool HasDefaultMessage => true;
-        private const string _def = "The SMO context is not set!  Set the context first then re-run this command.";
+        private const string _def = "The SMO context is not set!  Run the 'Connect-SmoServer' cmdlet to set the context first then re-run this command.";
         public SMOContextNotSetException(string message = _def)
             : base(message)
         {
