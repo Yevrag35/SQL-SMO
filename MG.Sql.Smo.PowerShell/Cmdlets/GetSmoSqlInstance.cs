@@ -3,12 +3,16 @@ using Microsoft.SqlServer.Management.Smo;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Management;
 using System.Management.Automation;
+using System.Net;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +22,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
-    public class GetSmoSqlInstance : PSCmdlet
+    public class GetSmoSqlInstance : PSCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";
@@ -26,7 +30,9 @@ namespace MG.Sql.Smo.PowerShell
         private const string DNS_HOSTNAME = "DNSHostName";
         private const string WMI = "WMI";
         private const string REG = "Registry";
-        private const string BOTH = "Both";
+        private const string BROWSER = "SQLBrowser";
+        private const string REGANDWMI = "RegistryAndWMI";
+        private const string UDP_RESP_REGEX = @"(ServerName;(\w+);InstanceName;(\w+);IsClustered;(\w+);Version;(\d+\.\d+\.\d+\.\d+);(tcp;(\d+)){0,1})";
         private const string SSREGEX = @"^SQL\sServer\s\((.{1,})\)$";
         private const string SERVICE_WMI = "SELECT Name, DisplayName FROM Win32_Service WHERE " + DISPLAY_NAME + " LIKE 'SQL Server (%)'";
         private const string SERVICE_NS = "\\\\{0}\\root\\cimv2";
@@ -34,10 +40,24 @@ namespace MG.Sql.Smo.PowerShell
         private const string ACTITIY = "Searching for SQL Instances";
         private const string STATUS_FORMAT = "Querying object {0}/{1}...";
         private const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
-
-        //private List<string> Names;
+        private const string pName = "BrowserTimeoutInSecs";
+        private static readonly byte[] PACKET = new byte[] { 0x03 };
+        private const int PORT = 1434;
+        private const int THREE = 3000;
+        private const int THOUSAND = 1000;
+        private const int ZERO = 0;
+        private static readonly Type pType = typeof(int);
+        private static readonly Collection<Attribute> attCol = new Collection<Attribute>
+        {
+            new ParameterAttribute
+            {
+                Mandatory = false
+            }
+        };
+        private List<string> Names;
         private List<Task<IEnumerable<SqlInstanceResult>>> Tasks;
         private int TotalCount;
+        private RuntimeDefinedParameterDictionary rtDict;
 
         #endregion
 
@@ -53,15 +73,29 @@ namespace MG.Sql.Smo.PowerShell
         public string Name { get; set; }
 
         [Parameter(Mandatory = false, Position = 1)]
-        [ValidateSet(BOTH, REG, WMI)]
+        [ValidateSet(REGANDWMI, REG, WMI, BROWSER)]
         public string SearchMethod = WMI;
 
         #endregion
 
         #region CMDLET PROCESSING
+        public object GetDynamicParameters()
+        {
+            if (SearchMethod.Equals(BROWSER))
+            {
+                if (rtDict == null)
+                {
+                    rtDict = this.GetRTDictionary();
+                }
+                return rtDict;
+            }
+            else
+                return null;
+        }
+
         protected override void BeginProcessing()
         {
-            //Names = new List<string>();
+            Names = new List<string>();
             Tasks = new List<Task<IEnumerable<SqlInstanceResult>>>();
         }
 
@@ -73,53 +107,81 @@ namespace MG.Sql.Smo.PowerShell
                     ? this.InputObject.DNSHostName 
                     : this.InputObject.Name;
             }
-            //Names.Add(ComputerName);
-            Tasks.Add(this.QueryAsync(ComputerName));
+            if (SearchMethod != BROWSER)
+                Tasks.Add(this.QueryAsync(ComputerName));
+
+            else
+                Names.Add(ComputerName);
         }
 
         protected override void EndProcessing()
         {
-            TotalCount = Tasks.Count;
-
-            while (Tasks.Count > 0)
+            if (SearchMethod != BROWSER)
             {
-                this.UpdateProgress(0, Tasks.Count);
-                for (int cn = Tasks.Count - 1; cn >= 0; cn--)
+                TotalCount = Tasks.Count;
+
+                while (Tasks.Count > 0)
                 {
-                    Task<IEnumerable<SqlInstanceResult>> t = Tasks[cn];
-
-                    if (t.IsCompleted)
+                    this.UpdateProgressAsync(0, Tasks.Count);
+                    for (int cn = Tasks.Count - 1; cn >= 0; cn--)
                     {
-                        if (t.Result != null)
+                        Task<IEnumerable<SqlInstanceResult>> t = Tasks[cn];
+
+                        if (t.IsCompleted)
                         {
-                            IEnumerable<SqlInstanceResult> outRes = null;
-                            if (!string.IsNullOrEmpty(Name))
+                            if (t.Result != null)
                             {
-                                WildcardPattern wc = this.GetWildcard(Name);
-                                outRes = this.FilterByNameParameter(t.Result, wc);
+                                IEnumerable<SqlInstanceResult> outRes = null;
+                                if (!string.IsNullOrEmpty(Name))
+                                {
+                                    WildcardPattern wc = this.GetWildcard(Name);
+                                    outRes = this.FilterByNameParameter(t.Result, wc);
+                                }
+                                else
+                                    outRes = t.Result;
+
+                                WriteObject(outRes, true);
                             }
-                            else
-                                outRes = t.Result;
 
-                            WriteObject(outRes, true);
+                            Tasks.Remove(t);
                         }
-
-                        Tasks.Remove(t);
+                        else if (t.IsCanceled)
+                        {
+                            Tasks.Remove(t);
+                        }
                     }
-                    else if (t.IsCanceled)
-                    {
-                        Tasks.Remove(t);
-                    }
+                    Thread.Sleep(1000);
                 }
-                Thread.Sleep(1000);
+                this.UpdateProgress(0);
             }
-            this.UpdateProgress(0);
+            else
+            {
+                using (var udpClient = new UdpClient())
+                {
+                    int to = THREE;
+                    if (rtDict[pName].Value != null)
+                        to = Convert.ToInt32(rtDict[pName].Value) * THOUSAND;
+
+                    udpClient.Client.ReceiveTimeout = to;
+                    var results = this.SqlBrowserQuery(Names, udpClient);
+                    WriteObject(results, true);
+                    this.UpdateProgress(0);
+                }
+            }
         }
 
         #endregion
 
         #region CMDLET METHODS
         private void UpdateProgress(int id, int on)
+        {
+            var progressRecord = new ProgressRecord(id, ACTITIY, string.Format(
+                STATUS_FORMAT, on, Names.Count));
+            double num = Math.Round(on / (double)Names.Count * 100, 2, MidpointRounding.ToEven);
+            progressRecord.PercentComplete = Convert.ToInt32(num);
+            WriteProgress(progressRecord);
+        }
+        private void UpdateProgressAsync(int id, int on)
         {
             int realOn = TotalCount - on;
             var progressRecord = new ProgressRecord(id, ACTITIY, string.Format(
@@ -139,32 +201,76 @@ namespace MG.Sql.Smo.PowerShell
 
         private async Task<IEnumerable<SqlInstanceResult>> QueryAsync(string computerName)
         {
-            var source = new CancellationTokenSource(7000);
-            return await Task.Run(() =>
+            IEnumerable<SqlInstanceResult> results = null;
+            if (SearchMethod != BROWSER)
             {
-                bool retry = false;
-                IEnumerable<SqlInstanceResult> results = null;
-                if (SearchMethod == BOTH || SearchMethod == WMI)
+                var source = new CancellationTokenSource(7000);
+                results = await Task.Run(() =>
                 {
-                    try
+                    bool retry = false;
+                    IEnumerable<SqlInstanceResult> reses = null;
+                    if (SearchMethod == REGANDWMI || SearchMethod == WMI)
                     {
-                        results = this.FindInstancesUsingWMI(computerName);
+                        try
+                        {
+                            reses = this.FindInstancesUsingWMI(computerName);
+                        }
+                        catch (COMException)
+                        {
+                            retry = true;
+                        }
                     }
-                    catch (COMException)
+                    if (SearchMethod == REG || (retry && SearchMethod == REGANDWMI))
                     {
-                        retry = true;
+                        try
+                        {
+                            reses = this.FindInstancesUsingRegistry(computerName);
+                        }
+                        catch (IOException) { }
                     }
-                }
-                if (SearchMethod == REG || (retry && SearchMethod == BOTH))
-                {
-                    try
-                    {
-                        results = this.FindInstancesUsingRegistry(computerName);
-                    }
-                    catch (IOException) { }
-                }
-                return results;
-            }, source.Token);
+                    return reses;
+                }, source.Token);
+            }
+            return results;
+        }
+
+        private List<SqlInstanceResult> SqlBrowserQuery(List<string> names, UdpClient udpClient)
+        {
+            var list = new List<SqlInstanceResult>();
+            for (int i = 1; i <= names.Count; i++)
+            {
+                this.UpdateProgress(0, i);
+                IEnumerable<SqlInstanceResult> result = this.FindBySQLBrowser(names[i-1], udpClient);
+                if (result != null)
+                    list.AddRange(result);
+            }
+            return list;
+        }
+
+        private IEnumerable<SqlInstanceResult> FindBySQLBrowser(string computerName, UdpClient udpClient)
+        {
+            var ipEndpoint = new IPEndPoint(IPAddress.Any, ZERO);
+            udpClient.Client.Blocking = true;
+            byte[] received = null;
+            try
+            {
+                udpClient.Connect(computerName, PORT);
+                udpClient.Send(PACKET, PACKET.Length);
+                received = udpClient.Receive(ref ipEndpoint);
+            }
+            catch (SocketException)
+            {
+                return null;
+            }
+
+            string response = Encoding.ASCII.GetString(received);
+            MatchCollection matches = Regex.Matches(response, UDP_RESP_REGEX);
+            var list = new List<SqlInstanceResult>(matches.Count);
+            foreach (Match match in matches)
+            {
+                list.Add(new SqlInstanceResult(computerName, match.Groups[3].Value));
+            }
+            return list;
         }
 
         private IEnumerable<SqlInstanceResult> FindInstancesUsingWMI(string computerName)
@@ -235,6 +341,15 @@ namespace MG.Sql.Smo.PowerShell
         }
 
         private WildcardPattern GetWildcard(string name) => new WildcardPattern(name, WildcardOptions.IgnoreCase);
+
+        private RuntimeDefinedParameterDictionary GetRTDictionary()
+        {
+            var rtDict = new RuntimeDefinedParameterDictionary
+            {
+                { pName, new RuntimeDefinedParameter(pName, pType, attCol) }
+            };
+            return rtDict;
+        }
 
         #endregion
     }

@@ -85,8 +85,11 @@
     <Compile Include="Cmdlets\BaseSqlCmdlet.cs" />
     <Compile Include="Cmdlets\ConnectSmoServer.cs" />
     <Compile Include="Cmdlets\DisconnectSmoServer.cs" />
+    <Compile Include="Cmdlets\GetSmoDatabase.cs" />
     <Compile Include="Cmdlets\GetSmoServer.cs" />
     <Compile Include="Cmdlets\GetSmoSqlInstance.cs" />
+    <Compile Include="Cmdlets\SetSmoDatabaseState.cs" />
+    <Compile Include="Objects\SmoBrowserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\SMOContext.cs" />
   </ItemGroup>
