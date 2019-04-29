@@ -22,7 +22,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
-    public class GetSmoSqlInstance : PSCmdlet, IDynamicParameters
+    public class GetSmoSqlInstance : ProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";
@@ -37,7 +37,7 @@ namespace MG.Sql.Smo.PowerShell
         private const string SERVICE_WMI = "SELECT Name, DisplayName FROM Win32_Service WHERE " + DISPLAY_NAME + " LIKE 'SQL Server (%)'";
         private const string SERVICE_NS = "\\\\{0}\\root\\cimv2";
         private const string REG_KEY = "SOFTWARE\\Microsoft\\Microsoft SQL Server\\Instance Names\\SQL";
-        private const string ACTITIY = "Searching for SQL Instances";
+        private const string ACTIVITY = "Searching for SQL Instances";
         private const string STATUS_FORMAT = "Querying object {0}/{1}...";
         private const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
         private const string pName = "BrowserTimeoutInSecs";
@@ -55,6 +55,9 @@ namespace MG.Sql.Smo.PowerShell
             }
         };
         private List<string> Names;
+        protected override ICollection<string> Items => Names;
+        protected override string Activity => ACTIVITY;
+        protected override string StatusFormat => STATUS_FORMAT;
         private List<Task<IEnumerable<SqlInstanceResult>>> Tasks;
         private int TotalCount;
         private RuntimeDefinedParameterDictionary rtDict;
@@ -81,7 +84,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SearchMethod.Equals(BROWSER))
+            if (SMOContext.IsSet && SMOContext.IsConnected && SearchMethod.Equals(BROWSER))
             {
                 if (rtDict == null)
                 {
@@ -173,30 +176,14 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        private void UpdateProgress(int id, int on)
-        {
-            var progressRecord = new ProgressRecord(id, ACTITIY, string.Format(
-                STATUS_FORMAT, on, Names.Count));
-            double num = Math.Round(on / (double)Names.Count * 100, 2, MidpointRounding.ToEven);
-            progressRecord.PercentComplete = Convert.ToInt32(num);
-            WriteProgress(progressRecord);
-        }
         private void UpdateProgressAsync(int id, int on)
         {
             int realOn = TotalCount - on;
-            var progressRecord = new ProgressRecord(id, ACTITIY, string.Format(
+            var progressRecord = new ProgressRecord(id, ACTIVITY, string.Format(
                 STATUS_FORMAT, realOn, TotalCount));
-            double num = Math.Round(realOn / (double)TotalCount * 100, 2, MidpointRounding.ToEven);
+            double num = Math.Round(realOn / (double)TotalCount * HUNDRED, ROUND_DIGITS, MIDPOINT);
             progressRecord.PercentComplete = Convert.ToInt32(num);
             WriteProgress(progressRecord);
-        }
-        private void UpdateProgress(int id)
-        {
-            var pr = new ProgressRecord(id, ACTITIY, "Completed")
-            {
-                RecordType = ProgressRecordType.Completed
-            };
-            WriteProgress(pr);
         }
 
         private async Task<IEnumerable<SqlInstanceResult>> QueryAsync(string computerName)

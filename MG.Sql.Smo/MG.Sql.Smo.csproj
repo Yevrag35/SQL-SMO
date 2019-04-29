@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server\SmoConfiguration.cs" />
     <Compile Include="Server\SmoServer.cs" />
     <None Include="SmoPropertyCollection.cs" />
   </ItemGroup>
