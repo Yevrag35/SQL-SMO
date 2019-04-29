@@ -8,7 +8,7 @@ namespace MG.Sql.Smo
     public class SmoConfiguration
     {
         #region FIELDS/CONSTANTS
-        private Configuration _config;
+        private readonly Configuration _config;
 
         #endregion
 

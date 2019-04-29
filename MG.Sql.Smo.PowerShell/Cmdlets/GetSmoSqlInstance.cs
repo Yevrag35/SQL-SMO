@@ -79,6 +79,9 @@ namespace MG.Sql.Smo.PowerShell
         [ValidateSet(REGANDWMI, REG, WMI, BROWSER)]
         public string SearchMethod = WMI;
 
+        [Parameter(Mandatory = false)]
+        public PSCredential Credential { get; set; }
+
         #endregion
 
         #region CMDLET PROCESSING
@@ -132,7 +135,7 @@ namespace MG.Sql.Smo.PowerShell
 
                         if (t.IsCompleted)
                         {
-                            if (t.Result != null)
+                            if (!t.IsCanceled && t.Result != null)
                             {
                                 IEnumerable<SqlInstanceResult> outRes = null;
                                 if (!string.IsNullOrEmpty(Name))
@@ -146,10 +149,6 @@ namespace MG.Sql.Smo.PowerShell
                                 WriteObject(outRes, true);
                             }
 
-                            Tasks.Remove(t);
-                        }
-                        else if (t.IsCanceled)
-                        {
                             Tasks.Remove(t);
                         }
                     }
@@ -264,14 +263,19 @@ namespace MG.Sql.Smo.PowerShell
         {
             var names = new List<SqlInstanceResult>();
             string ns = string.Format(SERVICE_NS, computerName);
-            var scope = new ManagementScope(ns);
+            var co = new ConnectionOptions();
+            if (this.MyInvocation.BoundParameters.ContainsKey("Credential"))
+            {
+                co.Username = Credential.UserName;
+                co.SecurePassword = Credential.Password;
+            }
+            var scope = new ManagementScope(ns, co);
             scope.Connect();
             var query = new ObjectQuery(SERVICE_WMI);
             using (var searcher = new ManagementObjectSearcher(scope, query))
             {
                 using (ManagementObjectCollection col = searcher.Get())
                 {
-                    
                     foreach (ManagementObject mo in col)
                     {
                         using (mo)
