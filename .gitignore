@@ -263,3 +263,5 @@ desktop\.ini
 SQL-SMO_Reboot/DebugScript\.ps1
 
 SQL-SMO_Reboot/SmoServer\.cs
+
+MG\.Sql\.Smo\.PowerShell/DebugScript\.ps1

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MG.Sql.Smo.PowerShell
+namespace MG.Sql.Smo
 {
     public enum DatabaseStatus
     {

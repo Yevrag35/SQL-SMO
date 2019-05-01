@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Management.Automation;
 
-namespace MG.Sql.Smo.PowerShell.Cmdlets
+namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Set, "SmoDatabaseState", DefaultParameterSetName = "ByDatabaseName", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     public class SetSmoDatabaseState : GetSmoDatabaseBase

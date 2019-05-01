@@ -7,7 +7,7 @@ using System.Management.Automation;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "SmoServerConfig", ConfirmImpact = ConfirmImpact.None)]
-    [OutputType(typeof(Configuration))]
+    [OutputType(typeof(SmoConfiguration))]
     public class GetSmoServerConfig : BaseSqlCmdlet
     {
         #region PARAMETERS
@@ -23,7 +23,7 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        protected private Configuration GetConfig() => SMOContext.Connection.Configuration;
+        protected private SmoConfiguration GetConfig() => new SmoConfiguration(SMOContext.Connection.Configuration);
 
         #endregion
     }

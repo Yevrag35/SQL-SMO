@@ -96,7 +96,7 @@
     <Compile Include="Cmdlets\SetSmoAgentJob.cs" />
     <Compile Include="Cmdlets\SetSmoAgentServer.cs" />
     <Compile Include="Cmdlets\SetSmoDatabaseState.cs" />
-    <Compile Include="Objects\Enums.cs" />
+    <Compile Include="Cmdlets\SetSmoServerConfig.cs" />
     <Compile Include="Objects\SmoBrowserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\SMOContext.cs" />

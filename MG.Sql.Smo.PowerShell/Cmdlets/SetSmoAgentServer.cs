@@ -8,7 +8,7 @@ using System.Linq;
 using System.Management.Automation;
 using System.Reflection;
 
-namespace MG.Sql.Smo.PowerShell.Cmdlets
+namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Set, "SmoAgentServer", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, 
         DefaultParameterSetName = "Individual")]
