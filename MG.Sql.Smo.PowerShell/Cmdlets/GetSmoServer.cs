@@ -43,7 +43,7 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            var smoServer = (SmoServer)SMOContext.Connection;
+            var smoServer = (SmoServer)SmoContext.Connection;
             if (rtDict[pName].IsSet)
             {
                 string[] props = GetChosenValues<string>(pName, rtDict);

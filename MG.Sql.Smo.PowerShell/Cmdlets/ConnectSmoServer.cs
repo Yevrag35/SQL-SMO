@@ -58,7 +58,7 @@ namespace MG.Sql.Smo.PowerShell
                 )
             );
             this.TestSMO(smo);
-            SMOContext.AddConnection(smo, Force.ToBool());
+            SmoContext.AddConnection(smo, Force.ToBool());
         }
 
         #endregion

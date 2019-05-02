@@ -23,7 +23,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SMOContext.IsSet && SMOContext.IsConnected && rtDict == null)
+            if (SmoContext.IsSet && SmoContext.IsConnected && rtDict == null)
             {
                 pName = NAME;
                 pType = STRARR_TYPE;
@@ -36,7 +36,7 @@ namespace MG.Sql.Smo.PowerShell
                         ParameterSetName = "ByJobName"
                     }
                 };
-                rtDict = GetRTDictionary(SMOContext.JobNames);
+                rtDict = GetRTDictionary(SmoContext.JobNames);
             }
             return rtDict;
         }
@@ -58,10 +58,10 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET METHODS
 
         protected private JobCollection GetAllJobs() =>
-            SMOContext.Connection.JobServer.Jobs;
+            SmoContext.Connection.JobServer.Jobs;
 
         protected private IEnumerable<Microsoft.SqlServer.Management.Smo.Agent.Job> GetJobsByName(string[] names) =>
-            SMOContext.Connection.JobServer.Jobs.Cast<Microsoft.SqlServer.Management.Smo.Agent.Job>().Where(
+            SmoContext.Connection.JobServer.Jobs.Cast<Microsoft.SqlServer.Management.Smo.Agent.Job>().Where(
                     x => names.Contains(x.Name)
                 );
 

@@ -3,11 +3,10 @@ using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.Agent;
 using System;
 using System.Linq;
-using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    internal static class SMOContext
+    internal static class SmoContext
     {
         private static Server _con;
         internal static Server Connection

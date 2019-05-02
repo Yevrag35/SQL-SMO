@@ -23,7 +23,7 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        protected private SmoConfiguration GetConfig() => new SmoConfiguration(SMOContext.Connection.Configuration);
+        protected private SmoConfiguration GetConfig() => new SmoConfiguration(SmoContext.Connection.Configuration);
 
         #endregion
     }

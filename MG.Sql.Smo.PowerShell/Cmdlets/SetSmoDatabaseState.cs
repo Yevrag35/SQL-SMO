@@ -71,7 +71,7 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void EndProcessing()
         {
-            Database[] dbs = SMOContext.Connection.Databases.Cast<Database>().Where(x => names.Contains(x.Name)).ToArray();
+            Database[] dbs = SmoContext.Connection.Databases.Cast<Database>().Where(x => names.Contains(x.Name)).ToArray();
             if (this.MyInvocation.BoundParameters.ContainsKey("ReadAccess"))
             {
                 CurrentProgressStatus = STATUS_FORMAT_1;

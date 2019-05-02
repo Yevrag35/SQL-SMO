@@ -21,7 +21,7 @@ namespace MG.Sql.Smo.PowerShell
         {
             string[] names = this.MyInvocation.BoundParameters.ContainsKey(NAME)
                 ? GetChosenValues<string>(NAME, rtDict)
-                : SMOContext.DatabaseNames;
+                : SmoContext.DatabaseNames;
 
             for (int i = 0; i < names.Length; i++)
             {

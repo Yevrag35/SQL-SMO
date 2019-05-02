@@ -22,7 +22,7 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void BeginProcessing()
         {
-            if (!SMOContext.IsSet || !SMOContext.IsConnected)
+            if (!SmoContext.IsSet || !SmoContext.IsConnected)
                 throw new SmoContextNotSetException();
         }
 

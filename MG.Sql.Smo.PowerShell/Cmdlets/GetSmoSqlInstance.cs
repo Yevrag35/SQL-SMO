@@ -19,10 +19,10 @@ using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
+    [Cmdlet(VerbsCommon.Find, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
-    public class GetSmoSqlInstance : ProgressCmdlet, IDynamicParameters
+    public class FindSmoSqlInstance : ProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";
@@ -87,7 +87,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SMOContext.IsSet && SMOContext.IsConnected && SearchMethod.Equals(BROWSER))
+            if (SmoContext.IsSet && SmoContext.IsConnected && SearchMethod.Equals(BROWSER))
             {
                 if (rtDict == null)
                 {

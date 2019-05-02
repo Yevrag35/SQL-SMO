@@ -18,7 +18,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SMOContext.IsSet && SMOContext.IsConnected && rtDict == null)
+            if (SmoContext.IsSet && SmoContext.IsConnected && rtDict == null)
             {
                 pName = NAME;
                 pType = STRARR_TYPE;
@@ -32,7 +32,7 @@ namespace MG.Sql.Smo.PowerShell
                     }
                 };
 
-                rtDict = GetRTDictionary(SMOContext.DatabaseNames);
+                rtDict = GetRTDictionary(SmoContext.DatabaseNames);
             }
             return rtDict;
         }
@@ -40,7 +40,7 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        protected private Database GetDatabase(string name) => SMOContext.Connection.Databases[name];
+        protected private Database GetDatabase(string name) => SmoContext.Connection.Databases[name];
 
         #endregion
     }

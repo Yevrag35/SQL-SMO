@@ -22,7 +22,7 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        protected private JobServer GetJobServer() => SMOContext.Connection.JobServer;
+        protected private JobServer GetJobServer() => SmoContext.Connection.JobServer;
 
         #endregion
     }

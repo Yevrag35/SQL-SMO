@@ -261,9 +261,9 @@ namespace MG.Sql.Smo.PowerShell
         {
             foreach (var entry in this.MyInvocation.BoundParameters.Where(x => !SkipThese.Contains(x.Key)))
             {
-                SmoConfiguration.SetPropertyValue(SMOContext.Connection.Configuration, entry.Key, entry.Value);
+                SmoConfiguration.SetPropertyValue(SmoContext.Connection.Configuration, entry.Key, entry.Value);
             }
-            SMOContext.Connection.Configuration.Alter();
+            SmoContext.Connection.Configuration.Alter();
         }
     }
 }

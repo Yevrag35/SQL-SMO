@@ -12,7 +12,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
-        protected override void ProcessRecord() => SMOContext.Disconnect();
+        protected override void ProcessRecord() => SmoContext.Disconnect();
 
         #endregion
 
