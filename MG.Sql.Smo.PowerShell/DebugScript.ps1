@@ -1,7 +1,8 @@
 ﻿$curDir = Split-Path -Parent $MyInvocation.MyCommand.Definition;
-foreach ($dll in $(Get-ChildItem $curDir *.dll -File | ? { $_.Name -ne "System.Management.Automation.dll"}))
+foreach ($dll in $(Get-ChildItem $curDir *.psd1 -File))
 {
 	Import-Module $($dll | Convert-Path);
 }
 
-Connect-SmoServer -ServerName GARVMEDIA.yevrag35.com -EncryptConnection -TrustServerCertificate:$false
+$creds = Get-Credential mikelogin
+Connect-SmoServer -ServerName DGRLAB-SCCMSQL.dgrlab.com -EncryptConnection -SQLCredential $creds

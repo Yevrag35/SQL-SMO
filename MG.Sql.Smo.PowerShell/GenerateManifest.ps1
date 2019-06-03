@@ -13,6 +13,9 @@
     [string] $TargetFileName
 )
 
+## Clear out files
+Get-ChildItem -Path $DebugDirectory -Include *.ps1xml -Recurse | Remove-Item -Force;
+
 ## Get Module Version
 $assInfo = Get-Content $AssemblyInfo;
 foreach ($line in $assInfo)
@@ -22,8 +25,8 @@ foreach ($line in $assInfo)
         $vers = $line -replace '^\s*\[assembly\:\sAssemblyFileVersion\(\"(.*?)\"\)\]$', '$1';
     }
 }
-$allFiles = Get-ChildItem $ModuleFileDirectory * -File;
-$References = Join-Path "$ModuleFileDirectory\.." "ReferencedAssemblies";
+$allFiles = Get-ChildItem $ModuleFileDirectory -Include * -Exclude *.old -Recurse;
+$References = Join-Path "$ModuleFileDirectory\.." "Assemblies";
 
 [string[]]$allDlls = Get-ChildItem $References -Include *.dll -Exclude 'System.Management.Automation.dll' -Recurse | Select -ExpandProperty Name;
 # Import-Module $(Join-Path $DebugDirectory $TargetFileName);
@@ -43,22 +46,22 @@ $manifest = @{
     Description        = 'A module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects.'
     Author             = 'Mike Garvey'
     CompanyName        = 'DGR Systems, LLC.'
-    Copyright          = '(c) 2018 DGR Systems, LLC.  All rights reserved.'
+    Copyright          = '(c) 2019 DGR Systems, LLC.  All rights reserved.'
     ModuleVersion      = $vers.Trim()
     PowerShellVersion  = '4.0'
     RootModule         = $TargetFileName
     RequiredAssemblies = $allDlls
-    AliasesToExport    = 'Get-SQLMemoryLimit', 'Set-SQLMemoryLimit'
-    CmdletsToExport    = @( 'Disconnect-SMO', 'Get-SMOColumn', 'Get-SMOConfiguration', 
-							'Get-SMOConnection', 'Get-SMODatabase', 'Get-SMOJob', 'Get-SMOMemoryLimit', 
-							'Get-SMOSqlAgent', 'Get-SMOTable', 'New-SMO', 'Set-SMOConfiguration', 
-							'Set-SMOContext', 'Set-SMOMemoryLimit')
+    AliasesToExport    = @()
+    CmdletsToExport    = @( 'Connect-SmoServer', 'Disconnect-SmoServer', 'Get-SmoConfiguration', 'Get-SmoServer',
+							'Get-SmoConnection', 'Get-SmoDatabase', 'Get-SmoDatabaseState', 'Get-SmoAgentJob',
+							'Find-SmoSqlInstance', 'Get-SmoAgentServer', 'Set-SmoServerConfig',  'Set-SmoAgentJob', 
+							'Set-SmoAgentServer' )
     FunctionsToExport  = @()
     VariablesToExport  = ''
-    FormatsToProcess   = $allFormats
+    FormatsToProcess   = if ($allFormats.Length -gt 0) { $allFormats } else { @() };
     ProjectUri	       = 'https://github.com/Yevrag35/SQL-SMO'
     Tags               = @( 'SQL', 'Server', 'Instance', 'Property', 'Setting', 'Settings',
-                            'Set', 'Change', 'SMO', 'Management', 'Object', 'Memory', 'Tables',
+                            'Set', 'Change', 'Smo', 'Management', 'Object', 'Memory', 'Tables',
                             'Columns', 'Max', 'Min', 'MB', 'Megabyte', 'Feature', 'Microsoft',
                             'New', 'Value', 'Configuration', 'Alter', 'Authentication', 'Connection',
                             'Get', 'Set', 'RAM', 'Credential', 'Integrated', 'Security', 'Documenting',

@@ -111,6 +111,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />
+    <None Include="TypeFormats\AgentJob.ps1xml" />
+    <None Include="TypeFormats\AgentServer.ps1xml" />
+    <None Include="TypeFormats\SmoServer.ps1xml" />
+    <None Include="TypeFormats\SQL.SMO.Databases.SMOColumn.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.Databases.SMODatabase.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.Databases.SMOTable.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.MemoryProperty.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.SMOAgent.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.SMOJob.Format.ps1xml.old" />
+    <None Include="TypeFormats\SQL.SMO.SMOProperty.Format.ps1xml.old" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MG.Sql.Smo\MG.Sql.Smo.csproj">
@@ -119,4 +129,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -NonInteractive -WindowStyle Hidden -File "$(ProjectDir)GenerateManifest.ps1" -DebugDirectory "$(ProjectDir)bin\$(ConfigurationName)" -ModuleFileDirectory "$(ProjectDir)TypeFormats" -AssemblyInfo "$(ProjectDir)Properties\AssemblyInfo.cs" -TargetFileName "$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

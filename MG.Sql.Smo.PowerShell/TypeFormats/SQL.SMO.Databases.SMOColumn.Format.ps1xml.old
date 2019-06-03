@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+	<ViewDefinitions>
+		<View>
+			<Name>SMOColumn</Name>
+			<ViewSelectedBy>
+				<TypeName>SQL.SMO.Databases.SMOColumn</TypeName>
+			</ViewSelectedBy>
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<!-- <Alignment>Left</Alignment> -->
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- <Alignment>Left</Alignment> -->
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Width>100</Width>
+						<!-- <Alignment>Left</Alignment> -->
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Width>20</Width>
+						<!-- <Alignment>Right</Alignment> -->
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Width>3</Width>
+						<!-- <Alignment>Left</Alignment> -->
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Database</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Table</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Name</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>DataType</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>ID</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>

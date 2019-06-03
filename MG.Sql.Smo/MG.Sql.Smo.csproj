@@ -82,9 +82,7 @@
     <None Include="SmoPropertyCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DebugScript.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="DebugScript.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assemblies\" />

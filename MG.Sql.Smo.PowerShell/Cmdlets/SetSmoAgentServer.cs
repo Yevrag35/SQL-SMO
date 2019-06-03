@@ -12,6 +12,7 @@ namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Set, "SmoAgentServer", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, 
         DefaultParameterSetName = "Individual")]
+    [OutputType(typeof(void))]
     public class SetSmoAgentServer : GetSmoAgentServer
     {
         #region PARAMETERS
