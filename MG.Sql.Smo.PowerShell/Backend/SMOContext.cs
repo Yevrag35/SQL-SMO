@@ -42,7 +42,7 @@ namespace MG.Sql.Smo.PowerShell
         internal static void Disconnect()
         {
             Connection.ConnectionContext.Disconnect();
-            Connection = null;
+            //Connection = null;
             GC.Collect();
         }
     }

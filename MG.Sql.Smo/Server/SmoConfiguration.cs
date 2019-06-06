@@ -22,6 +22,7 @@ namespace MG.Sql.Smo
         public int? AffinityMask { get; private set; }
         public bool? AgentXPsEnabled { get; private set; }
         public bool? AllowUpdates { get; private set; }
+        [Obsolete]
         public int? AweEnabled { get; private set; }
         public int? BlockedProcessThreshold { get; private set; }
         public BinaryChoice? C2AuditMode { get; private set; }
@@ -83,8 +84,11 @@ namespace MG.Sql.Smo
         public BinaryChoice? TransformNoiseWords { get; private set; }
         public int? TwoDigitYearCutoff { get; private set; }
         public int? UserConnections { get; private set; }
+        [Obsolete]
         public bool? UserInstancesEnabled { get; private set; }
+        [Obsolete]
         public int? UserInstanceTimeout { get; private set; }
+        [Obsolete]
         public bool? WebXPsEnabled { get; private set; }
         public bool? XPCmdShellEnabled { get; private set; }
 
@@ -104,12 +108,16 @@ namespace MG.Sql.Smo
         {
             Type colType = col.GetType();
             MethodInfo indexer = colType.GetMethods().Single(x => x.Name == GET_ITEM &&
-                x.GetParameters().Any(p => p.Name.Equals(LOWER_NAME, StringComparison.CurrentCultureIgnoreCase) &&
-                    p.ParameterType.Equals(typeof(string))));
+                x.GetParameters().Any(
+                    p => p.Name.Equals(LOWER_NAME, StringComparison.CurrentCultureIgnoreCase) &&
+                        p.ParameterType.Equals(typeof(string))));
 
             IEnumerable<PropertyInfo> allProps = this.GetType().GetProperties(
                 BindingFlags.Instance | BindingFlags.Public).Where(
-                    x => x.CanWrite);
+                    x => x.CanWrite && 
+                        (CustomAttributeData.GetCustomAttributes(x).Count == 0 ||
+                        !CustomAttributeData.GetCustomAttributes(x).Select(a => a.AttributeType).Any(
+                            t => t.Equals(typeof(ObsoleteAttribute)))));
 
             foreach (PropertyInfo pi in allProps)
             {

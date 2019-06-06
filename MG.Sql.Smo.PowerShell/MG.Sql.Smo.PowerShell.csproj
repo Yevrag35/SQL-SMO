@@ -116,6 +116,7 @@
     <None Include="GenerateManifest.ps1" />
     <None Include="TypeFormats\AgentJob.ps1xml" />
     <None Include="TypeFormats\AgentServer.ps1xml" />
+    <None Include="TypeFormats\SmoConfiguration.ps1xml" />
     <None Include="TypeFormats\SmoServer.ps1xml" />
     <None Include="TypeFormats\SQL.SMO.Databases.SMOColumn.Format.ps1xml.old" />
     <None Include="TypeFormats\SQL.SMO.Databases.SMODatabase.Format.ps1xml.old" />

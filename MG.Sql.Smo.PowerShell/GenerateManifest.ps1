@@ -52,7 +52,7 @@ $manifest = @{
     RootModule         = $TargetFileName
     RequiredAssemblies = $allDlls
     AliasesToExport    = @()
-    CmdletsToExport    = @( 'Connect-SmoServer', 'Disconnect-SmoServer', 'Get-SmoConfiguration', 'Get-SmoServer',
+    CmdletsToExport    = @( 'Connect-SmoServer', 'Disconnect-SmoServer', 'Get-SmoServerConfig', 'Get-SmoServer',
 							'Get-SmoConnection', 'Get-SmoDatabase', 'Get-SmoDatabaseState', 'Get-SmoAgentJob',
 							'Find-SmoSqlInstance', 'Get-SmoAgentServer', 'Set-SmoServerConfig',  'Set-SmoAgentJob', 
 							'Set-SmoAgentServer' )

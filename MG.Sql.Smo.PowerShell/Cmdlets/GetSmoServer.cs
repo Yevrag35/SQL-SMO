@@ -67,18 +67,12 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET METHODS
         private string[] GetPropsToLoad()
         {
-            IEnumerable<PropertyInfo> propList = typeof(SmoServer).GetProperties(FLAGS).Where(
-                x => x.CanWrite);
-
             // Validate Server Version
-            if (SmoContext.Connection.Version.Major > 11)
-            {
-                propList = propList.Where(x => !x.Name.Equals("ActiveDirectory"));
-            }
-            return propList.Select(x => x.Name).ToArray();
-            //typeof(SmoServer).GetProperties().Where(
-            //x => x.CanWrite).Select(
-            //    x => x.Name).ToArray();
+            Func<PropertyInfo, bool> clause = SmoContext.Connection.Version.Major > 11
+                ? x => !x.Name.Equals("ActiveDirectory") && x.CanWrite
+                : (Func<PropertyInfo, bool>)(x => x.CanWrite);
+
+            return typeof(SmoServer).GetProperties(FLAGS).Where(clause).Select(x => x.Name).ToArray();
         }
         #endregion
     }
