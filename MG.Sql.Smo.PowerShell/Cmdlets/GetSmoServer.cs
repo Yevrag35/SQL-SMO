@@ -1,10 +1,13 @@
-﻿using Microsoft.SqlServer.Management.Common;
+﻿using MG.Dynamic;
+using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Management.Automation;
+using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
@@ -13,27 +16,27 @@ namespace MG.Sql.Smo.PowerShell
     public class GetSmoServer : BaseSqlCmdlet, IDynamicParameters
     {
         private const string alias = "p";
-        protected private RuntimeDefinedParameterDictionary rtDict;
+        //protected private RuntimeDefinedParameterDictionary rtDict;
+        protected private DynamicLibrary _dynLib;
+        private string[] AllProps;
 
         #region DYNAMIC PARAMETER PROCESSING
         public object GetDynamicParameters()
         {
-            if (rtDict == null)
+            if (_dynLib == null)
             {
-                attCol = new Collection<Attribute>
-                {
-                    new ParameterAttribute
-                    {
-                        Mandatory = false
-                    }
-                };
-                pName = PROPERTIES;
-                pType = STRARR_TYPE;
+                if (AllProps == null)
+                    AllProps = this.GetPropsToLoad();
 
-                rtDict = GetRTDictionary(this.GetPropsToLoad());
+                _dynLib = new DynamicLibrary();
+                var dp = new DynamicParameter<string>(PROPERTIES, AllProps, x => x, null, true)
+                {
+                    Mandatory = false
+                };
+                dp.ValidatedItems.Add("*");
+                _dynLib.Add(dp);
             }
-            
-            return rtDict;
+            return _dynLib;
         }
 
         #endregion
@@ -44,10 +47,17 @@ namespace MG.Sql.Smo.PowerShell
         protected override void ProcessRecord()
         {
             var smoServer = (SmoServer)SmoContext.Connection;
-            if (rtDict[pName].IsSet)
+            if (_dynLib.ParameterHasValue(PROPERTIES))
             {
-                string[] props = GetChosenValues<string>(pName, rtDict);
-                smoServer.LoadProperty(props);
+                string[] props = _dynLib.GetParameterValue<string[]>(PROPERTIES);
+                if (props.Contains("*"))
+                {
+                    WriteWarning("Loading all properties can cause PowerShell to use large amounts of memory if enumerated.  Use caution.");
+                    smoServer.LoadProperty(AllProps);
+                }
+                else
+                    smoServer.LoadProperty(props);
+                
             }
             WriteObject(smoServer, false);
         }
@@ -55,10 +65,21 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        private string[] GetPropsToLoad() => typeof(SmoServer).GetProperties().Where(
-            x => x.CanWrite).Select(
-                x => x.Name).ToArray();
+        private string[] GetPropsToLoad()
+        {
+            IEnumerable<PropertyInfo> propList = typeof(SmoServer).GetProperties(FLAGS).Where(
+                x => x.CanWrite);
 
+            // Validate Server Version
+            if (SmoContext.Connection.Version.Major > 11)
+            {
+                propList = propList.Where(x => !x.Name.Equals("ActiveDirectory"));
+            }
+            return propList.Select(x => x.Name).ToArray();
+            //typeof(SmoServer).GetProperties().Where(
+            //x => x.CanWrite).Select(
+            //    x => x.Name).ToArray();
+        }
         #endregion
     }
 }

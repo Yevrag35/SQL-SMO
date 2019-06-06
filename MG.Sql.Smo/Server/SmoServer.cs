@@ -192,6 +192,9 @@ namespace MG.Sql.Smo
         public UserDefinedMessageCollection UserDefinedMessages { get; private set; }
         public UserOptions UserOptions { get; private set; }
         public Version Version => _sql.Version;
+        public SQLYearVersion YearVersion => _sql.Version.Major != 10 && _sql.Version.Minor != 50
+            ? (SQLYearVersion)_sql.Version.Major
+            : SQLYearVersion.SQLServer2008R2;
 
         //public int? VersionMajor { get; private set; }
         //public int? VersionMinor { get; private set; }

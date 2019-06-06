@@ -373,6 +373,9 @@
 							<ListItem>
 								<PropertyName>Version</PropertyName>
 							</ListItem>
+							<ListItem>
+								<PropertyName>YearVersion</PropertyName>
+							</ListItem>
 						</ListItems>
 					</ListEntry>
 				</ListEntries>
