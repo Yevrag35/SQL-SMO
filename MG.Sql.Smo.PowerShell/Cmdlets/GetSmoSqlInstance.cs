@@ -1,4 +1,6 @@
-﻿using Microsoft.ActiveDirectory.Management;
+﻿using MG.Dynamic;
+using MG.Progress.PowerShell;
+using Microsoft.ActiveDirectory.Management;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.Win32;
 using System;
@@ -22,7 +24,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Find, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
-    public class FindSmoSqlInstance : ProgressCmdlet, IDynamicParameters
+    public class FindSmoSqlInstance : AscendingProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";
@@ -47,20 +49,22 @@ namespace MG.Sql.Smo.PowerShell
         private const int THOUSAND = 1000;
         private const int ZERO = 0;
         private static readonly Type pType = typeof(int);
-        private static readonly Collection<Attribute> attCol = new Collection<Attribute>
-        {
-            new ParameterAttribute
-            {
-                Mandatory = false
-            }
-        };
+        //private static readonly Collection<Attribute> attCol = new Collection<Attribute>
+        //{
+        //    new ParameterAttribute
+        //    {
+        //        Mandatory = false
+        //    }
+        //};
+        private DynamicLibrary _dynLib;
         private List<string> Names;
+        private int taskCount = 0;
+
         protected override ICollection<string> Items => Names;
         protected override string Activity => ACTIVITY;
         protected override string StatusFormat => STATUS_FORMAT;
         private List<Task<IEnumerable<SqlInstanceResult>>> Tasks;
-        private int TotalCount;
-        private RuntimeDefinedParameterDictionary rtDict;
+        protected override int TotalCount => taskCount;
 
         #endregion
 
@@ -87,13 +91,20 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SmoContext.IsSet && SmoContext.IsConnected && SearchMethod.Equals(BROWSER))
+            if (SearchMethod.Equals(BROWSER))
             {
-                if (rtDict == null)
+                if (_dynLib == null)
                 {
-                    rtDict = this.GetRTDictionary();
+                    _dynLib = new DynamicLibrary
+                    {
+                        new DynamicParameter<int>(pName, pType)
+                        {
+                            Mandatory = false,
+                            ValidateRange = new KeyValuePair<int, int>(0, 3600)
+                        }
+                    };
                 }
-                return rtDict;
+                return _dynLib;
             }
             else
                 return null;
@@ -122,47 +133,22 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void EndProcessing()
         {
+            taskCount = Tasks.Count;
             if (SearchMethod != BROWSER)
             {
-                TotalCount = Tasks.Count;
+                IList<SqlInstanceResult> list = base.ProcessTasksWithProgressOutput(Tasks).ToList();
+                if (this.MyInvocation.BoundParameters.ContainsKey("Name"))
+                    list = this.FilterByNameParameter(list, this.GetWildcard(Name));
 
-                while (Tasks.Count > 0)
-                {
-                    this.UpdateProgressAsync(0, Tasks.Count);
-                    for (int cn = Tasks.Count - 1; cn >= 0; cn--)
-                    {
-                        Task<IEnumerable<SqlInstanceResult>> t = Tasks[cn];
-
-                        if (t.IsCompleted)
-                        {
-                            if (!t.IsCanceled && t.Result != null)
-                            {
-                                IEnumerable<SqlInstanceResult> outRes = null;
-                                if (!string.IsNullOrEmpty(Name))
-                                {
-                                    WildcardPattern wc = this.GetWildcard(Name);
-                                    outRes = this.FilterByNameParameter(t.Result, wc);
-                                }
-                                else
-                                    outRes = t.Result;
-
-                                WriteObject(outRes, true);
-                            }
-
-                            Tasks.Remove(t);
-                        }
-                    }
-                    Thread.Sleep(1000);
-                }
-                this.UpdateProgress(0);
+                WriteObject(list, true);
             }
             else
             {
                 using (var udpClient = new UdpClient())
                 {
                     int to = THREE;
-                    if (rtDict[pName].Value != null)
-                        to = Convert.ToInt32(rtDict[pName].Value) * THOUSAND;
+                    if (_dynLib != null && _dynLib.ParameterHasValue(pName))
+                        to = _dynLib.GetParameterValue<int>(pName) * THOUSAND;
 
                     udpClient.Client.ReceiveTimeout = to;
                     var results = this.SqlBrowserQuery(Names, udpClient);
@@ -175,15 +161,6 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
-        private void UpdateProgressAsync(int id, int on)
-        {
-            int realOn = TotalCount - on;
-            var progressRecord = new ProgressRecord(id, ACTIVITY, string.Format(
-                STATUS_FORMAT, realOn, TotalCount));
-            double num = Math.Round(realOn / (double)TotalCount * HUNDRED, ROUND_DIGITS, MIDPOINT);
-            progressRecord.PercentComplete = Convert.ToInt32(num);
-            WriteProgress(progressRecord);
-        }
 
         private async Task<IEnumerable<SqlInstanceResult>> QueryAsync(string computerName)
         {
@@ -319,9 +296,8 @@ namespace MG.Sql.Smo.PowerShell
             }
         }
 
-        private IEnumerable<SqlInstanceResult> FilterByNameParameter(IEnumerable<SqlInstanceResult> results, WildcardPattern wc)
+        private IList<SqlInstanceResult> FilterByNameParameter(IList<SqlInstanceResult> list, WildcardPattern wc)
         {
-            var list = results.ToList();
             for (int i = list.Count - 1; i >= 0; i--)
             {
                 SqlInstanceResult s = list[i];
@@ -332,15 +308,6 @@ namespace MG.Sql.Smo.PowerShell
         }
 
         private WildcardPattern GetWildcard(string name) => new WildcardPattern(name, WildcardOptions.IgnoreCase);
-
-        private RuntimeDefinedParameterDictionary GetRTDictionary()
-        {
-            var rtDict = new RuntimeDefinedParameterDictionary
-            {
-                { pName, new RuntimeDefinedParameter(pName, pType, attCol) }
-            };
-            return rtDict;
-        }
 
         #endregion
     }

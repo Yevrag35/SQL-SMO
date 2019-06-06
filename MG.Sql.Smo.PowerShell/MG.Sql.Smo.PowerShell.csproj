@@ -37,6 +37,10 @@
     <Reference Include="MG.Dynamic">
       <HintPath>Assemblies\MG.Dynamic.dll</HintPath>
     </Reference>
+    <Reference Include="MG.Progress.PowerShell, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assemblies\MG.Progress.PowerShell.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.ActiveDirectory.Management, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Assemblies\Microsoft.ActiveDirectory.Management.dll</HintPath>
