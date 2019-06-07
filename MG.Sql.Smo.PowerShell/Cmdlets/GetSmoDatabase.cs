@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Management.Smo;
+﻿using MG.Dynamic;
+using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,14 +20,11 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            string[] names = this.MyInvocation.BoundParameters.ContainsKey(NAME)
-                ? GetChosenValues<string>(NAME, rtDict)
-                : SmoContext.DatabaseNames;
+            IEnumerable<Database> dbs = _dynLib != null && _dynLib.ParameterHasValue(NAME)
+                ? _dynLib.GetUnderlyingValues<Database>(NAME)
+                : SmoContext.Connection.Databases.Cast<Database>();
 
-            for (int i = 0; i < names.Length; i++)
-            {
-                WriteObject(this.GetDatabase(names[i]), false);
-            }
+            WriteObject(dbs, true);
         }
 
         #endregion

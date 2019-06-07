@@ -1,46 +1,47 @@
-﻿using Microsoft.SqlServer.Management.Common;
+﻿using MG.Dynamic;
+using MG.Progress.PowerShell;
+using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
 	//[Cmdlet(VerbsCommon.Get, "SmoDatabase", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "ByDatabaseName")]
     //[OutputType(typeof(Database))]
-    public abstract class GetSmoDatabaseBase : ProgressCmdlet, IDynamicParameters
+    public abstract class GetSmoDatabaseBase : BaseSqlProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
-        protected private RuntimeDefinedParameterDictionary rtDict;
+        protected private DynamicLibrary _dynLib;
 
         #endregion
 
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SmoContext.IsSet && SmoContext.IsConnected && rtDict == null)
+            if (SmoContext.IsSet && SmoContext.IsConnected && _dynLib == null)
             {
-                pName = NAME;
-                pType = STRARR_TYPE;
-                attCol = new Collection<Attribute>
+                _dynLib = new DynamicLibrary();
+                IDynParam param = new DynamicParameter<Database>(NAME, SmoContext.Connection.Databases.Cast<Database>(), x => x.Name, "Name", true)
                 {
-                    new ParameterAttribute
-                    {
-                        Mandatory = false,
-                        Position = 0,
-                        ParameterSetName = "ByDatabaseName"
-                    }
+                    Mandatory = false,
+                    Position = 0,
+                    SupportsWildcards = true
                 };
-
-                rtDict = GetRTDictionary(SmoContext.DatabaseNames);
+                param.Aliases.Add("n");
+                _dynLib.Add(param);
             }
-            return rtDict;
+            return _dynLib;
         }
+
+        protected override void BeginProcessing() => base.BeginProcessing();
 
         #endregion
 
         #region CMDLET METHODS
-        protected private Database GetDatabase(string name) => SmoContext.Connection.Databases[name];
 
         #endregion
     }

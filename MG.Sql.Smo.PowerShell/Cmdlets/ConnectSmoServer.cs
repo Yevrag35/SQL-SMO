@@ -32,6 +32,7 @@ namespace MG.Sql.Smo.PowerShell
         public string InstanceName { get; set; }
 
         [Parameter(Mandatory = false)]
+        [Alias("Credential")]
         public PSCredential SQLCredential { get; set; }
 
         [Parameter(Mandatory = true, ParameterSetName = "UsingSSL")]

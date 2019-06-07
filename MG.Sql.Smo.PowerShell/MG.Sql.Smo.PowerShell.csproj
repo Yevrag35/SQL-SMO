@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseSqlProgressCmdlet.cs" />
     <Compile Include="Cmdlets\ConnectSmoServer.cs" />
     <Compile Include="Cmdlets\DisconnectSmoServer.cs" />
     <Compile Include="Cmdlets\GetSmoAgentJob.cs" />
@@ -98,11 +99,12 @@
     <Compile Include="Cmdlets\GetSmoDatabaseBase.cs" />
     <Compile Include="Cmdlets\GetSmoServer.cs" />
     <Compile Include="Cmdlets\GetSmoServerConfig.cs" />
-    <Compile Include="Cmdlets\GetSmoSqlInstance.cs" />
-    <Compile Include="Cmdlets\Bases\ProgressCmdlet.cs" />
+    <Compile Include="Cmdlets\FindSmoSqlInstance.cs" />
+    <None Include="Cmdlets\Bases\ProgressCmdlet.cs" />
+    <Compile Include="Cmdlets\GetSmoTable.cs" />
     <Compile Include="Cmdlets\SetSmoAgentJob.cs" />
     <Compile Include="Cmdlets\SetSmoAgentServer.cs" />
-    <Compile Include="Cmdlets\SetSmoDatabaseState.cs" />
+    <None Include="Cmdlets\SetSmoDatabaseState.cs" />
     <Compile Include="Cmdlets\SetSmoServerConfig.cs" />
     <Compile Include="Objects\SmoBrowserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

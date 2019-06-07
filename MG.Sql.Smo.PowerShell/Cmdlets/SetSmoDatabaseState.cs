@@ -99,7 +99,7 @@ namespace MG.Sql.Smo.PowerShell
             for (int i = 1; i <= dbs.Length; i++)
             {
                 Database db = dbs[i - 1];
-                base.UpdateProgressAndName(0, i, db.Name);
+                base.UpdateProgressAndDeclare(0, i, db.Name);
                 if (Force || ShouldProcess(db.Name, string.Format("Make {0}", access.ToString())))
                 {
                     db.ReadOnly = Convert.ToBoolean(access);
@@ -114,7 +114,7 @@ namespace MG.Sql.Smo.PowerShell
             for (int i = 1; i <= dbs.Length; i++)
             {
                 Database db = dbs[i - 1];
-                base.UpdateProgressAndName(1, i, db.Name);
+                base.UpdateProgressAndDeclare(1, i, db.Name);
                 switch (status)
                 {
                     case DatabaseStatus.Offline:
