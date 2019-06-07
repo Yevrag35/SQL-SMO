@@ -10,12 +10,11 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-	//[Cmdlet(VerbsCommon.Get, "SmoDatabase", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "ByDatabaseName")]
-    //[OutputType(typeof(Database))]
     public abstract class GetSmoDatabaseBase : BaseSqlProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         protected private DynamicLibrary _dynLib;
+        protected private const string DBNAME = "Database" + NAME;
 
         #endregion
 
@@ -25,7 +24,7 @@ namespace MG.Sql.Smo.PowerShell
             if (SmoContext.IsSet && SmoContext.IsConnected && _dynLib == null)
             {
                 _dynLib = new DynamicLibrary();
-                IDynParam param = new DynamicParameter<Database>(NAME, SmoContext.Connection.Databases.Cast<Database>(), x => x.Name, "Name", true)
+                IDynParam param = new DynamicParameter<Database>(DBNAME, SmoContext.Connection.Databases.Cast<Database>(), x => x.Name, "Name", true)
                 {
                     Mandatory = false,
                     Position = 0,

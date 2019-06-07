@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseSqlProgressCmdlet : AscendingProgressCmdlet
+    public abstract class BaseSqlProgressCmdlet : ProgressCmdlet
     {
         internal const string NAME = "Name";
         internal const string PROPERTIES = "Properties";

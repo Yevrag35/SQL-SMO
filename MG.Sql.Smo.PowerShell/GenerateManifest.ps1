@@ -54,6 +54,7 @@ $manifest = @{
     AliasesToExport    = @()
     CmdletsToExport    = @( 'Connect-SmoServer', 'Disconnect-SmoServer', 'Get-SmoServerConfig', 'Get-SmoServer',
 							'Get-SmoConnection', 'Get-SmoDatabase', 'Get-SmoDatabaseState', 'Get-SmoAgentJob',
+							'Get-SmoTable',
 							'Find-SmoSqlInstance', 'Get-SmoAgentServer', 'Set-SmoServerConfig',  'Set-SmoAgentJob', 
 							'Set-SmoAgentServer' )
     FunctionsToExport  = @()

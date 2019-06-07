@@ -20,8 +20,8 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            IEnumerable<Database> dbs = _dynLib != null && _dynLib.ParameterHasValue(NAME)
-                ? _dynLib.GetUnderlyingValues<Database>(NAME)
+            IEnumerable<Database> dbs = _dynLib != null && _dynLib.ParameterHasValue(DBNAME)
+                ? _dynLib.GetUnderlyingValues<Database>(DBNAME)
                 : SmoContext.Connection.Databases.Cast<Database>();
 
             WriteObject(dbs, true);
