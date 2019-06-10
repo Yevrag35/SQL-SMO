@@ -12,7 +12,6 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(void))]
     public class StartAgentJob : JobAgentBaseCmdlet
     {
-        private const string JOB_CAP = "Job - {0}";
         private const string STEP_CAP = JOB_CAP + " at StepId {1}";
         private const string START = "Start";
 

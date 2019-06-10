@@ -13,6 +13,7 @@ namespace MG.Sql.Smo.PowerShell
         protected private SmoJob _input;
         protected private const string JOBNAME = "JobName";
         protected private const string JOBID = "JobId";
+        protected private const string JOB_CAP = "Job - {0}";
 
 
         #region PARAMETERS
