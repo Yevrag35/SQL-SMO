@@ -10,11 +10,11 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class GetSmoDatabaseBase : BaseSqlProgressCmdlet, IDynamicParameters
+    public abstract class GetDatabaseBase : BaseSqlProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         protected private DynamicLibrary _dynLib;
-        protected private const string DBNAME = "Database" + NAME;
+        internal const string DBNAME = "Database" + NAME;
 
         #endregion
 

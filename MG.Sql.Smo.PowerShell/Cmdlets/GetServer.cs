@@ -11,9 +11,9 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoServer", ConfirmImpact = ConfirmImpact.None)]
+    [Cmdlet(VerbsCommon.Get, "Server", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(SmoServer))]
-    public class GetSmoServer : BaseSqlCmdlet, IDynamicParameters
+    public class GetServer : BaseSqlCmdlet, IDynamicParameters
     {
         private const string alias = "p";
         //protected private RuntimeDefinedParameterDictionary rtDict;

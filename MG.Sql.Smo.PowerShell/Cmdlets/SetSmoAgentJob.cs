@@ -10,8 +10,8 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Set, "SmoAgentJob", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class SetSmoAgentJob : GetSmoAgentJob
+    [Cmdlet(VerbsCommon.Set, "AgentJob", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    public class SetAgentJob : GetAgentJob
     {
         private List<Microsoft.SqlServer.Management.Smo.Agent.Job> list;
         private static readonly string[] SkipThese = new string[3]

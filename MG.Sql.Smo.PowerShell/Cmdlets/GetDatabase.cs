@@ -7,9 +7,9 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoDatabase", ConfirmImpact = ConfirmImpact.None)]
+    [Cmdlet(VerbsCommon.Get, "Database", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(Database))]
-    public class GetSmoDatabase : GetSmoDatabaseBase
+    public class GetDatabase : GetDatabaseBase
     {
         protected override string StatusFormat => null;
         protected override string Activity => null;

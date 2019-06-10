@@ -10,8 +10,8 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoAgentJob", ConfirmImpact = ConfirmImpact.None)]
-    public class GetSmoAgentJob : BaseSqlCmdlet, IDynamicParameters
+    [Cmdlet(VerbsCommon.Get, "AgentJob", ConfirmImpact = ConfirmImpact.None)]
+    public class GetAgentJob : BaseSqlCmdlet, IDynamicParameters
     {
         protected private RuntimeDefinedParameterDictionary rtDict;
         protected private bool ParameterSet => rtDict[pName].IsSet;

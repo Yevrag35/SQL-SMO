@@ -6,8 +6,8 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommunications.Disconnect, "SmoServer", ConfirmImpact = ConfirmImpact.None)]
-    public class DisconnectSmoServer : PSCmdlet
+    [Cmdlet(VerbsCommunications.Disconnect, "Server", ConfirmImpact = ConfirmImpact.None)]
+    public class DisconnectServer : PSCmdlet
     {
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();

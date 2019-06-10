@@ -8,8 +8,8 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Set, "SmoDatabaseState", DefaultParameterSetName = "ByDatabaseName", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class SetSmoDatabaseState : GetSmoDatabaseBase
+    [Cmdlet(VerbsCommon.Set, "DatabaseState", DefaultParameterSetName = "ByDatabaseName", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    public class SetDatabaseState : GetDatabaseBase
     {
         #region FIELDS/CONSTANTS
         private const string STATUS_FORMAT_1 = "Setting ReadAccess on database {0}/{1}... {2}";

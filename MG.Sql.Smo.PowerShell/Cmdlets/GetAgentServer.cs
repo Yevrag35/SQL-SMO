@@ -7,9 +7,9 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoAgentServer", ConfirmImpact = ConfirmImpact.None)]
+    [Cmdlet(VerbsCommon.Get, "AgentServer", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(JobServer))]
-    public class GetSmoAgentServer : BaseSqlCmdlet
+    public class GetAgentServer : BaseSqlCmdlet
     {
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();

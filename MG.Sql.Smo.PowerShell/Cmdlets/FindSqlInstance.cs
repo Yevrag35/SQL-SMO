@@ -21,10 +21,10 @@ using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Find, "SmoSqlInstance", ConfirmImpact = ConfirmImpact.None,
+    [Cmdlet(VerbsCommon.Find, "SqlInstance", ConfirmImpact = ConfirmImpact.None,
         DefaultParameterSetName = "SpecifyComputerName")]
     [OutputType(typeof(SqlInstanceResult))]
-    public class FindSmoSqlInstance : AscendingProgressCmdlet, IDynamicParameters
+    public class FindSqlInstance : AscendingProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         private const string COMPUTERNAME = "COMPUTERNAME";

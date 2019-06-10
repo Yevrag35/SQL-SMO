@@ -9,10 +9,10 @@ using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommunications.Connect, "SmoServer", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
+    [Cmdlet(VerbsCommunications.Connect, "Server", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
     [Alias("consmo")]
     [CmdletBinding(PositionalBinding = false)]
-    public class ConnectSmoServer : PSCmdlet
+    public class ConnectServer : PSCmdlet
     {
         #region PRIVATE CONSTANTS
         private const string CON_STRING = "Server={0};";

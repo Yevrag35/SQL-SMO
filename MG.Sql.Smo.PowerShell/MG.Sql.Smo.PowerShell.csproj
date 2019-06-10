@@ -91,21 +91,26 @@
   <ItemGroup>
     <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseSqlProgressCmdlet.cs" />
-    <Compile Include="Cmdlets\ConnectSmoServer.cs" />
-    <Compile Include="Cmdlets\DisconnectSmoServer.cs" />
-    <Compile Include="Cmdlets\GetSmoAgentJob.cs" />
-    <Compile Include="Cmdlets\GetSmoAgentServer.cs" />
-    <Compile Include="Cmdlets\GetSmoDatabase.cs" />
-    <Compile Include="Cmdlets\GetSmoDatabaseBase.cs" />
-    <Compile Include="Cmdlets\GetSmoServer.cs" />
-    <Compile Include="Cmdlets\GetSmoServerConfig.cs" />
-    <Compile Include="Cmdlets\FindSmoSqlInstance.cs" />
+    <Compile Include="Cmdlets\Bases\JobAgentBaseCmdlet.cs" />
+    <Compile Include="Cmdlets\ConnectServer.cs" />
+    <Compile Include="Cmdlets\DisconnectServer.cs" />
+    <Compile Include="Cmdlets\GetAgentJob.cs" />
+    <Compile Include="Cmdlets\GetAgentServer.cs" />
+    <Compile Include="Cmdlets\GetColumn.cs" />
+    <Compile Include="Cmdlets\GetDatabase.cs" />
+    <Compile Include="Cmdlets\GetDatabaseBase.cs" />
+    <Compile Include="Cmdlets\GetServer.cs" />
+    <Compile Include="Cmdlets\GetServerConfig.cs" />
+    <Compile Include="Cmdlets\FindSqlInstance.cs" />
+    <Compile Include="Cmdlets\StopAgentJob.cs" />
+    <Compile Include="RemoveAgentJob.cs" />
     <None Include="Cmdlets\Bases\ProgressCmdlet.cs" />
-    <Compile Include="Cmdlets\GetSmoTable.cs" />
+    <Compile Include="Cmdlets\GetTable.cs" />
     <Compile Include="Cmdlets\SetSmoAgentJob.cs" />
-    <Compile Include="Cmdlets\SetSmoAgentServer.cs" />
-    <None Include="Cmdlets\SetSmoDatabaseState.cs" />
-    <Compile Include="Cmdlets\SetSmoServerConfig.cs" />
+    <Compile Include="Cmdlets\SetAgentServer.cs" />
+    <None Include="Cmdlets\SetDatabaseState.cs" />
+    <Compile Include="Cmdlets\SetServerConfig.cs" />
+    <Compile Include="Cmdlets\StartAgentJob.cs" />
     <Compile Include="Objects\SmoBrowserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\SmoContext.cs" />
@@ -122,16 +127,10 @@
     <None Include="GenerateManifest.ps1" />
     <None Include="TypeFormats\AgentJob.ps1xml" />
     <None Include="TypeFormats\AgentServer.ps1xml" />
+    <None Include="TypeFormats\SmoColumn.ps1xml" />
     <None Include="TypeFormats\SmoConfiguration.ps1xml" />
     <None Include="TypeFormats\SmoServer.ps1xml" />
     <None Include="TypeFormats\SmoTable.ps1xml" />
-    <None Include="TypeFormats\SQL.SMO.Databases.SMOColumn.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.Databases.SMODatabase.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.Databases.SMOTable.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.MemoryProperty.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.SMOAgent.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.SMOJob.Format.ps1xml.old" />
-    <None Include="TypeFormats\SQL.SMO.SMOProperty.Format.ps1xml.old" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MG.Sql.Smo\MG.Sql.Smo.csproj">

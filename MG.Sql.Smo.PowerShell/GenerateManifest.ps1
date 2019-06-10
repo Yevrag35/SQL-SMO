@@ -50,13 +50,14 @@ $manifest = @{
     ModuleVersion      = $vers.Trim()
     PowerShellVersion  = '4.0'
     RootModule         = $TargetFileName
+	DefaultCommandPrefix = "Smo"
     RequiredAssemblies = $allDlls
     AliasesToExport    = @()
-    CmdletsToExport    = @( 'Connect-SmoServer', 'Disconnect-SmoServer', 'Get-SmoServerConfig', 'Get-SmoServer',
-							'Get-SmoConnection', 'Get-SmoDatabase', 'Get-SmoDatabaseState', 'Get-SmoAgentJob',
-							'Get-SmoTable',
-							'Find-SmoSqlInstance', 'Get-SmoAgentServer', 'Set-SmoServerConfig',  'Set-SmoAgentJob', 
-							'Set-SmoAgentServer' )
+    CmdletsToExport    = @( 'Connect-Server', 'Disconnect-Server', 'Get-Column', 'Get-ServerConfig', 'Get-Server',
+							'Get-Connection', 'Get-Database', 'Get-DatabaseState', 'Get-AgentJob',
+							'Get-Table',
+							'Find-SqlInstance', 'Get-AgentServer', 'Set-ServerConfig',  'Set-AgentJob', 
+							'Set-AgentServer' )
     FunctionsToExport  = @()
     VariablesToExport  = ''
     FormatsToProcess   = if ($allFormats.Length -gt 0) { $allFormats } else { @() };

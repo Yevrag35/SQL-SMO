@@ -75,10 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enums.cs" />
+    <Compile Include="EqualityComparers.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
+    <Compile Include="MgSmoCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SmoConfiguration.cs" />
     <Compile Include="Server\SmoServer.cs" />
+    <Compile Include="SmoJob.cs" />
     <None Include="SmoPropertyCollection.cs" />
   </ItemGroup>
   <ItemGroup>

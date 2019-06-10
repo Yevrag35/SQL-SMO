@@ -9,8 +9,8 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Set, "SmoServerConfig", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class SetSmoServerConfig : BaseSqlCmdlet
+    [Cmdlet(VerbsCommon.Set, "ServerConfig", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    public class SetServerConfig : BaseSqlCmdlet
     {
         private static readonly string[] SkipThese = new string[5]
         {

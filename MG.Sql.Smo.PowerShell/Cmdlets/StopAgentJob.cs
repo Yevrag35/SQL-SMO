@@ -6,9 +6,8 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SmoServerConfig", ConfirmImpact = ConfirmImpact.None)]
-    [OutputType(typeof(SmoConfiguration))]
-    public class GetSmoServerConfig : BaseSqlCmdlet
+    [Cmdlet(VerbsLifecycle.Stop, "AgentJob", ConfirmImpact = ConfirmImpact.None)]
+    public class StopAgentJob : PSCmdlet
     {
         #region PARAMETERS
 
@@ -18,12 +17,15 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
-        protected override void ProcessRecord() => WriteObject(this.GetConfig(), false);
+        protected override void ProcessRecord()
+        {
+
+        }
 
         #endregion
 
         #region CMDLET METHODS
-        protected private SmoConfiguration GetConfig() => new SmoConfiguration(SmoContext.Connection.Configuration);
+
 
         #endregion
     }
