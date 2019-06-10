@@ -74,7 +74,7 @@ namespace MG.Sql.Smo
 
         #region METHODS
         public void AddSharedSchedule(int scheduleId) => _job.AddSharedSchedule(scheduleId);
-        void IAlterable.Alter() => _job.Alter();
+        public void Alter() => _job.Alter();
         public void ApplyToTargetServer(string serverName) => _job.ApplyToTargetServer(serverName);
         public void ApplyToTargetServerGroup(string groupName) => _job.ApplyToTargetServerGroup(groupName);
         void ICreatable.Create() => _job.Create();

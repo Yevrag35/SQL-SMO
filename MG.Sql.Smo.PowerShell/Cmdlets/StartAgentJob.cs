@@ -7,18 +7,22 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsLifecycle.Start, "AgentJob", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "ByPipelineInput")]
-    public class StartAgentJob : BaseSqlCmdlet
+    [Cmdlet(VerbsLifecycle.Start, "AgentJob", ConfirmImpact = ConfirmImpact.High, DefaultParameterSetName = "ByPipelineInput", SupportsShouldProcess = true)]
+    [CmdletBinding(PositionalBinding = false)]
+    [OutputType(typeof(void))]
+    public class StartAgentJob : JobAgentBaseCmdlet
     {
-        #region PARAMETERS
-        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "ByPipelineInput")]
-        public Microsoft.SqlServer.Management.Smo.Agent.Job Job { get; set; }
+        private const string JOB_CAP = "Job - {0}";
+        private const string STEP_CAP = JOB_CAP + " at StepId {1}";
+        private const string START = "Start";
 
-        [Parameter(Mandatory = true, Position = 0, ParameterSetName = "ByJobName")]
-        public string JobName { get; set; }
+        #region PARAMETERS
 
         [Parameter(Mandatory = false, Position = 1)]
         public object StartAt { get; set; }
+
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Force { get; set; }
 
         #endregion
 
@@ -27,29 +31,38 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            if (!this.MyInvocation.BoundParameters.ContainsKey("StartAt"))
-                this.Job.Start();
+            base.ProcessRecord();
+            if (!_input.IsEnabled)
+            {
+                if (this.Force)
+                {
+                    WriteWarning(_input.Name + " was previously disabled but will be enabled to start this command.");
+                    _input.IsEnabled = true;
+                    _input.Alter();
+                }
+                else
+                    throw new InvalidOperationException("Cannot start a disabled job.  Use the \"-Force\" parameter if this was intended or enable the job.");
+            }
 
-            else
+            if (this.MyInvocation.BoundParameters.ContainsKey(START + "At"))
                 this.StartJobAt(this.StartAt);
+
+            else if (Force || base.ShouldProcess(string.Format(JOB_CAP, _input.Name), START))
+                _input.Start();
         }
 
         #endregion
 
         #region CMDLET METHODS
+
         private void StartJobAt(object jobStep)
         {
-            if (jobStep is int jobStepNo)
-            {
-                var js = this.Job.JobSteps.ItemById(jobStepNo);
-                this.Job.Start(js.Name);
-            }
-            else if (jobStep is string jobName)
-                this.Job.Start(jobName);
-            
-            else
+            JobStep js = base.GetJobStep(jobStep);
+            if (js != null && (this.Force || base.ShouldProcess(string.Format(STEP_CAP, _input.Name, js.ID), START)))
+                _input.Start(js.Name);
+
+            else if (js == null)
                 throw new ArgumentException(jobStep + " is not a valid job step.");
-            
         }
 
         #endregion

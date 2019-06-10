@@ -47,7 +47,7 @@ namespace MG.Sql.Smo
         public MgSmoCollection<T> FindAll(Predicate<T> match) => _list.FindAll(match);
         public T GetItemById(object id, string idProperty = null)
         {
-            T obj = default;
+            T obj = null;
             if (_list.Count > 0)
             {
                 if (string.IsNullOrEmpty(idProperty))
@@ -77,6 +77,17 @@ namespace MG.Sql.Smo
         public bool Remove(T item) => _list.Remove(item);
         public void RemoveAt(int index) => _list.RemoveAt(index);
         IEnumerator IEnumerable.GetEnumerator() => _list.GetEnumerator();
+
+        public bool TryFind(Predicate<T> match, out T matched)
+        {
+            bool result = false;
+            matched = _list.Find(match);
+            if (matched != null)
+            {
+                result = true;
+            }
+            return result;
+        }
 
 
         public static implicit operator MgSmoCollection<T>(List<T> list) => new MgSmoCollection<T>(list);

@@ -104,9 +104,9 @@
     <Compile Include="Cmdlets\FindSqlInstance.cs" />
     <Compile Include="Cmdlets\StopAgentJob.cs" />
     <Compile Include="RemoveAgentJob.cs" />
+    <Compile Include="SetAgentJob.cs" />
     <None Include="Cmdlets\Bases\ProgressCmdlet.cs" />
     <Compile Include="Cmdlets\GetTable.cs" />
-    <Compile Include="Cmdlets\SetSmoAgentJob.cs" />
     <Compile Include="Cmdlets\SetAgentServer.cs" />
     <None Include="Cmdlets\SetDatabaseState.cs" />
     <Compile Include="Cmdlets\SetServerConfig.cs" />

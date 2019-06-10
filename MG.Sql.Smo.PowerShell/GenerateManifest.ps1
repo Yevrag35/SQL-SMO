@@ -53,11 +53,11 @@ $manifest = @{
 	DefaultCommandPrefix = "Smo"
     RequiredAssemblies = $allDlls
     AliasesToExport    = @()
-    CmdletsToExport    = @( 'Connect-Server', 'Disconnect-Server', 'Get-Column', 'Get-ServerConfig', 'Get-Server',
-							'Get-Connection', 'Get-Database', 'Get-DatabaseState', 'Get-AgentJob',
-							'Get-Table',
-							'Find-SqlInstance', 'Get-AgentServer', 'Set-ServerConfig',  'Set-AgentJob', 
-							'Set-AgentServer' )
+    CmdletsToExport    = @( 'Connect-Server', 'Disconnect-Server', 'Find-SqlInstance',
+							'Get-Column', 'Get-ServerConfig', 'Get-Server', 'Get-Connection', 
+							'Get-Database', 'Get-DatabaseState', 'Get-AgentJob', 'Get-Table',
+							'Get-AgentServer', 'Start-AgentJob', 'Set-ServerConfig', 'Set-AgentJob', 
+							'Set-AgentServer', 'Stop-AgentJob')
     FunctionsToExport  = @()
     VariablesToExport  = ''
     FormatsToProcess   = if ($allFormats.Length -gt 0) { $allFormats } else { @() };

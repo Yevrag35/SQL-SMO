@@ -1,4 +1,5 @@
-﻿using Microsoft.SqlServer.Management.Common;
+﻿using MG.Dynamic;
+using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.Agent;
 using System;
@@ -11,17 +12,19 @@ using System.Reflection;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Set, "AgentJob", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
-    public class SetAgentJob : GetAgentJob
+    [OutputType(typeof(void))]
+    [CmdletBinding(PositionalBinding = false)]
+    public class SetAgentJob : JobAgentBaseCmdlet
     {
-        private List<Microsoft.SqlServer.Management.Smo.Agent.Job> list;
         private static readonly string[] SkipThese = new string[3]
         {
             NAME, "InputObject", "Force"
         };
+        private bool yesToAll = false;
+        private bool noToAll = false;
+        private ShouldProcessReason _reason;
 
         #region PARAMETERS
-        [Parameter(Mandatory = true, Position = 0, ParameterSetName = "ByPipelineInput", ValueFromPipeline = true, DontShow = true)]
-        public Microsoft.SqlServer.Management.Smo.Agent.Job InputObject { get; set; }
 
         [Parameter(Mandatory = false)]
         public string Category { get; set; }
@@ -71,61 +74,34 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = false)]
         public SwitchParameter Force { get; set; }
 
-
         #endregion
-        private IEnumerable<PropertyInfo> Properties;
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing()
-        {
-            base.BeginProcessing();
-            list = new List<Microsoft.SqlServer.Management.Smo.Agent.Job>();
-            Properties = this.GetJobProperties();
-        }
+        protected override void BeginProcessing() => base.BeginProcessing();
 
         protected override void ProcessRecord()
         {
-            if (this.ParameterSet)
-                list.AddRange(base.GetJobsByName(GetChosenValues<string>(pName, rtDict)));
+            base.ProcessRecord();
 
-            else if (this.ParameterSetName == "ByPipelineInput")
-                list.Add(InputObject);
-
-            else
-                list.AddRange(base.GetAllJobs().Cast<Microsoft.SqlServer.Management.Smo.Agent.Job>());
-        }
-
-        protected override void EndProcessing()
-        {
-            for (int i = 0; i < list.Count; i++)
+            if (Force || ShouldContinue("Setting Properties on Job", "Set", ref yesToAll, ref noToAll))
             {
-                var job = list[i];
-                if (Force || ShouldProcess("Job - " + job.Name, "Set"))
-                {
-                    this.SetJob(this.MyInvocation.BoundParameters, job);
-                }
+                this.SetJob(this.MyInvocation.BoundParameters, _input);
             }
         }
 
         #endregion
 
-        #region CMDLET METHODS
-        private void SetJob(Dictionary<string, object> dict, Microsoft.SqlServer.Management.Smo.Agent.Job job)
+        #region BACKEND METHODS
+        private void SetJob(Dictionary<string, object> dict, SmoJob job)
         {
+            var props = job.GetType().GetProperties(FLAGS).Where(x => x.CanWrite);
             foreach (KeyValuePair<string, object> entry in dict.Where(x => !SkipThese.Contains(x.Key)))
             {
-                PropertyInfo pi = Properties.Single(x => x.Name.Contains(entry.Key));
-
+                PropertyInfo pi = props.Single(x => x.Name.Contains(entry.Key));
                 pi.SetValue(job, entry.Value);
             }
 
             job.Alter();
-        }
-
-        private IEnumerable<PropertyInfo> GetJobProperties()
-        {
-            return typeof(Microsoft.SqlServer.Management.Smo.Agent.Job).GetProperties(FLAGS).Where(
-                x => x.CanWrite);
         }
 
         #endregion
