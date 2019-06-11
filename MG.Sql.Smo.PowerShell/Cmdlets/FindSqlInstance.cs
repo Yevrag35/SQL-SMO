@@ -151,7 +151,7 @@ namespace MG.Sql.Smo.PowerShell
                         to = _dynLib.GetParameterValue<int>(pName) * THOUSAND;
 
                     udpClient.Client.ReceiveTimeout = to;
-                    var results = this.SqlBrowserQuery(Names, udpClient);
+                    List<SqlInstanceResult> results = this.SqlBrowserQuery(Names, udpClient);
                     WriteObject(results, true);
                     this.UpdateProgress(0);
                 }

@@ -259,7 +259,7 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            foreach (var entry in this.MyInvocation.BoundParameters.Where(x => !SkipThese.Contains(x.Key)))
+            foreach (KeyValuePair<string, object> entry in this.MyInvocation.BoundParameters.Where(x => !SkipThese.Contains(x.Key)))
             {
                 SmoConfiguration.SetPropertyValue(SmoContext.Connection.Configuration, entry.Key, entry.Value);
             }

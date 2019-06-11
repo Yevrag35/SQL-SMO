@@ -116,7 +116,7 @@ namespace MG.Sql.Smo.PowerShell
         private void TestSMO(Server srv)
         {
             string memberToTest = "Status";
-            var t = srv.GetType();
+            Type t = srv.GetType();
             try
             {
                 t.InvokeMember(memberToTest, BindingFlags.GetProperty, null, srv, null);

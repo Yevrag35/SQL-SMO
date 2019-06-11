@@ -1,5 +1,5 @@
 ﻿using MG.Dynamic;
-using MG.Sql.Smo.PowerShell.Backend;
+using MG.Swappable;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.Agent;
@@ -96,24 +96,6 @@ namespace MG.Sql.Smo.PowerShell
             return parameters.Any(x => !SkipThese.Contains(x.Key, comparer));
         }
 
-        private void ResolveLists(ref SwappableDictionary swapDict, ref List<PropertyInfo> propList)
-        {
-            IEqualityComparer<string> comparer = new SmoContext.CaseInsensitiveComparer();
-            for (int p = propList.Count - 1; p >= 0; p--)
-            {
-                PropertyInfo pi = propList[p];
-                if (SkipThese.Contains(pi.Name))
-                    propList.Remove(pi);
-
-                else if (!swapDict.ContainsKey(pi.Name) && swapDict.ContainsKey(pi.Name, StringComparison.CurrentCultureIgnoreCase))
-                {
-                    swapDict.Swap(pi.Name, StringComparison.CurrentCultureIgnoreCase);
-                }
-                else if (!swapDict.ContainsKey(pi.Name, StringComparison.CurrentCultureIgnoreCase))
-                    propList.Remove(pi);
-            }
-        }
-
         private void SetJob(Dictionary<string, object> parameters, SmoJob job)
         {
             var sd = new SwappableDictionary(parameters);
@@ -125,7 +107,7 @@ namespace MG.Sql.Smo.PowerShell
 
             for (int i = sd.Count - 1; i >= 0; i--)
             {
-                var kvp = sd.ElementAt(i);
+                KeyValuePair<string, object> kvp = sd.ElementAt(i);
                 if (SkipThese.Contains(kvp.Key))
                     sd.Remove(kvp.Key);
             }
