@@ -12,9 +12,6 @@
 						<ListItems>
 							<ListItem>
 								<PropertyName>ActiveDirectory</PropertyName>
-								<ItemSelectionCondition>
-									<ScriptBlock>$_.ActiveDirectory -ne $null</ScriptBlock>
-								</ItemSelectionCondition>
 							</ListItem>
 							<ListItem>
 								<PropertyName>AffinityInfo</PropertyName>
@@ -347,9 +344,6 @@
 								<PropertyName>SystemDataTypes</PropertyName>
 							</ListItem>
 							<ListItem>
-								<PropertyName>SystemMessages</PropertyName>
-							</ListItem>
-							<ListItem>
 								<PropertyName>TapeLoadWaitTime</PropertyName>
 							</ListItem>
 							<ListItem>
@@ -363,9 +357,6 @@
 							</ListItem>
 							<ListItem>
 								<PropertyName>UserData</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>UserDefinedMessages</PropertyName>
 							</ListItem>
 							<ListItem>
 								<PropertyName>UserOptions</PropertyName>

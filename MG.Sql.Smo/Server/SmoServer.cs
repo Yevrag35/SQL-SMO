@@ -18,6 +18,7 @@ namespace MG.Sql.Smo
     {
         #region FIELDS AND CONSTANTS
         private Server _sql;
+        private SmoConfiguration _config;
         private const BindingFlags PUB_INST = BindingFlags.Public | BindingFlags.Instance;
         internal static readonly PropertyInfo[] thisProps = typeof(SmoServer).GetProperties(PUB_INST);
         private static readonly PropertyInfo[] origProps = typeof(Server).GetProperties(PUB_INST);
@@ -26,16 +27,16 @@ namespace MG.Sql.Smo
 
         #region PUBLIC PROPERTIES
         [Obsolete]
-        public ServerActiveDirectory ActiveDirectory { get; private set; }
-        public AffinityInfo AffinityInfo { get; private set; }
+        public ServerActiveDirectory ActiveDirectory => _sql.ActiveDirectory;
+        public AffinityInfo AffinityInfo => _sql.AffinityInfo;
         public AuditLevel AuditLevel
         {
             get => _sql.AuditLevel;
             set => _sql.AuditLevel = value;
         }
-        public AuditCollection Audits { get; private set; }
-        public AvailabilityGroupCollection AvailabilityGroups { get; private set; }
-        public BackupDeviceCollection BackupDevices { get; private set; }
+        public AuditCollection Audits => _sql.Audits;
+        public AvailabilityGroupCollection AvailabilityGroups => _sql.AvailabilityGroups;
+        public BackupDeviceCollection BackupDevices => _sql.BackupDevices;
         public string BackupDirectory
         {
             get => _sql.BackupDirectory;
@@ -53,14 +54,14 @@ namespace MG.Sql.Smo
         public int CollationID => _sql.CollationID;
         public int ComparisonStyle => _sql.ComparisonStyle;
         public string ComputerNamePhysicalNetBIOS => _sql.ComputerNamePhysicalNetBIOS;
-        public Configuration Configuration { get; private set; }
-        public ServerConnection ConnectionContext { get; private set; }
+        public SmoConfiguration Configuration => _config;
+        public ServerConnection ConnectionContext => _sql.ConnectionContext;
         SfcConnectionContext ISfcHasConnection.ConnectionContext => ((ISfcHasConnection)_sql).ConnectionContext;
-        public CredentialCollection Credentials { get; private set; }
-        public CryptographicProviderCollection CryptographicProviders { get; private set; }
+        public CredentialCollection Credentials => _sql.Credentials;
+        public CryptographicProviderCollection CryptographicProviders => _sql.CryptographicProviders;
         public DatabaseEngineEdition DatabaseEngineEdition => _sql.DatabaseEngineEdition;
         public DatabaseEngineType DatabaseEngineType => _sql.DatabaseEngineType;
-        public DatabaseCollection Databases { get; private set; }
+        public DatabaseCollection Databases => _sql.Databases;
         public AvailabilityGroupClusterType DefaultAvailabilityGroupClusterType => _sql.DefaultAvailabilityGroupClusterType;
         public string DefaultFile
         {
@@ -80,21 +81,21 @@ namespace MG.Sql.Smo
         string ISfcDomainLite.DomainName => ((ISfcDomainLite)_sql).DomainName;
         string ISfcDomainLite.DomainInstanceName => ((ISfcDomainLite)_sql).DomainInstanceName;
         public string Edition => _sql.Edition;
-        public EndpointCollection Endpoints { get; private set; }
+        public EndpointCollection Endpoints => _sql.Endpoints;
         public Edition EngineEdition => _sql.EngineEdition;
         public string ErrorLogPath => _sql.ErrorLogPath;
-        public ServerEvents Events { get; private set; }
-        public ExecutionManager ExecutionManager { get; private set; }
+        public ServerEvents Events => _sql.Events;
+        public ExecutionManager ExecutionManager => _sql.ExecutionManager;
         public FileStreamEffectiveLevel FilestreamLevel => _sql.FilestreamLevel;
         public string FilestreamShareName => _sql.FilestreamShareName;
-        public FullTextService FullTextService { get; private set; }
+        public FullTextService FullTextService => _sql.FullTextService;
         public HadrManagerStatus HadrManagerStatus => _sql.HadrManagerStatus;
-        public string HostDistribution { get; private set; }
+        public string HostDistribution => _sql.HostDistribution;
         public string HostPlatform => _sql.HostPlatform;
-        public string HostRelease { get; private set; }
-        public string HostServicePackLevel { get; private set; }
-        public int? HostSku { get; private set; }
-        public Information Information { get; private set; }
+        public string HostRelease => _sql.HostRelease;
+        public string HostServicePackLevel => _sql.HostServicePackLevel;
+        public int? HostSku => _sql.HostSku;
+        public Information Information => _sql.Information;
         public string InstallDataDirectory => _sql.InstallDataDirectory;
         public string InstallSharedDirectory => _sql.InstallSharedDirectory;
         public string InstanceName => _sql.InstanceName;
@@ -111,17 +112,17 @@ namespace MG.Sql.Smo
         public bool IsReadOnlyListWithLoadBalancingSupported => _sql.IsReadOnlyListWithLoadBalancingSupported;
         public bool IsSingleUser => _sql.IsSingleUser;
         public bool IsXTPSupported => _sql.IsXTPSupported;
-        public JobServer JobServer { get; private set; }
+        public JobServer JobServer => _sql.JobServer;
         public string Language => _sql.Language;
-        public LanguageCollection Languages { get; private set; }
-        public LinkedServerCollection LinkedServers { get; private set; }
+        public LanguageCollection Languages => _sql.Languages;
+        public LinkedServerCollection LinkedServers => _sql.LinkedServers;
         public ServerLoginMode LoginMode
         {
             get => _sql.LoginMode;
             set => _sql.LoginMode = value;
         }
-        public LoginCollection Logins { get; private set; }
-        public SqlMail Mail { get; private set; }
+        public LoginCollection Logins => _sql.Logins;
+        public SqlMail Mail => _sql.Mail;
         public string MailProfile
         {
             get => _sql.MailProfile;
@@ -138,7 +139,7 @@ namespace MG.Sql.Smo
             get => _sql.NumberOfLogFiles;
             set => _sql.NumberOfLogFiles = value;
         }
-        public OleDbProviderSettingsCollection OleDbProviderSettings { get; private set; }
+        public OleDbProviderSettingsCollection OleDbProviderSettings => _sql.OleDbProviderSettings;
         public string OSVersion => _sql.OSVersion;
         public string PathSeparator => _sql.PathSeparator;
         public PerfMonMode PerfMonMode
@@ -153,23 +154,23 @@ namespace MG.Sql.Smo
         public int ProcessorUsage => _sql.ProcessorUsage;
         public string Product => _sql.Product;
         public string ProductLevel => _sql.ProductLevel;
-        public SqlPropertyCollection Properties { get; private set; }
-        public ServerProxyAccount ProxyAccount { get; private set; }
-        public ResourceGovernor ResourceGovernor { get; private set; }
-        public DateTime ResourceLastUpdateDateTime { get; private set; }
+        public SqlPropertyCollection Properties => _sql.Properties;
+        public ServerProxyAccount ProxyAccount => _sql.ProxyAccount;
+        public ResourceGovernor ResourceGovernor => _sql.ResourceGovernor;
+        public DateTime ResourceLastUpdateDateTime => _sql.ResourceLastUpdateDateTime;
         public Version ResourceVersion => _sql.ResourceVersion;
         //public string ResourceVersionString { get; private set; }
-        public ServerRoleCollection Roles { get; private set; }
+        public ServerRoleCollection Roles => _sql.Roles;
         public string RootDirectory => _sql.RootDirectory;
-        public ServerAuditSpecificationCollection ServerAuditSpecifications { get; private set; }
+        public ServerAuditSpecificationCollection ServerAuditSpecifications => _sql.ServerAuditSpecifications;
         public DatabaseEngineType ServerType => _sql.ServerType;
         public string ServiceAccount => _sql.ServiceAccount;
         public string ServiceInstanceId => _sql.ServiceInstanceId;
-        public ServiceMasterKey ServiceMasterKey { get; private set; }
+        public ServiceMasterKey ServiceMasterKey => _sql.ServiceMasterKey;
         public string ServiceName => _sql.ServiceName;
         public ServiceStartMode ServiceStartMode => _sql.ServiceStartMode;
-        public Settings Settings { get; private set; }
-        public SmartAdmin SmartAdmin { get; private set; }
+        public Settings Settings => _sql.Settings;
+        public SmartAdmin SmartAdmin => _sql.SmartAdmin;
         public short SqlCharSet => _sql.SqlCharSet;
         public string SqlCharSetName => _sql.SqlCharSetName;
         public string SqlDomainGroup => _sql.SqlDomainGroup;
@@ -178,7 +179,7 @@ namespace MG.Sql.Smo
         public SqlSmoState State => _sql.State;
         public ServerStatus Status => _sql.Status;
         public AvailabilityGroupClusterType[] SupportedAvailabilityGroupClusterTypes => _sql.SupportedAvailabilityGroupClusterTypes;
-        public SystemDataTypeCollection SystemDataTypes { get; private set; }
+        public SystemDataTypeCollection SystemDataTypes => _sql.SystemDataTypes;
         public SystemMessageCollection SystemMessages { get; private set; }
         public int TapeLoadWaitTime
         {
@@ -190,15 +191,11 @@ namespace MG.Sql.Smo
         public Urn Urn { get; private set; }
         public object UserData { get; private set; }
         public UserDefinedMessageCollection UserDefinedMessages { get; private set; }
-        public UserOptions UserOptions { get; private set; }
+        public UserOptions UserOptions => _sql.UserOptions;
         public Version Version => _sql.Version;
         public SQLYearVersion YearVersion => _sql.Version.Major != 10 && _sql.Version.Minor != 50
             ? (SQLYearVersion)_sql.Version.Major
             : SQLYearVersion.SQLServer2008R2;
-
-        //public int? VersionMajor { get; private set; }
-        //public int? VersionMinor { get; private set; }
-        //public string VersionString { get; private set; }
 
         #endregion
 
@@ -206,7 +203,11 @@ namespace MG.Sql.Smo
 
         public SmoServer() { }
 
-        public SmoServer(Server server) => _sql = server;
+        public SmoServer(Server server)
+        {
+            _sql = server;
+            _config = new SmoConfiguration(_sql.Configuration);
+        }
 
         #endregion
 

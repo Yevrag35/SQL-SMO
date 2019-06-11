@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseSqlProgressCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\HighMemoryCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\JobAgentBaseCmdlet.cs" />
     <Compile Include="Cmdlets\ConnectServer.cs" />
     <Compile Include="Cmdlets\DisconnectServer.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Cmdlets\GetServer.cs" />
     <Compile Include="Cmdlets\GetServerConfig.cs" />
     <Compile Include="Cmdlets\FindSqlInstance.cs" />
+    <Compile Include="Cmdlets\GetSystemMessages.cs" />
     <Compile Include="Cmdlets\StopAgentJob.cs" />
     <Compile Include="RemoveAgentJob.cs" />
     <Compile Include="SetAgentJob.cs" />
