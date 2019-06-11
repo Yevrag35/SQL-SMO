@@ -10,7 +10,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsLifecycle.Stop, "AgentJob", DefaultParameterSetName = "ByPipelineInput")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(void))]
-    public class StopAgentJob : JobAgentBaseCmdlet
+    public class StopAgentJob : AgentJobModifyBaseCmdlet
     {
         private const string STOP = "Stop";
         private bool yesToAll = false;

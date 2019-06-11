@@ -14,7 +14,7 @@ namespace MG.Sql.Smo.PowerShell
     {
         #region FIELDS/CONSTANTS
         protected private DynamicLibrary _dynLib;
-        internal const string DBNAME = "Database" + NAME;
+        internal const string DBNAME = "Database" + BaseSqlCmdlet.NAME;
 
         #endregion
 

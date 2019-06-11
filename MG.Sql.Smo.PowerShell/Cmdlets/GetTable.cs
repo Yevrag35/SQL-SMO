@@ -24,7 +24,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
         //private string[] chosenNames = null;
         //private bool OneDB = false;
         protected override string Activity => "SQL Table Retrieval";
-        protected private const string TABNAME = "Table" + NAME;
+        protected private const string TABNAME = "Table" + BaseSqlCmdlet.NAME;
         protected override ICollection<string> Items => _tables.Select(x => x.Name).ToArray();
         protected override int TotalCount => _tables.Count;
 

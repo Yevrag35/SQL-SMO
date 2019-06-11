@@ -12,11 +12,11 @@ namespace MG.Sql.Smo.PowerShell
 {
     public abstract class BaseSqlProgressCmdlet : ProgressCmdlet
     {
-        internal const string NAME = "Name";
-        internal const string PROPERTIES = "Properties";
-        internal static readonly Type STR_TYPE = typeof(string);
-        internal static readonly Type STRARR_TYPE = typeof(string[]);
-        internal const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
+        //internal const string NAME = "Name";
+        //internal const string PROPERTIES = "Properties";
+        //internal static readonly Type STR_TYPE = typeof(string);
+        //internal static readonly Type STRARR_TYPE = typeof(string[]);
+        //internal const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
 
         protected override void BeginProcessing()
         {

@@ -56,7 +56,7 @@ $manifest = @{
     RequiredAssemblies     = $allDlls
     CmdletsToExport        = @( 'Connect-Server', 'Disconnect-Server', 'Find-SqlInstance',
                                 'Get-Column', 'Get-ServerConfig', 'Get-Server', 'Get-SystemMessages',
-                                'Get-Connection', 
+                                'Get-Connection', 'Remove-AgentJob'
                                 'Get-Database', 'Get-DatabaseState', 'Get-AgentJob', 'Get-Table',
                                 'Get-AgentServer', 'Start-AgentJob', 'Set-ServerConfig', 'Set-AgentJob', 
                                 'Set-AgentServer', 'Stop-AgentJob')

@@ -8,7 +8,7 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class JobAgentBaseCmdlet : BaseSqlCmdlet
+    public abstract class AgentJobModifyBaseCmdlet : BaseForceSqlCmdlet
     {
         protected private SmoJob _input;
         protected private const string JOBNAME = "JobName";

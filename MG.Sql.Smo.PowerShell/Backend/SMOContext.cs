@@ -2,6 +2,7 @@
 using Microsoft.SqlServer.Management.Smo;
 using Microsoft.SqlServer.Management.Smo.Agent;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MG.Sql.Smo.PowerShell
@@ -45,5 +46,13 @@ namespace MG.Sql.Smo.PowerShell
             //Connection = null;
             GC.Collect();
         }
+
+        internal class CaseInsensitiveComparer : IEqualityComparer<string>
+        {
+            public bool Equals(string x, string y) => x.Equals(y, StringComparison.CurrentCultureIgnoreCase);
+            public int GetHashCode(string obj) => obj.GetHashCode();
+        }
     }
+
+    
 }

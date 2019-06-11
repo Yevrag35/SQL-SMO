@@ -12,15 +12,9 @@ using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class HighMemoryCmdlet : BaseSqlCmdlet
+    public abstract class HighMemoryCmdlet : BaseForceSqlCmdlet
     {
         private const string WARNING = "Enumerating this cmdlet's output can cause PowerShell to use large amounts of memory.  Use caution.";
-
-        #region PARAMETERS
-        [Parameter(Mandatory = false)]
-        public SwitchParameter Force { get; set; }
-
-        #endregion
 
         #region CMDLET PROCESSING
         protected override void BeginProcessing()
@@ -29,23 +23,18 @@ namespace MG.Sql.Smo.PowerShell
             base.WriteWarning(WARNING);
         }
 
-        protected override void ProcessRecord()
-        {
-
-        }
-
         #endregion
 
         #region BACKEND METHODS
-        public static long Test(IEnumerable collection)
-        {
-            long tot = GC.GetTotalMemory(true);
-            Run(collection);
-            long newTot = GC.GetTotalMemory(false);
-            return newTot - tot;
-        }
+        //public static long Test(IEnumerable collection)
+        //{
+        //    long tot = GC.GetTotalMemory(true);
+        //    Run(collection);
+        //    long newTot = GC.GetTotalMemory(false);
+        //    return newTot - tot;
+        //}
 
-        private static void Run(IEnumerable collection) => collection.GetEnumerator();
+        //private static void Run(IEnumerable collection) => collection.GetEnumerator();
 
         #endregion
     }
