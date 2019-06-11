@@ -28,6 +28,6 @@ Like so:
 
 ## New Cmdlets in 1.0.0-alpha
 
-__Get-SmoSystemMessages__
-__Start-SmoAgentJob__
-__Stop-SmoAgentJob__
+* __Get-SmoSystemMessages__
+* __Start-SmoAgentJob__
+* __Stop-SmoAgentJob__
