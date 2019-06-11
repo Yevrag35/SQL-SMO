@@ -120,9 +120,7 @@
     <Folder Include="Assemblies\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DebugScript.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="DebugScript.ps1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />

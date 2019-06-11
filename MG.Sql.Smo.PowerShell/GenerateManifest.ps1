@@ -39,15 +39,16 @@ $manifestFile = $TargetFileName.Replace('.dll', '.psd1');
 # $allNames = @($($allFiles | Select -ExpandProperty Name), $manifestFile);
 
 $allFiles | Copy-Item -Destination $DebugDirectory -Force;
+$modPath = Join-Path $DebugDirectory $manifestFile
 
 $manifest = @{
-    Path               = $(Join-Path $DebugDirectory $manifestFile)
+    Path               = $modPath
     Guid               = 'd2f53583-045a-4939-a12b-bd446e0b7fcd';
     Description        = 'A module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects.'
     Author             = 'Mike Garvey'
     CompanyName        = 'DGR Systems, LLC.'
     Copyright          = '(c) 2019 DGR Systems, LLC.  All rights reserved.'
-    ModuleVersion      = $vers.Trim()
+    ModuleVersion      = $($vers.Trim() -split '\.' | Select-Object -First 3) -join '.'
     PowerShellVersion  = '4.0'
     RootModule         = $TargetFileName
 	DefaultCommandPrefix = "Smo"
@@ -73,3 +74,4 @@ $manifest = @{
 };
 
 New-ModuleManifest @manifest;
+Update-ModuleManifest -Path $modPath -Prerelease 'alpha'
