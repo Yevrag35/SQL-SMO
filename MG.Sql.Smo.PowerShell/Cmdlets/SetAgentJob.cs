@@ -114,22 +114,6 @@ namespace MG.Sql.Smo.PowerShell
             }
         }
 
-        //private List<PropertyInfo> GetPropertiesFromKeys(Type jobType, ref List<string> keyList)
-        //{
-        //    var pis = jobType.GetProperties(FLAGS).ToList();
-        //    for (int i = pis.Count - 1; i >= 0 ; i--)
-        //    {
-        //        PropertyInfo pi = pis[i];
-        //        string key = keyList.Find(x => x.Equals(pi.Name, StringComparison.CurrentCultureIgnoreCase));
-        //        if (string.IsNullOrEmpty(key))
-        //            pis.Remove(pi);
-        //    }
-        //    //return jobType.GetProperties(FLAGS).Where(
-        //    //    x => keyList.Exists(
-        //    //        n => n.Equals(
-        //    //            x.Name, StringComparison.CurrentCultureIgnoreCase))).ToList();
-        //}
-
         private void SetJob(Dictionary<string, object> parameters, SmoJob job)
         {
             var sd = new SwappableDictionary(parameters);
@@ -139,7 +123,14 @@ namespace MG.Sql.Smo.PowerShell
             if (sd.ContainsKey("Enabled"))
                 sd.Swap(sd.NewSwappable("IsEnabled", "Enabled"));
 
-            var propList = job.GetType().GetProperties(FLAGS).Where(x => x.CanWrite && parameters.ContainsKey(x.Name)).ToList();
+            for (int i = sd.Count - 1; i >= 0; i--)
+            {
+                var kvp = sd.ElementAt(i);
+                if (SkipThese.Contains(kvp.Key))
+                    sd.Remove(kvp.Key);
+            }
+
+            var propList = job.GetType().GetProperties(FLAGS).Where(x => x.CanWrite && sd.ContainsKey(x.Name)).ToList();
 
             base.ChangeValues(job, sd, propList);
 
