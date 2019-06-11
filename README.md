@@ -10,14 +10,18 @@ This is a module for gathering and editing SQL Server Instance properties utiliz
 
 ---
 
-## What's new in 0.5.0.0?
+## What's new in 0.6.0.0?
 
-New cmdlet structure and new Commands!  "Get-SMOSqlAgent" & "Get-SMOJob"
+I have been re-working the module (yet again...) to a new one.  As such, I'm eliminating the following commands:
+__New-SMO__
+__Set-SMOContext__
 
-I spent most of 0.5.0.0's development re-focusing on dynamic list views and dynamic property loading for each of the SQL objects you can retrieve (i.e. - databases, tables, columns, etc.).
+They will both be replaced by Connect-SmoServer.  'Connect-SmoServer' will accomplish what both commands did; establishing a set context to a particular SQL server/instance.
 
-The result is making available __ALL__ of the object's original properties without displaying them by default.  In a very similar way to MS's Active Directory PowerShell module, most commands now have a "-Properties" parameter that can load and display the desired properties (along with default ones) specified.
+As of 5/1/19, I have not yet developed the new module fully yet, but hope to have the same functionality the old one had, as well as providing new capabilities.
 
-The best part about that is that __THEY'RE DYNAMICALLY RETRIEVED FOR YOU!__
+One new command, that I like, is the Get-SmoSqlInstance cmdlet.  This command will find you SQL instances on a remote machine by using a combination of search methods (e.g. - WMI, Registry, & SQL Browser).  The command can also use piped in objects from other cmdlets like "Get-ADComputer".
 
-![DynamicProperties](https://images.yevrag35.com/DynamicProperties.gif)
+Like so:
+
+```Get-ADComputer -Filter * | Get-SmoSqlInstance -SearchMethod WMI```
