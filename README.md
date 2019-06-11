@@ -10,7 +10,7 @@ This is a module for gathering and editing SQL Server Instance properties utiliz
 
 ---
 
-## What's new in 0.6.0.0?
+## What's new in 1.0.0-alpha?
 
 I have been re-working the module (yet again...) to a new one.  As such, I'm eliminating the following commands:
 __New-SMO__
@@ -18,10 +18,16 @@ __Set-SMOContext__
 
 They will both be replaced by Connect-SmoServer.  'Connect-SmoServer' will accomplish what both commands did; establishing a set context to a particular SQL server/instance.
 
-As of 5/1/19, I have not yet developed the new module fully yet, but hope to have the same functionality the old one had, as well as providing new capabilities.
+As of 6/11/19, I've separated System Messages from the Server object.  Enumerating and retrieving the SystemMessageCollection from an Smo.Server class causes a memory usage spike in the calling PowerShell process.  If you want to retrieve the messages, use the new cmdlet 'Get-SmoSystemMessages'.
 
-One new command, that I like, is the Get-SmoSqlInstance cmdlet.  This command will find you SQL instances on a remote machine by using a combination of search methods (e.g. - WMI, Registry, & SQL Browser).  The command can also use piped in objects from other cmdlets like "Get-ADComputer".
+One new command, that I like, is the Find-SmoSqlInstance cmdlet.  This command will find you SQL instances on a remote machine by using a combination of search methods (e.g. - WMI, Registry, & SQL Browser).  The command can also use piped in objects from other cmdlets like "Get-ADComputer".
 
 Like so:
 
-```Get-ADComputer -Filter * | Get-SmoSqlInstance -SearchMethod WMI```
+```Get-ADComputer -Filter * | Find-SmoSqlInstance -SearchMethod WMI```
+
+## New Cmdlets in 1.0.0-alpha
+
+__Get-SmoSystemMessages__
+__Start-SmoAgentJob__
+__Stop-SmoAgentJob__
