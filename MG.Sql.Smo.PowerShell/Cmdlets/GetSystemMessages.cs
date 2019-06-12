@@ -7,6 +7,7 @@ using System.Management.Automation;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "SystemMessages", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(SystemMessage))]
     public class GetSystemMessages : HighMemoryCmdlet
     {
@@ -19,11 +20,6 @@ namespace MG.Sql.Smo.PowerShell
             if (this.Force || ShouldProcess(srv.Name, "Get System Messages"))
                 base.WriteObject(srv.SystemMessages, true);
         }
-
-        #endregion
-
-        #region CMDLET METHODS
-
 
         #endregion
     }

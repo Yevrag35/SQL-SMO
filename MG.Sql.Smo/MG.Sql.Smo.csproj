@@ -86,7 +86,6 @@
     <Compile Include="DataRowClasses\IDataRowClass.cs" />
     <Compile Include="DataRowClasses\Collections\JobHistoryCollection.cs" />
     <Compile Include="DataRowClasses\JobHistoryItem.cs" />
-    <Compile Include="IHasName.cs" />
     <Compile Include="MgSmoCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SmoConfiguration.cs" />

@@ -9,6 +9,8 @@ using System.Reflection;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "ServerErrorLog", ConfirmImpact = ConfirmImpact.None)]
+    [CmdletBinding(PositionalBinding = false)]
+    [OutputType(typeof(ErrorLog))]
     public class GetServerErrorLog : BaseSqlCmdlet
     {
         protected override void BeginProcessing() => base.BeginProcessing();

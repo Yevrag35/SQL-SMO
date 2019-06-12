@@ -32,27 +32,9 @@ namespace MG.Sql.Smo.PowerShell
         protected override void ProcessRecord()
         {
             base.ProcessRecord();
-
+            if (base.Force || base.ShouldProcess("Job - " + _input.Name, "Remove"))
+                _js.RemoveJobByID(_input.JobID);
         }
-
-        #endregion
-
-        #region CMDLET METHODS
-        //private void RemoveJob(SmoJob job, string where, bool isGroup)
-        //{
-        //    string format = "Job - {0} on {1}";
-        //    if (this.Force || base.ShouldProcess(string.Format(format, job.Name, where), "Remove"))
-        //    {
-        //        if (!isGroup)
-        //        {
-        //            job.RemoveFromTargetServer(where);
-        //        }
-        //        else
-        //        {
-        //            job.RemoveFromTargetServerGroup(where);
-        //        }
-        //    }
-        //}
 
         #endregion
     }
