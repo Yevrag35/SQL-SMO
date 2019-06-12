@@ -18,8 +18,11 @@ namespace MG.Sql.Smo.PowerShell
                 _con = value;
                 DatabaseNames = _con.Databases.Cast<Database>().Select(x => x.Name).ToArray();
                 JobNames = _con.JobServer.Jobs.Cast<Job>().Select(x => x.Name).ToArray();
+                ServerCollations = _con.E
             }
         }
+
+        internal static string[] ServerCollations { get; private set; }
 
         internal static string[] DatabaseNames { get; private set; }
         internal static string[] JobNames { get; private set; }
