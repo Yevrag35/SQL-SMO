@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using Microsoft.SqlServer.Management.Smo.Agent;
+using System;
 using System.Data.SqlClient;
 
 namespace MG.Sql.Smo.Exceptions
@@ -7,6 +10,16 @@ namespace MG.Sql.Smo.Exceptions
     public interface ISMOException
     {
         bool HasDefaultMessage { get; }
+    }
+
+    public abstract class AlreadyExistsException<T> : ArgumentException, ISMOException
+    {
+        public bool HasDefaultMessage => true;
+
+        private const string _def = "A {0} with the name '{1}' already exists.";
+
+        public AlreadyExistsException(string nameThatExists)
+            : base(string.Format(_def, typeof(T).Name, nameThatExists)) { }
     }
 
     public class SmoContextAlreadySetException : ArgumentException, ISMOException
@@ -20,6 +33,7 @@ namespace MG.Sql.Smo.Exceptions
         {
         }
     }
+
     public class SmoContextNotSetException : InvalidOperationException, ISMOException
     {
         public bool HasDefaultMessage => true;
@@ -29,6 +43,7 @@ namespace MG.Sql.Smo.Exceptions
         {
         }
     }
+
     public class ContextExecutionError : InvalidOperationException, ISMOException
     {
         public bool HasDefaultMessage => false;
@@ -44,6 +59,24 @@ namespace MG.Sql.Smo.Exceptions
             : base(message, e)
         {
         }
+    }
+
+    public class DatabaseAlreadyExistsException : AlreadyExistsException<Database>
+    {
+        public DatabaseAlreadyExistsException(string dbName)
+            : base(dbName) { }
+    }
+
+    public class JobAlreadyExistsException : AlreadyExistsException<Job>
+    {
+        public JobAlreadyExistsException(string jobName)
+            : base(jobName) { }
+    }
+
+    public class JobCategoryAlreadyExistsException : AlreadyExistsException<JobCategory>
+    {
+        public JobCategoryAlreadyExistsException(string jobCategoryName)
+            : base(jobCategoryName) { }
     }
 
     public class ReadOnlyCollectionException : NotSupportedException, ISMOException

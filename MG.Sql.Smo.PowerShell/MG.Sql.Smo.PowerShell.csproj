@@ -96,6 +96,7 @@
     <Compile Include="Backend\SmoContext-Test.cs" />
     <Compile Include="Backend\SmoDatabase.cs" />
     <Compile Include="Cmdlets\GetDatabaseLog.cs" />
+    <Compile Include="Cmdlets\GetJobCategory.cs" />
     <Compile Include="Cmdlets\GetServerCollation.cs" />
     <Compile Include="Cmdlets\GetServerErrorLog.cs" />
     <Compile Include="Cmdlets\NewDatabase.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="Cmdlets\GetServerConfig.cs" />
     <Compile Include="Cmdlets\FindSqlInstance.cs" />
     <Compile Include="Cmdlets\GetSystemMessages.cs" />
+    <Compile Include="Cmdlets\NewJobCategory.cs" />
+    <Compile Include="Cmdlets\RemoveJobCategory.cs" />
+    <Compile Include="Cmdlets\SetJobCategory.cs" />
     <Compile Include="Cmdlets\StopAgentJob.cs" />
     <Compile Include="Cmdlets\RemoveAgentJob.cs" />
     <Compile Include="Cmdlets\SetAgentJob.cs" />
@@ -142,6 +146,7 @@
     <None Include="TypeFormats\AgentServer.ps1xml" />
     <None Include="TypeFormats\SmoColumn.ps1xml" />
     <None Include="TypeFormats\SmoConfiguration.ps1xml" />
+    <None Include="TypeFormats\SmoJobCategory.ps1xml" />
     <None Include="TypeFormats\SmoLogFile.ps1xml" />
     <None Include="TypeFormats\SmoServer.ps1xml" />
     <None Include="TypeFormats\SmoTable.ps1xml" />
