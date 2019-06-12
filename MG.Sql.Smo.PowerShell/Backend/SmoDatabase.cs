@@ -137,6 +137,8 @@ namespace MG.Sql.Smo.PowerShell.Backend
             NewLogFile(ref db, fileName, logSize, logGrowth, growthType);
         }
 
+        public static void SetOwner(ref Database db, string owner) => db.SetOwner(owner);
+
         #endregion
 
         #region BACKEND/PRIVATE METHODS

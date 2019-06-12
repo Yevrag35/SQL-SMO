@@ -28,6 +28,16 @@ foreach ($line in $assInfo)
 $allFiles = Get-ChildItem $ModuleFileDirectory -Include * -Exclude *.old -Recurse;
 $References = Join-Path "$ModuleFileDirectory\.." "Assemblies";
 
+[string[]]$verbs = Get-Verb | Select-Object -ExpandProperty Verb;
+$patFormat = '^({0})(\S{{1,}})\.cs';
+$pattern = $patFormat -f ($verbs -join '|')
+$cmdletFormat = "{0}-{1}";
+[string[]]$Cmdlets = foreach ($cs in $(Get-ChildItem -Path $(Join-Path "$ModuleFileDirectory\.." "Cmdlets") *.cs -File))
+{
+	$match = [regex]::Match($cs.Name, $pattern)
+	$cmdletFormat -f $match.Groups[1].Value, $match.Groups[2].Value;
+}
+
 [string[]]$allDlls = Get-ChildItem $References -Include *.dll -Exclude 'System.Management.Automation.dll' -Recurse | Select-Object -ExpandProperty Name;
 # Import-Module $(Join-Path $DebugDirectory $TargetFileName);
 # $moduleInfo = Get-Command -Module $($TargetFileName.Replace('.dll', ''));
@@ -54,12 +64,13 @@ $manifest = @{
     RootModule             = $TargetFileName
     DefaultCommandPrefix   = "Smo"
     RequiredAssemblies     = $allDlls
-    CmdletsToExport        = @( 'Connect-Server', 'Disconnect-Server', 'Find-SqlInstance',
-                                'Get-Column', 'Get-ServerConfig', 'Get-Server', 'Get-SystemMessages',
-                                'Get-Connection', 'Remove-AgentJob', 'New-Database'
-                                'Get-Database', 'Get-DatabaseState', 'Get-AgentJob', 'Get-Table',
-                                'Get-AgentServer', 'Start-AgentJob', 'Set-ServerConfig', 'Set-AgentJob', 
-                                'Set-AgentServer', 'Stop-AgentJob')
+	CmdletsToExport		   = $Cmdlets
+#    CmdletsToExport        = @( 'Connect-Server', 'Disconnect-Server', 'Find-SqlInstance',
+#                                'Get-Column', 'Get-ServerConfig', 'Get-Server', 'Get-SystemMessages',
+#                                'Get-Connection', 'Remove-AgentJob', 'New-Database', 'Get-ServerErrorLog'
+#                                'Get-Database', 'Get-DatabaseState', 'Get-AgentJob', 'Get-Table',
+#                                'Get-AgentServer', 'Start-AgentJob', 'Set-ServerConfig', 'Set-AgentJob', 
+#                                'Set-AgentServer', 'Stop-AgentJob')
     VariablesToExport      = ''
     FormatsToProcess       = if ($allFormats.Length -gt 0) { $allFormats } else { @() };
     ProjectUri             = 'https://github.com/Yevrag35/SQL-SMO'

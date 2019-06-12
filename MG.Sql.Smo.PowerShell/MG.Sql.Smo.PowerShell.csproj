@@ -95,6 +95,9 @@
   <ItemGroup>
     <Compile Include="Backend\SmoContext-Test.cs" />
     <Compile Include="Backend\SmoDatabase.cs" />
+    <Compile Include="Cmdlets\GetDatabaseLog.cs" />
+    <Compile Include="Cmdlets\GetServerCollation.cs" />
+    <Compile Include="Cmdlets\GetServerErrorLog.cs" />
     <Compile Include="Cmdlets\NewDatabase.cs" />
     <Compile Include="Cmdlets\Bases\BaseForceCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
@@ -139,6 +142,7 @@
     <None Include="TypeFormats\AgentServer.ps1xml" />
     <None Include="TypeFormats\SmoColumn.ps1xml" />
     <None Include="TypeFormats\SmoConfiguration.ps1xml" />
+    <None Include="TypeFormats\SmoLogFile.ps1xml" />
     <None Include="TypeFormats\SmoServer.ps1xml" />
     <None Include="TypeFormats\SmoTable.ps1xml" />
   </ItemGroup>

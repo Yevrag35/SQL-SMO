@@ -9,8 +9,6 @@ namespace MG.Sql.Smo
 {
     public class JobHistoryCollection : DataItemCollection<JobHistoryItem>
     {
-        private const int NEG = -1;
-
         private JobHistoryCollection(DataTable dataTable) : base(dataTable) { }
 
         public void SortByDate(bool descending = false)

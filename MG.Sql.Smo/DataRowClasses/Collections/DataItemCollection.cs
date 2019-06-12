@@ -9,8 +9,10 @@ namespace MG.Sql.Smo
 {
     public class DataItemCollection<T> : IEnumerable<T> where T : DataRowClass
     {
+        protected private const int NEG = -1;
         protected private List<T> _list;
 
+        internal DataItemCollection(IEnumerable<T> items) => _list = new List<T>(items);
         internal DataItemCollection(DataTable dataTable)
         {
             _list = new List<T>(dataTable.Rows.Count);

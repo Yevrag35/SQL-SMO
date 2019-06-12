@@ -41,6 +41,12 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET METHODS
+        protected private IEnumerable<Database> RetrieveDatabases()
+        {
+            return _dynLib != null && _dynLib.ParameterHasValue(DBNAME)
+                ? _dynLib.GetUnderlyingValues<Database>(DBNAME)
+                : SmoContext.Connection.Databases.Cast<Database>();
+        }
 
         #endregion
     }

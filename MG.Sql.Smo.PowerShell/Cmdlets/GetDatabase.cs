@@ -11,21 +11,13 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(Database))]
     public class GetDatabase : GetDatabaseBase
     {
-        protected override string StatusFormat => null;
         protected override string Activity => null;
         protected override ICollection<string> Items => null;
 
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
-        protected override void ProcessRecord()
-        {
-            IEnumerable<Database> dbs = _dynLib != null && _dynLib.ParameterHasValue(DBNAME)
-                ? _dynLib.GetUnderlyingValues<Database>(DBNAME)
-                : SmoContext.Connection.Databases.Cast<Database>();
-
-            WriteObject(dbs, true);
-        }
+        protected override void ProcessRecord() => WriteObject(base.RetrieveDatabases(), true);
 
         #endregion
     }

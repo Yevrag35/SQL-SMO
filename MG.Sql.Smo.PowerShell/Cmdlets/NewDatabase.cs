@@ -51,6 +51,9 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
         [Parameter(Mandatory = false)]
         public double? LogGrowthInMB { get; set; }
 
+        [Parameter(Mandatory = false)]
+        public string Owner { get; set; }
+
         #endregion
 
         #region CMDLET PROCESSING
@@ -86,7 +89,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
 
         protected override void ProcessRecord()
         {
-            if (base.ShouldProcess(SmoContext.Connection.Name, "Creating database " + this.Name + " on connected instance."))
+            if (base.ShouldProcess(SmoContext.Connection.Name, "Creating database '" + this.Name + "'"))
             {
                 Database newDb = SmoDatabase.NewDatabaseObject(this.Name, _collation, this.RecoveryModel);
                 FileGroup primaryFg = SmoDatabase.NewPrimaryFileGroup(ref newDb);
@@ -99,6 +102,9 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
 
                 SmoDatabase.NewPrimaryFile(ref primaryFg, this.DataFilePath, this.PrimaryFileInitialSize, this.PrimaryFileGrowthInMB, _fgt, this.PrimaryFileMaxSize);
                 SmoDatabase.NewPrimaryLogFile(ref newDb, this.LogFilePath, this.LogSize, this.LogGrowthInMB, _lgt);
+                if (this.MyInvocation.BoundParameters.ContainsKey("Owner"))
+                    SmoDatabase.SetOwner(ref newDb, this.Owner);
+
                 newDb.Create();
                 WriteObject(newDb);
             }
