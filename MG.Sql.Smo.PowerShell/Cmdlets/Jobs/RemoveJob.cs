@@ -7,10 +7,10 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Remove, "AgentJob", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, DefaultParameterSetName = "ByPipelineInput")]
+    [Cmdlet(VerbsCommon.Remove, "Job", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, DefaultParameterSetName = "ByPipelineInput")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(void))]
-    public class RemoveAgentJob : AgentJobModifyBaseCmdlet
+    public class RemoveJob : JobModifyBaseCmdlet
     {
         private JobServer _js;
 

@@ -7,22 +7,22 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "AgentServer", ConfirmImpact = ConfirmImpact.None)]
+    [Cmdlet(VerbsCommon.Get, "JobServer", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(JobServer))]
-    public class GetAgentServer : BaseSqlCmdlet
+    public class GetJobServer : BaseSqlCmdlet
     {
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
         protected override void ProcessRecord()
         {
-            WriteObject(this.GetJobServer());
+            WriteObject(this.RetrieveJobServer());
         }
 
         #endregion
 
         #region CMDLET METHODS
-        protected private JobServer GetJobServer() => SmoContext.Connection.JobServer;
+        protected private JobServer RetrieveJobServer() => SmoContext.Connection.JobServer;
 
         #endregion
     }

@@ -11,10 +11,10 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "AgentJob", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "ByJobName")]
+    [Cmdlet(VerbsCommon.Get, "Job", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "ByJobName")]
     [OutputType(typeof(SmoJob))]
     [CmdletBinding(PositionalBinding = false)]
-    public class GetAgentJob : BaseSqlCmdlet, IDynamicParameters
+    public class GetJob : BaseSqlCmdlet, IDynamicParameters
     {
         private DynamicLibrary _dynLib;
         private List<SmoJob> jobs;

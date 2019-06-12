@@ -6,10 +6,10 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "SystemMessages", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.Get, "UserDefinedMessages", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true)]
     [CmdletBinding(PositionalBinding = false)]
-    [OutputType(typeof(SystemMessage))]
-    public class GetSystemMessages : HighMemoryCmdlet
+    [OutputType(typeof(UserDefinedMessage))]
+    public class GetUserDefinedMessages : HighMemoryCmdlet
     {
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
@@ -18,7 +18,7 @@ namespace MG.Sql.Smo.PowerShell
         {
             Server srv = SmoContext.Connection;
             if (this.Force || ShouldProcess(srv.Name, "Get System Messages"))
-                base.WriteObject(srv.SystemMessages, true);
+                base.WriteObject(srv.UserDefinedMessages, true);
         }
 
         #endregion

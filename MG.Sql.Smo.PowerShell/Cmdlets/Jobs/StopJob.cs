@@ -7,10 +7,10 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsLifecycle.Stop, "AgentJob", DefaultParameterSetName = "ByPipelineInput")]
+    [Cmdlet(VerbsLifecycle.Stop, "Job", DefaultParameterSetName = "ByPipelineInput")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(void))]
-    public class StopAgentJob : AgentJobModifyBaseCmdlet
+    public class StopJob : JobModifyBaseCmdlet
     {
         private const string STOP = "Stop";
         private bool yesToAll = false;

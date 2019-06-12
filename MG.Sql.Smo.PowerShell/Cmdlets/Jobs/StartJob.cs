@@ -7,10 +7,10 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsLifecycle.Start, "AgentJob", ConfirmImpact = ConfirmImpact.High, DefaultParameterSetName = "ByPipelineInput", SupportsShouldProcess = true)]
+    [Cmdlet(VerbsLifecycle.Start, "Job", ConfirmImpact = ConfirmImpact.High, DefaultParameterSetName = "ByPipelineInput", SupportsShouldProcess = true)]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(void))]
-    public class StartAgentJob : AgentJobModifyBaseCmdlet
+    public class StartJob : JobModifyBaseCmdlet
     {
         private const string STEP_CAP = JOB_CAP + " at StepId {1}";
         private const string START = "Start";

@@ -32,7 +32,11 @@ $References = Join-Path "$ModuleFileDirectory\.." "Assemblies";
 $patFormat = '^({0})(\S{{1,}})\.cs';
 $pattern = $patFormat -f ($verbs -join '|')
 $cmdletFormat = "{0}-{1}";
-[string[]]$Cmdlets = foreach ($cs in $(Get-ChildItem -Path $(Join-Path "$ModuleFileDirectory\.." "Cmdlets") *.cs -File))
+
+$baseCmdletDir = Join-Path "$ModuleFileDirectory\.." "Cmdlets"
+[string[]]$folders = [System.IO.Directory]::EnumerateDirectories($baseCmdletDir, "*", [System.IO.SearchOption]::TopDirectoryOnly) | Where-Object { -not $_.EndsWith('Bases') };
+
+[string[]]$Cmdlets = foreach ($cs in $(Get-ChildItem -Path $folders *.cs -File))
 {
 	$match = [regex]::Match($cs.Name, $pattern)
 	$cmdletFormat -f $match.Groups[1].Value, $match.Groups[2].Value;

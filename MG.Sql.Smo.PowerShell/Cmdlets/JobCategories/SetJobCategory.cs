@@ -56,6 +56,8 @@ namespace MG.Sql.Smo.PowerShell
 
                 else if (this.MyInvocation.BoundParameters.ContainsKey("NewName"))
                     base.WriteWarning("The new name specified is the same as the existing name (" + jobCat.Name + ").");
+
+                _js.Refresh();
             }
         }
 

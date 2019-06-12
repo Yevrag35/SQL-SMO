@@ -12,10 +12,10 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Set, "AgentJob", ConfirmImpact = ConfirmImpact.High)]
+    [Cmdlet(VerbsCommon.Set, "Job", ConfirmImpact = ConfirmImpact.High)]
     [OutputType(typeof(void))]
     [CmdletBinding(PositionalBinding = false)]
-    public class SetAgentJob : AgentJobModifyBaseCmdlet
+    public class SetJob : JobModifyBaseCmdlet
     {
         private static readonly string[] SkipThese = new string[3]
         {
@@ -83,7 +83,7 @@ namespace MG.Sql.Smo.PowerShell
             if (this.HasSetValues(this.MyInvocation.BoundParameters) && 
                 (base.Force || base.ShouldContinue("Setting Properties on Job", "Set", ref yesToAll, ref noToAll)))
             {
-                this.SetJob(this.MyInvocation.BoundParameters, _input);
+                this.SetSmoJob(this.MyInvocation.BoundParameters, _input);
             }
         }
 
@@ -96,7 +96,7 @@ namespace MG.Sql.Smo.PowerShell
             return parameters.Any(x => !SkipThese.Contains(x.Key, comparer));
         }
 
-        private void SetJob(Dictionary<string, object> parameters, SmoJob job)
+        private void SetSmoJob(Dictionary<string, object> parameters, SmoJob job)
         {
             var sd = new SwappableDictionary(parameters);
             if (sd.ContainsKey("NewName"))

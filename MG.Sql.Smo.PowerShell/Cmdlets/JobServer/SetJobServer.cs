@@ -10,10 +10,10 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Set, "AgentServer", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, 
+    [Cmdlet(VerbsCommon.Set, "JobServer", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, 
         DefaultParameterSetName = "Individual")]
     [OutputType(typeof(void))]
-    public class SetAgentServer : GetAgentServer
+    public class SetJobServer : GetJobServer
     {
         #region PARAMETERS
 
@@ -88,18 +88,18 @@ namespace MG.Sql.Smo.PowerShell
         protected override void ProcessRecord()
         {
             if (Force || ShouldProcess("JobServer", "Set"))
-                this.SetJobServer(this.MyInvocation.BoundParameters);
+                this.EditJobServer(this.MyInvocation.BoundParameters);
         }
 
         #endregion
 
         #region CMDLET METHODS
-        private void SetJobServer(Dictionary<string, object> dict)
+        private void EditJobServer(Dictionary<string, object> dict)
         {
             IEnumerable<PropertyInfo> writProps = typeof(JobServer).GetProperties(FLAGS).Where(
                 x => x.CanWrite);
 
-            JobServer js = base.GetJobServer();
+            JobServer js = base.RetrieveJobServer();
 
             foreach (KeyValuePair<string, object> entry in dict.Where(x => !x.Key.Equals("Force")))
             {
