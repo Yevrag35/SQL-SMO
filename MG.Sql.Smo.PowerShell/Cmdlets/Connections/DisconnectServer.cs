@@ -7,17 +7,12 @@ using System.Management.Automation;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommunications.Disconnect, "Server", ConfirmImpact = ConfirmImpact.None)]
-    public class DisconnectServer : PSCmdlet
+    public class DisconnectServer : Cmdlet
     {
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
         protected override void ProcessRecord() => SmoContext.Disconnect();
-
-        #endregion
-
-        #region CMDLET METHODS
-
 
         #endregion
     }

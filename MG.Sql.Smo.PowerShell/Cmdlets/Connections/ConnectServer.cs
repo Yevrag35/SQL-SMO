@@ -12,7 +12,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommunications.Connect, "Server", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
     [Alias("consmo")]
     [CmdletBinding(PositionalBinding = false)]
-    public class ConnectServer : PSCmdlet
+    public class ConnectServer : Cmdlet
     {
         #region PRIVATE CONSTANTS
         private const string CON_STRING = "Server={0};";
