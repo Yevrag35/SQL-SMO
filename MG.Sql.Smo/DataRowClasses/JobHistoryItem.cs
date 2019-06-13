@@ -30,7 +30,7 @@ namespace MG.Sql.Smo
 
         #endregion
 
-        internal JobHistoryItem(DataRow dataRow)
+        public JobHistoryItem(DataRow dataRow)
             : base(dataRow)
         {
         }

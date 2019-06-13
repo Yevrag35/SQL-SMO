@@ -243,7 +243,6 @@ namespace MG.Sql.Smo
         #region CASTS
 
         public static explicit operator SmoServer(Server server) => new SmoServer(server);
-
         public static implicit operator Server(SmoServer smoServer) => smoServer._sql;
         public static implicit operator SqlSmoObject(SmoServer smoServer) => smoServer._sql;
 

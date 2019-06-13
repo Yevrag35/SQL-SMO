@@ -17,7 +17,7 @@ namespace MG.Sql.Smo
             bool result = false;
             if (x.Parent is Table tabA && y.Parent is Table tabB && TableEquality.StaticEquals(tabA, tabB))
             {
-                result = x.ID.Equals(y.ID);
+                result = x.Name.Equals(y.Name);
             }
 
             return result;
@@ -58,7 +58,7 @@ namespace MG.Sql.Smo
             bool result = false;
             if (DatabaseEquality.StaticEquals(x.Parent, y.Parent))
             {
-                result = x.ID.Equals(y.ID);
+                result = x.Name.Equals(y.Name);
             }
 
             return result;
