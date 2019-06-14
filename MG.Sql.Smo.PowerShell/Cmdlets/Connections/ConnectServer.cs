@@ -11,6 +11,7 @@ namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommunications.Connect, "Server", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
     [Alias("consmo")]
+    [OutputType(typeof(Server))]
     [CmdletBinding(PositionalBinding = false)]
     public class ConnectServer : Cmdlet
     {
@@ -35,13 +36,20 @@ namespace MG.Sql.Smo.PowerShell
         [Alias("Credential")]
         public PSCredential SQLCredential { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = "UsingSSL")]
+        [Parameter(Mandatory = true, ParameterSetName = "UsingSSLAsContext")]
+        [Parameter(Mandatory = true, ParameterSetName = "UsingSSLAsObject")]
         public SwitchParameter EncryptConnection { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = "UsingSSL")]
+        [Parameter(Mandatory = false, ParameterSetName = "UsingSSLAsContext")]
+        [Parameter(Mandatory = false, ParameterSetName = "UsingSSLAsObject")]
         public bool TrustServerCertificate = true;
 
-        [Parameter(Mandatory = false)]
+        [Parameter(Mandatory = true, ParameterSetName = "UsingSSLAsObject")]
+        [Parameter(Mandatory = true, ParameterSetName = "AsObject")]
+        public SwitchParameter AsObject { get; set; }
+
+        [Parameter(Mandatory = false, ParameterSetName = "UsingSSLAsContext")]
+        [Parameter(Mandatory = false, ParameterSetName = "AsContext")]
         public SwitchParameter Force { get; set; }
 
         #endregion
@@ -59,7 +67,11 @@ namespace MG.Sql.Smo.PowerShell
                 )
             );
             this.TestSMO(smo);
-            SmoContext.AddConnection(smo, Force.ToBool());
+            if (!this.AsObject.ToBool())
+                SmoContext.AddConnection(smo, Force.ToBool());
+
+            else
+                base.WriteObject(smo);
         }
 
         #endregion

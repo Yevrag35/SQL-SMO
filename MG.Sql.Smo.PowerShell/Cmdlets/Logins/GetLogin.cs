@@ -13,10 +13,8 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "Login", ConfirmImpact = ConfirmImpact.None)]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(SmoLogin))]
-    public class GetLogin : BaseSqlCmdlet
+    public class GetLogin : BaseLoginCmdlet
     {
-        private Server _s;
-
         #region PARAMETERS
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true)]
         [Alias("Name", "LoginID", "SID")]
@@ -26,27 +24,14 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = false)]
         public LoginType[] Type { get; set; }
 
-        [Parameter(Mandatory = false, DontShow = true)]
-        public Server ServerObject { get; set; }
-
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing()
-        {
-            //if (!this.MyInvocation.BoundParameters.ContainsKey("ServerObject"))
-            if (this.ServerObject == null)
-            {
-                base.BeginProcessing();
-                _s = SmoContext.Connection;
-            }
-            else
-                _s = this.ServerObject;
-        }
+        protected override void BeginProcessing() => base.BeginProcessing();
 
         protected override void ProcessRecord()
         {
-            List<SmoLogin> logins = SmoLogin.GetLogins(_s);
+            List<SmoLogin> logins = SmoLogin.GetLogins(_server);
             this.FilterByLoginNameOrSid(ref logins);
             this.FilterByLoginId(ref logins);
             this.FilterByType(ref logins);

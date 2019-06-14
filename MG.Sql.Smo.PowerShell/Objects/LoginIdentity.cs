@@ -16,21 +16,25 @@ namespace MG.Sql.Smo.PowerShell
         public bool IsLoginName { get; }
         public bool IsID { get; }
         public bool IsSecurityIdentitifer { get; }
+        public bool IsADObject { get; }
 
         private LoginIdentity(ADUser adUser)
         {
             _backing = adUser.SID.Value;
             this.IsSecurityIdentitifer = true;
+            this.IsADObject = true;
         }
         private LoginIdentity(ADGroup adGroup)
         {
             _backing = adGroup.SID.Value;
             this.IsSecurityIdentitifer = true;
+            this.IsADObject = true;
         }
         private LoginIdentity(ADComputer adComp)
         {
             _backing = adComp.SID.Value;
             this.IsSecurityIdentitifer = true;
+            this.IsADObject = true;
         }
         private LoginIdentity(string strId)
         {

@@ -80,6 +80,14 @@ namespace MG.Sql.Smo
             this.PasswordPolicyEnforced = this.GetPropValueEvenIfNull(PASS_POLICY_ENF);
         }
 
+        public SmoLogin(Server server, string loginName, LoginType loginType)
+        {
+            _lg = new Login(server, loginName)
+            {
+                LoginType = loginType
+            };
+        }
+
         #endregion
 
         #region METHODS
