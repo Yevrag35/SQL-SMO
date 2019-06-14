@@ -145,7 +145,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />
-    <None Include="TypeFormats\AgentJob.ps1xml" />
+    <None Include="TypeFormats\SmoJob.ps1xml" />
     <None Include="TypeFormats\AgentServer.ps1xml" />
     <None Include="TypeFormats\SmoColumn.ps1xml" />
     <None Include="TypeFormats\SmoConfiguration.ps1xml" />

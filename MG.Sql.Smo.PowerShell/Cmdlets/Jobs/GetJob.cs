@@ -47,17 +47,22 @@ namespace MG.Sql.Smo.PowerShell
         {
             base.BeginProcessing();
             jobs = new List<SmoJob>();
-            if (this.MyInvocation.BoundParameters.ContainsKey("JobId"))
+            if (!this.JobId.Equals(Guid.Empty))
                 jobs.Add(SmoContext.Connection.JobServer.Jobs.ItemById(this.JobId));
 
-            else
+            else if (_dynLib != null && _dynLib.ParameterHasValue("JobName"))
                 jobs.AddRange(_dynLib.GetUnderlyingValues<SmoJob>("JobName"));
+
+            else
+            {
+                for (int i = 0; i < SmoContext.Connection.JobServer.Jobs.Count; i++)
+                {
+                    jobs.Add(SmoContext.Connection.JobServer.Jobs[i]);
+                }
+            }
         }
 
-        protected override void ProcessRecord()
-        {
-            WriteObject(jobs, true);
-        }
+        protected override void ProcessRecord() => base.WriteObject(jobs, true);
 
         #endregion
     }

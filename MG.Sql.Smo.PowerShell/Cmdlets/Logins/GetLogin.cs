@@ -34,7 +34,8 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         protected override void BeginProcessing()
         {
-            if (!this.MyInvocation.BoundParameters.ContainsKey("ServerObject"))
+            //if (!this.MyInvocation.BoundParameters.ContainsKey("ServerObject"))
+            if (this.ServerObject == null)
             {
                 base.BeginProcessing();
                 _s = SmoContext.Connection;
@@ -57,7 +58,7 @@ namespace MG.Sql.Smo.PowerShell
         #region METHODS
         private void FilterByLoginNameOrSid(ref List<SmoLogin> logins)
         {
-            if (this.Identity.IsLoginName || this.Identity.IsSecurityIdentitifer)
+            if (this.Identity != null && (this.Identity.IsLoginName || this.Identity.IsSecurityIdentitifer))
             {
                 var wcp = new WildcardPattern((string)this.Identity, WildcardOptions.IgnoreCase);
                 for (int i = logins.Count - 1; i >= 0; i--)
@@ -70,7 +71,7 @@ namespace MG.Sql.Smo.PowerShell
         }
         private void FilterByLoginId(ref List<SmoLogin> logins)
         {
-            if (this.Identity.IsID)
+            if (this.Identity != null && this.Identity.IsID)
             {
                 for (int i = logins.Count - 1; i >= 0; i--)
                 {
@@ -83,7 +84,8 @@ namespace MG.Sql.Smo.PowerShell
 
         private void FilterByType(ref List<SmoLogin> logins)
         {
-            if (this.MyInvocation.BoundParameters.ContainsKey("Type"))
+            //if (this.MyInvocation.BoundParameters.ContainsKey("Type"))
+            if (this.Type != null && this.Type.Length > 0)
             {
                 for (int i = logins.Count - 1; i >= 0; i--)
                 {

@@ -113,9 +113,6 @@
 								<PropertyName>Events</PropertyName>
 							</ListItem>
 							<ListItem>
-								<PropertyName>ExecutionManager</PropertyName>
-							</ListItem>
-							<ListItem>
 								<PropertyName>FilestreamLevel</PropertyName>
 							</ListItem>
 							<ListItem>
@@ -351,12 +348,6 @@
 							</ListItem>
 							<ListItem>
 								<PropertyName>Triggers</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>Urn</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>UserData</PropertyName>
 							</ListItem>
 							<ListItem>
 								<PropertyName>UserOptions</PropertyName>

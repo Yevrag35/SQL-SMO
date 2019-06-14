@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseSqlCmdlet : Cmdlet
+    public abstract class BaseSqlCmdlet : PSCmdlet
     {
         internal const string NAME = "Name";
         internal const string NEW = "New";

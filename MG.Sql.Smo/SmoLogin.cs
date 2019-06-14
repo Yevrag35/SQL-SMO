@@ -13,13 +13,24 @@ using System.Security.Principal;
 
 namespace MG.Sql.Smo
 {
-    public class SmoLogin : IAlterable, ICreatable, IDmfFacet, IDroppable, IDropIfExists, IObjectPermission, ILoginOptions, 
+    public class SmoLogin : IAlterable, ICreatable, IDmfFacet, IDroppable, IDropIfExists, IObjectPermission, 
         IRefreshable, IRenamable, IScriptable, ISfcValidate
     {
         #region FIELDS/CONSTANTS
         private Login _lg;
         private SmoServer _s;
         private SecurityIdentifier _secId;
+        private const BindingFlags FLAGS = BindingFlags.NonPublic | BindingFlags.Instance;
+        private const string IS_LOCKED = "IsLocked";
+        private const string IS_PASS_EXP = "IsPasswordExpired";
+        private static readonly Type LOGIN_TYPE = typeof(Login);
+        private const string MUST_CHANGE = "MustChangePassword";
+        private const string PASS_EXP_EN = "PasswordExpirationEnabled";
+        private const string PASS_POLICY_ENF = "PasswordPolicyEnforced";
+        private const string SECRET_METHOD = "GetPropValueOptionalAllowNull";
+        private static readonly MethodInfo SecretMethod = LOGIN_TYPE.GetMethod(SECRET_METHOD, FLAGS);
+        
+        //private bool? 
 
         #endregion
 
@@ -35,18 +46,18 @@ namespace MG.Sql.Smo
         public bool HasAccess => _lg.HasAccess;
         public int ID => _lg.ID;
         public bool IsDisabled => _lg.IsDisabled;
-        public bool IsLocked => _lg.IsLocked;
-        public bool IsPasswordExpired => _lg.IsPasswordExpired;
+        public bool? IsLocked { get; private set; }
+        public bool? IsPasswordExpired { get; private set; }
         public bool IsSystemObject => _lg.IsSystemObject;
         public string Language { get => _lg.Language; set => _lg.Language = value; }
         public string LanguageAlias => _lg.LanguageAlias;
         public LoginType LoginType { get => _lg.LoginType; set => _lg.LoginType = value; }
-        public bool MustChangePassword => _lg.MustChangePassword;
+        public bool? MustChangePassword { get; private set; }
         public string Name { get => _lg.Name; set => _lg.Name = value; }
         public SmoServer Parent => _s;
-        public bool PasswordExpirationEnabled { get => _lg.PasswordExpirationEnabled; set => _lg.PasswordExpirationEnabled = value; }
+        public bool? PasswordExpirationEnabled { get; private set; }
         public PasswordHashAlgorithm PasswordHashAlgorithm => _lg.PasswordHashAlgorithm;
-        public bool PasswordPolicyEnforced { get => _lg.PasswordPolicyEnforced; set => _lg.PasswordPolicyEnforced = value; }
+        public bool? PasswordPolicyEnforced { get; private set; }
         public string Sid => _secId != null
             ? _secId.Value
             : null;
@@ -61,6 +72,12 @@ namespace MG.Sql.Smo
             _s = new SmoServer(login.Parent);
             if (login.WindowsLoginAccessType != WindowsLoginAccessType.NonNTLogin)
                 _secId = new SecurityIdentifier(login.Sid, 0);
+
+            this.IsLocked = this.GetPropValueEvenIfNull(IS_LOCKED);
+            this.IsPasswordExpired = this.GetPropValueEvenIfNull(IS_PASS_EXP);
+            this.MustChangePassword = this.GetPropValueEvenIfNull(MUST_CHANGE);
+            this.PasswordExpirationEnabled = this.GetPropValueEvenIfNull(PASS_EXP_EN);
+            this.PasswordPolicyEnforced = this.GetPropValueEvenIfNull(PASS_POLICY_ENF);
         }
 
         #endregion
@@ -76,12 +93,36 @@ namespace MG.Sql.Smo
         public object GetUserData() => _lg.UserData;
         public Urn GetUrn() => _lg.Urn;
 
+        private bool? GetPropValueEvenIfNull(string propName) => (bool?)SecretMethod.Invoke(_lg, new object[1] { propName });
+
+        public void SetPasswordExpiration(bool enabled)
+        {
+            _lg.PasswordExpirationEnabled = enabled;
+            this.Alter();
+            _lg.Refresh();
+            this.PasswordExpirationEnabled = _lg.PasswordExpirationEnabled;
+        }
+
         #endregion
 
         #region LOGIN METHODS
         public void AddCredential(string credName) => _lg.AddCredential(credName);
         public void AddToRole(string role) => _lg.AddToRole(role);
-        public void Alter() => _lg.Alter();
+        public void Alter()
+        {
+            if (_lg.Parent.Databases.Contains(_lg.DefaultDatabase))
+            {
+                var db = _lg.Parent.Databases[_lg.DefaultDatabase];
+                if (db.IsAccessible && db.Status == Microsoft.SqlServer.Management.Smo.DatabaseStatus.Normal)
+                {
+                    _lg.Alter();
+                }
+                else
+                {
+                    throw new InvalidOperationException("This login's default database is currently inaccessible.");
+                }
+            }
+        }
         public void ChangePassword(Password newPass) => _lg.ChangePassword(newPass);
         public void ChangePassword(Password oldPass, Password newPass) => _lg.ChangePassword(oldPass, newPass);
         public void ChangePassword(Password newPass, bool unlock, bool mustChange) => _lg.ChangePassword(newPass, unlock, mustChange);
