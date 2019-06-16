@@ -3,6 +3,7 @@ using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Data.SqlClient;
 using System.Management.Automation;
+using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
@@ -11,8 +12,19 @@ namespace MG.Sql.Smo.PowerShell
         protected private Server _server;
 
         #region PARAMETERS
+        [Parameter(Mandatory = false)]
+        [ValidateNotNullOrEmpty()]
+        public string DefaultDatabase = "master";
+
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Disable { get; set; }
+
+        [Parameter(Mandatory = false)]
+        [ValidateNotNullOrEmpty()]
+        public string Language = "us_english";
+
         [Parameter(Mandatory = false, DontShow = true)]
-        public Server ServerObject { get; set; }
+        public Server SqlServer { get; set; }
 
         #endregion
 
@@ -20,24 +32,54 @@ namespace MG.Sql.Smo.PowerShell
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            if (this.ServerObject == null)
+            if (this.SqlServer == null)
             {
                 base.BeginProcessing();
                 _server = SmoContext.Connection;
             }
             else
-                _server = this.ServerObject;
-        }
-
-        protected override void ProcessRecord()
-        {
-
+                _server = this.SqlServer;
         }
 
         #endregion
 
         #region CMDLET METHODS
+        protected private virtual SmoLogin CreateLogin(string login, LoginType type, string defaultDb, SecureString pass = null, bool? passExpEnabled = null, bool? passPolicyEnabled = null)
+        {
+            var sqlLogin = new Login(_server, login)
+            {
+                DefaultDatabase = defaultDb,
+                Language = this.Language,
+                LoginType = type
+            };
 
+            if (passExpEnabled.HasValue)
+                sqlLogin.PasswordExpirationEnabled = passExpEnabled.Value;
+
+            if (passPolicyEnabled.HasValue)
+                sqlLogin.PasswordPolicyEnforced = passPolicyEnabled.Value;
+
+            if (base.ShouldProcess(_server.Name, "New login for user/group \"" + sqlLogin.Name + "\""))
+            {
+                if (pass == null)
+                    sqlLogin.Create();
+
+                else
+                    sqlLogin.Create(pass, LoginCreateOptions.None);
+
+                sqlLogin.Refresh();
+                if (this.Disable.ToBool())
+                {
+                    sqlLogin.Disable();
+                    sqlLogin.Alter();
+                }
+
+                _server.Refresh();
+                return sqlLogin;
+            }
+            else
+                return null;
+        }
 
         #endregion
     }

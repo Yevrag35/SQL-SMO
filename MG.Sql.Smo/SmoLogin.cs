@@ -95,7 +95,12 @@ namespace MG.Sql.Smo
         public AbstractCollectionBase GetParentCollection() => _lg.ParentCollection;
         public Server GetParentObject() => _lg.Parent;
         public SqlPropertyCollection GetProperties() => _lg.Properties;
-        public SecurityIdentifier GetSecurityIdentifier() => _secId;
+        public object GetSid()
+        {
+            return _secId == null 
+                ? _lg.Sid 
+                : (object)_secId;
+        }
         public ServerVersion GetServerVersion() => _lg.ServerVersion;
         public SqlSmoState GetState() => _lg.State;
         public object GetUserData() => _lg.UserData;

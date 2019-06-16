@@ -20,10 +20,6 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Logins
         [Parameter(Mandatory = true, Position = 0, ValueFromPipeline = true)]
         public ADAllowableInputObject LoginName { get; set; }
 
-        [Parameter(Mandatory = false)]
-        [ValidateNotNullOrEmpty()]
-        public string DefaultDatabase = "master";
-
         [Parameter(Mandatory = true, ParameterSetName = "LocalUser")]
         public SwitchParameter IsLocalUser { get; set; }
 
@@ -61,8 +57,11 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Logins
                 throw new ArgumentException("Could not determine what kind of Windows user this was.");
 
             string login = this.GetLoginName(this.LoginName);
-            SmoLogin smol = this.CreateLogin(login, this.LoginName.Type.Value, this.DefaultDatabase);
-            WriteObject(smol);
+            SmoLogin smol = base.CreateLogin(login, this.LoginName.Type.Value, this.DefaultDatabase);
+            if (smol != null)
+            {
+                WriteObject(smol);
+            }
         }
 
         #endregion
@@ -82,26 +81,6 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Logins
             this.LoginName.FromADObject = true;
             if (!string.IsNullOrEmpty(dn))
                 this.LoginName.DistinguishedName = dn;
-        }
-
-        private SmoLogin CreateLogin(string login, LoginType type, string defaultDb, bool? passExpEnabled = null, bool? passPolicyEnabled = null)
-        {
-            var sqlLogin = new Login(_server, login)
-            {
-                DefaultDatabase = defaultDb,
-                LoginType = type
-            };
-
-            if (passExpEnabled.HasValue)
-                sqlLogin.PasswordExpirationEnabled = passExpEnabled.Value;
-
-            if (passPolicyEnabled.HasValue)
-                sqlLogin.PasswordPolicyEnforced = passPolicyEnabled.Value;
-
-            sqlLogin.Create();
-            sqlLogin.Refresh();
-            _server.Refresh();
-            return sqlLogin;
         }
 
         private string GetLoginName(ADAllowableInputObject id)
