@@ -42,7 +42,7 @@ namespace MG.Sql.Smo.PowerShell
         {
             for (int i = 0; i < _list.Count; i++)
             {
-                var cat = _list[i];
+                JobCategory cat = _list[i];
                 if (base.Force || base.ShouldProcess(_js.Name, "Removing job category - '" + cat.Name + "'"))
                     cat.Drop();
             }

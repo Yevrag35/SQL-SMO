@@ -48,6 +48,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Assemblies\Microsoft.ActiveDirectory.Management.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.PowerShell.LocalAccounts">
+      <HintPath>Assemblies\Microsoft.PowerShell.LocalAccounts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.LocalAccounts.Resources">
+      <HintPath>Assemblies\Microsoft.PowerShell.LocalAccounts.Resources.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
@@ -85,16 +92,15 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Management" />
-    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Assemblies\System.Management.Automation.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Backend\ADAllowableInputObject.cs" />
+    <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
     <Compile Include="Objects\LoginIdentity.cs" />
@@ -149,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />
+    <None Include="packages.config" />
     <None Include="TypeFormats\SmoJob.ps1xml" />
     <None Include="TypeFormats\AgentServer.ps1xml" />
     <None Include="TypeFormats\SmoColumn.ps1xml" />

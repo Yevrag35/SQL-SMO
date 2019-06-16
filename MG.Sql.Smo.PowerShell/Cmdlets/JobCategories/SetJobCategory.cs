@@ -42,7 +42,7 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            var jobCat = this.GetJobCategory(this.Identity);
+            JobCategory jobCat = this.GetJobCategory(this.Identity);
             if (base.Force || base.ShouldProcess(jobCat.Name, "Modifying properties"))
             {
                 if (this.MyInvocation.BoundParameters.ContainsKey("NewType") && jobCat.CategoryType != this.NewType)

@@ -81,7 +81,7 @@ namespace MG.Sql.Smo.PowerShell.Backend
 
             if (!logGrowth.HasValue || !growthType.HasValue)
             {
-                var ag = GetModelLogAutoGrowth();
+                KeyValuePair<double, FileGrowthType> ag = GetModelLogAutoGrowth();
                 logGrowth = ag.Key;
                 growthType = ag.Value;
             }
@@ -103,7 +103,7 @@ namespace MG.Sql.Smo.PowerShell.Backend
             string fileName = string.Format(PRIMARY_FILE_FORMAT, dataFolderPath, fileGroup.Parent.Name);
             if (!fileGrowth.HasValue || !growthType.HasValue)
             {
-                var autoGrowth = GetModelDBAutoGrowth();
+                KeyValuePair<double, FileGrowthType> autoGrowth = GetModelDBAutoGrowth();
                 fileGrowth = autoGrowth.Key;
                 growthType = autoGrowth.Value;
             }
