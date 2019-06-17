@@ -10,7 +10,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Logins
     [Cmdlet(VerbsCommon.New, "SqlLogin", ConfirmImpact = ConfirmImpact.Low, SupportsShouldProcess = true, DefaultParameterSetName = "None")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(SmoLogin))]
-    public class NewSqlLogin : BaseLoginCmdlet
+    public class NewSqlLogin : BaseNewLoginCmdlet
     {
         #region PARAMETERS
         [Parameter(Mandatory = true, Position = 0)]

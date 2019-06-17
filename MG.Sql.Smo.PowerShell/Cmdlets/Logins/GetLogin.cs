@@ -13,7 +13,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "Login", ConfirmImpact = ConfirmImpact.None)]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(SmoLogin))]
-    public class GetLogin : BaseLoginCmdlet
+    public class GetLogin : BaseNewLoginCmdlet
     {
         #region PARAMETERS
         [Parameter(Mandatory = false, Position = 0, ValueFromPipeline = true)]

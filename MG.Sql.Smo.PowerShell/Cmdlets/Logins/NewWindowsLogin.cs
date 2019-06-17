@@ -11,7 +11,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Logins
     [Cmdlet(VerbsCommon.New, "WindowsLogin", ConfirmImpact = ConfirmImpact.Low, SupportsShouldProcess = true, DefaultParameterSetName = "None")]
     [OutputType(typeof(SmoLogin))]
     [CmdletBinding(PositionalBinding = false)]
-    public class NewWindowsLogin : BaseLoginCmdlet
+    public class NewWindowsLogin : BaseNewLoginCmdlet
     {
         private bool oneTimeNB = false;
         private string netBiosName;

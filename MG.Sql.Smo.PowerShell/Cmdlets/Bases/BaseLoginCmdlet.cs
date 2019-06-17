@@ -7,22 +7,12 @@ using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
+    [Cmdlet(VerbsCommon.Get, "", ConfirmImpact = ConfirmImpact.None)]
     public abstract class BaseLoginCmdlet : BaseSqlCmdlet
     {
         protected private Server _server;
 
         #region PARAMETERS
-        [Parameter(Mandatory = false)]
-        [ValidateNotNullOrEmpty()]
-        public string DefaultDatabase = "master";
-
-        [Parameter(Mandatory = false)]
-        public SwitchParameter Disable { get; set; }
-
-        [Parameter(Mandatory = false)]
-        [ValidateNotNullOrEmpty()]
-        public string Language = "us_english";
-
         [Parameter(Mandatory = false, DontShow = true)]
         public Server SqlServer { get; set; }
 
@@ -39,46 +29,6 @@ namespace MG.Sql.Smo.PowerShell
             }
             else
                 _server = this.SqlServer;
-        }
-
-        #endregion
-
-        #region CMDLET METHODS
-        protected private virtual SmoLogin CreateLogin(string login, LoginType type, string defaultDb, SecureString pass = null, bool? passExpEnabled = null, bool? passPolicyEnabled = null)
-        {
-            var sqlLogin = new Login(_server, login)
-            {
-                DefaultDatabase = defaultDb,
-                Language = this.Language,
-                LoginType = type
-            };
-
-            if (passExpEnabled.HasValue)
-                sqlLogin.PasswordExpirationEnabled = passExpEnabled.Value;
-
-            if (passPolicyEnabled.HasValue)
-                sqlLogin.PasswordPolicyEnforced = passPolicyEnabled.Value;
-
-            if (base.ShouldProcess(_server.Name, "New login for user/group \"" + sqlLogin.Name + "\""))
-            {
-                if (pass == null)
-                    sqlLogin.Create();
-
-                else
-                    sqlLogin.Create(pass, LoginCreateOptions.None);
-
-                sqlLogin.Refresh();
-                if (this.Disable.ToBool())
-                {
-                    sqlLogin.Disable();
-                    sqlLogin.Alter();
-                }
-
-                _server.Refresh();
-                return sqlLogin;
-            }
-            else
-                return null;
         }
 
         #endregion

@@ -78,8 +78,10 @@
     <Compile Include="DataRowClasses\Collation.cs" />
     <Compile Include="DataRowClasses\Collections\CollationCollection.cs" />
     <Compile Include="DataRowClasses\Collections\DataItemCollection.cs" />
+    <Compile Include="DataRowClasses\Collections\SqlProcessCollection.cs" />
     <Compile Include="DataRowClasses\DataRowClass.cs" />
     <Compile Include="DataRowClasses\ErrorLog.cs" />
+    <Compile Include="DataRowClasses\SqlProcess.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="EqualityComparers.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />

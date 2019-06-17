@@ -16,9 +16,9 @@ namespace MG.Sql.Smo
         internal DataItemCollection(DataTable dataTable)
         {
             _list = new List<T>(dataTable.Rows.Count);
-            foreach (DataRow row in dataTable.Rows)
+            for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                _list.Add(this.NewBlankItem(row));
+                _list.Add(this.NewBlankItem(dataTable.Rows[i]));
             }
         }
 

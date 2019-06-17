@@ -100,9 +100,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
-    <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
+    <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
+    <Compile Include="Cmdlets\Logins\RemoveLogin.cs" />
+    <Compile Include="Objects\ADAllowableInputObject.cs" />
+    <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
     <Compile Include="Objects\LoginIdentity.cs" />
     <Compile Include="Backend\SmoContext-Test.cs" />
