@@ -100,8 +100,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cmdlets\Bases\BaseCredentialCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
+    <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
     <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
     <Compile Include="Cmdlets\Logins\RemoveLogin.cs" />
     <Compile Include="Cmdlets\Logins\RenameLogin.cs" />
@@ -112,6 +115,7 @@
     <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
+    <Compile Include="Objects\CredentialIdentity.cs" />
     <Compile Include="Objects\LoginIdentity.cs" />
     <Compile Include="Backend\SmoContext-Test.cs" />
     <Compile Include="Backend\SmoDatabase.cs" />
@@ -167,6 +171,7 @@
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />
     <None Include="packages.config" />
+    <None Include="TypeFormats\SmoCredential.ps1xml" />
     <None Include="TypeFormats\SmoJob.ps1xml" />
     <None Include="TypeFormats\AgentServer.ps1xml" />
     <None Include="TypeFormats\SmoColumn.ps1xml" />

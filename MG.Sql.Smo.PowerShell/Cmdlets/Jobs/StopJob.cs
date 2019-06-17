@@ -17,8 +17,6 @@ namespace MG.Sql.Smo.PowerShell
         private bool noToAll = false;
 
         #region PARAMETERS
-        [Parameter(Mandatory = false)]
-        public SwitchParameter Force { get; set; }
 
         #endregion
 

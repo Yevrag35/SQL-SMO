@@ -20,9 +20,6 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = false, Position = 1)]
         public object StartAt { get; set; }
 
-        [Parameter(Mandatory = false)]
-        public SwitchParameter Force { get; set; }
-
         #endregion
 
         #region CMDLET PROCESSING

@@ -12,12 +12,14 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(void))]
     public class RemoveLogin : BaseLoginCmdlet
     {
+        private List<SmoLogin> _logins;
+
         #region PARAMETERS
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "FromPipelineInput")]
         public SmoLogin InputObject { get; set; }
 
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "Default")]
-        public string LoginName { get; set; }
+        public string[] LoginName { get; set; }
 
         [Parameter(Mandatory = false)]
         public SwitchParameter Force { get; set; }
@@ -25,41 +27,42 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing() => base.BeginProcessing();
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+            _logins = new List<SmoLogin>();
+        }
 
         protected override void ProcessRecord()
         {
-            if (!string.IsNullOrEmpty(this.LoginName) && this.GetLoginFromName(this.LoginName, out SmoLogin found))
-                this.InputObject = found;
-
-            if (this.InputObject == null)
-                throw new ArgumentException("The specified login was not found.");
-                
-
-            if (this.Force || base.ShouldProcess(this.InputObject.Name + " on " + _server.Name, "Remove"))
+            if (this.MyInvocation.BoundParameters.ContainsKey("LoginName"))
             {
-                var activeProcs = SqlProcessCollection.GetProcesses(this.InputObject.Name, _server);
-                if (activeProcs.Count > 0)
+                for (int i = 0; i < this.LoginName.Length; i++)
                 {
-                    activeProcs.KillAll();
+                    if (this.GetLoginFromName(this.LoginName[i], out SmoLogin tempLogin))
+                        _logins.Add(tempLogin);
                 }
-
-                this.InputObject.Drop();
-                _server.Refresh();
             }
+            else if (this.MyInvocation.BoundParameters.ContainsKey("InputObject"))
+                _logins.Add(this.InputObject);
         }
 
-        #endregion
-
-        #region CMDLET METHODS
-        private bool GetLoginFromName(string loginName, out SmoLogin outLogin)
+        protected override void EndProcessing()
         {
-            bool contains = _server.Logins.Contains(loginName);
-            outLogin = null;
-            if (contains)
-                outLogin = _server.Logins[loginName];
+            for (int l = 0; l < _logins.Count; l++)
+            {
+                if (this.Force || base.ShouldProcess(this.InputObject.Name + " on " + _server.Name, "Remove"))
+                {
+                    var activeProcs = SqlProcessCollection.GetProcesses(this.InputObject.Name, _server);
+                    if (activeProcs.Count > 0)
+                    {
+                        activeProcs.KillAll();
+                    }
 
-            return contains;
+                    this.InputObject.Drop();
+                }
+            }
+            _server.Refresh();
         }
 
         #endregion

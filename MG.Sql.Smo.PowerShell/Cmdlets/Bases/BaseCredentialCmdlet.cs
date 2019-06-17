@@ -1,13 +1,15 @@
-﻿using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
+﻿using Microsoft.SqlServer.Management.Smo;
 using System;
-using System.Data.SqlClient;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
+using System.Reflection;
 using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseLoginCmdlet : BaseSqlCmdlet
+    public abstract class BaseCredentialCmdlet : BaseSqlCmdlet
     {
         #region PARAMETERS
         [Parameter(Mandatory = false, DontShow = true)]
@@ -30,7 +32,7 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region METHODS
-        
+        protected private List<Credential> GetCredentials() => _server.Credentials.Cast<Credential>().ToList();
 
         #endregion
     }
