@@ -103,6 +103,7 @@
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
     <Compile Include="Cmdlets\Logins\RemoveLogin.cs" />
+    <Compile Include="Cmdlets\Logins\RenameLogin.cs" />
     <Compile Include="Cmdlets\Logins\SetLogin.cs" />
     <Compile Include="Cmdlets\Logins\SetLoginPassword.cs" />
     <Compile Include="Objects\ADAllowableInputObject.cs" />

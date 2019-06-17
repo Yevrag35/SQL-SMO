@@ -11,6 +11,8 @@ using System.Security;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Set, "Login", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, DefaultParameterSetName = "Default")]
+    [CmdletBinding(PositionalBinding = false)]
+    [OutputType(typeof(SmoLogin))]
     public class SetLogin : BaseLoginCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
@@ -48,6 +50,9 @@ namespace MG.Sql.Smo.PowerShell
         public BinaryChoice? PasswordPolicy { get; set; }
 
         [Parameter(Mandatory = false)]
+        public SwitchParameter PassThru { get; set; }
+
+        [Parameter(Mandatory = false)]
         public SwitchParameter Force { get; set; }
 
         #endregion
@@ -81,7 +86,7 @@ namespace MG.Sql.Smo.PowerShell
             if (_server == null && this.InputObject != null)
                 _server = this.InputObject.Parent;
 
-            else if (_server == null)
+            if (_server == null)
                 throw new SmoContextNotSetException();
 
             if (!string.IsNullOrEmpty(this.LoginName) && base.GetLoginFromName(this.LoginName, out SmoLogin found))
@@ -92,7 +97,9 @@ namespace MG.Sql.Smo.PowerShell
 
             if (this.Force || base.ShouldProcess(this.InputObject.Name + " on " + _server.Name, "Set"))
             {
-                this.Set(this.InputObject);
+                this.Set();
+                if (this.PassThru)
+                    base.WriteObject(this.InputObject);
             }
         }
 
@@ -100,45 +107,45 @@ namespace MG.Sql.Smo.PowerShell
 
         #region METHODS
 
-        private void Set(SmoLogin login)
+        private void Set()
         {
             if (this.AccountStatus.HasValue && this.AccountStatus.Value == BinaryChoice.Disabled)
-                login.Disable();
+                this.InputObject.Disable();
 
             else if (this.AccountStatus.HasValue && this.AccountStatus.Value == BinaryChoice.Enabled)
-                login.Enable();
+                this.InputObject.Enable();
 
             if (!string.IsNullOrEmpty(_defDb))
-                login.DefaultDatabase = _defDb;
+                this.InputObject.DefaultDatabase = _defDb;
 
             if (this.LoginStatus.HasValue)
-                login.DenyWindowsLogin = Convert.ToBoolean(this.LoginStatus.Value);
+                this.InputObject.DenyWindowsLogin = Convert.ToBoolean(this.LoginStatus.Value);
 
             if (!string.IsNullOrEmpty(this.Language))
-                login.Language = this.Language;
+                this.InputObject.Language = this.Language;
 
             if (this.PasswordExpiration.HasValue)
-                login.SetPasswordExpiration(this.PasswordExpiration.Value);
+                this.InputObject.SetPasswordExpiration(this.PasswordExpiration.Value);
 
             if (this.PasswordPolicy.HasValue)
-                login.SetPasswordPolicy(this.PasswordPolicy.Value);
+                this.InputObject.SetPasswordPolicy(this.PasswordPolicy.Value);
 
             if (this.AddRole != null && this.AddRole.Length > 0)
             {
                 for (int a = 0; a < this.AddRole.Length; a++)
                 {
-                    _server.Roles[this.AddRole[a].ToString()].AddMember(login.Name);
+                    _server.Roles[this.AddRole[a].ToString()].AddMember(this.InputObject.Name);
                 }
             }
             if (this.RemoveRole != null && this.RemoveRole.Length > 0)
             {
                 for (int r = 0; r < this.RemoveRole.Length; r++)
                 {
-                    _server.Roles[this.RemoveRole[r].ToString()].DropMember(login.Name);
+                    _server.Roles[this.RemoveRole[r].ToString()].DropMember(this.InputObject.Name);
                 }
             }
-            login.Alter();
-            login.Refresh();
+            this.InputObject.Alter();
+            this.InputObject.Refresh();
             _server.Refresh();
         }
 
