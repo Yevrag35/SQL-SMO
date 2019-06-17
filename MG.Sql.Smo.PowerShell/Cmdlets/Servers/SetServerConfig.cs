@@ -263,7 +263,14 @@ namespace MG.Sql.Smo.PowerShell
             {
                 SmoConfiguration.SetPropertyValue(SmoContext.Connection.Configuration, entry.Key, entry.Value);
             }
-            SmoContext.Connection.Configuration.Alter();
+            try
+            {
+                SmoContext.Connection.Configuration.Alter();
+            }
+            catch (Exception e)
+            {
+                base.ThrowInnerException(e);
+            }
         }
     }
 }

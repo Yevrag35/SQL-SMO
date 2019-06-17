@@ -56,7 +56,17 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Processes
             {
                 int procId = _ids[i];
                 if (this.Force || base.ShouldProcess(_server.Name, "Kill ProcessId: " + procId))
-                    _server.KillProcess(procId);
+                {
+                    try
+                    {
+                        _server.KillProcess(procId);
+                    }
+                    catch (Exception e)
+                    {
+                        base.ThrowInnerException(e);
+                    }
+                }
+                    
             }
         }
 

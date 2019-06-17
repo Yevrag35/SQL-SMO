@@ -106,7 +106,14 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
                 if (this.MyInvocation.BoundParameters.ContainsKey("Owner"))
                     SmoDatabase.SetOwner(ref newDb, this.Owner);
 
-                newDb.Create();
+                try
+                {
+                    newDb.Create();
+                }
+                catch (FailedOperationException foe)
+                {
+                    base.ThrowInnerException(foe);
+                }
                 _server.Databases.Refresh();
                 WriteObject(newDb);
             }

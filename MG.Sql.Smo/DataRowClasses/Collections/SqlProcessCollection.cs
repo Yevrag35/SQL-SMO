@@ -56,18 +56,39 @@ namespace MG.Sql.Smo
         {
             for (int i = 0; i < this.Count; i++)
             {
-                this[i].Kill(this.Server);
+                try
+                {
+                    this[i].Kill(this.Server);
+                }
+                catch (Exception e)
+                {
+                    this.ThrowInnerException(e);
+                }
             }
             this.Server.Refresh();
         }
         public void KillById(int spid)
         {
-            this.Server.KillProcess(spid);
+            try
+            {
+                this.Server.KillProcess(spid);
+            }
+            catch (Exception e)
+            {
+                this.ThrowInnerException(e);
+            }
             this.Server.Refresh();
         }
         public void KillByProcess(SqlProcess proc)
         {
-            this.Server.KillProcess(proc.Spid);
+            try
+            {
+                this.Server.KillProcess(proc.Spid);
+            }
+            catch (Exception e)
+            {
+                this.ThrowInnerException(e);
+            }
             this.Server.Refresh();
         }
         public void KillAllThatMatch(Predicate<SqlProcess> match)
@@ -75,7 +96,14 @@ namespace MG.Sql.Smo
             List<SqlProcess> procs = base.FindAll(match);
             for (int i = 0; i < procs.Count; i++)
             {
-                procs[i].Kill(this.Server);
+                try
+                {
+                    procs[i].Kill(this.Server);
+                }
+                catch (Exception e)
+                {
+                    this.ThrowInnerException(e);
+                }
             }
             this.Server.Refresh();
         }
@@ -89,6 +117,15 @@ namespace MG.Sql.Smo
 
             else
                 _list.Sort(new SqlProcessIdAscendingComparer());
+        }
+
+        private void ThrowInnerException(Exception e)
+        {
+            while (e.InnerException != null)
+            {
+                e = e.InnerException;
+            }
+            throw e;
         }
 
         #endregion

@@ -55,5 +55,14 @@ namespace MG.Sql.Smo.PowerShell
 
             return contains;
         }
+
+        protected private void ThrowInnerException(Exception e)
+        {
+            while (e.InnerException != null)
+            {
+                e = e.InnerException;
+            }
+            throw e;
+        }
     }
 }

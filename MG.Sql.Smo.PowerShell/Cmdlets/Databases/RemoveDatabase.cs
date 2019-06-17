@@ -69,7 +69,14 @@ namespace MG.Sql.Smo.PowerShell
                 Database db = _dbs[i];
                 if (this.Force || base.ShouldProcess(_server.Name, "Delete database '" + db.Name))
                 {
-                    _server.KillDatabase(db.Name);
+                    try
+                    {
+                        _server.KillDatabase(db.Name);
+                    }
+                    catch (FailedOperationException foe)
+                    {
+                        base.ThrowInnerException(foe);
+                    }
                 }
             }
             _server.Refresh();

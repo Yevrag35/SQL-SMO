@@ -49,7 +49,15 @@ namespace MG.Sql.Smo.PowerShell
                 {
                     CategoryType = this.Type
                 };
-                jobCat.Create();
+
+                try
+                {
+                    jobCat.Create();
+                }
+                catch (FailedOperationException foe)
+                {
+                    base.ThrowInnerException(foe);
+                }
                 _js.JobCategories.Refresh();
                 WriteObject(jobCat);
             }

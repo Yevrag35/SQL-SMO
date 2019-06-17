@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.New, "Credential", ConfirmImpact = ConfirmImpact.Low, SupportsShouldProcess = true)]
+    [Cmdlet(VerbsCommon.New, "Credential", ConfirmImpact = ConfirmImpact.Low, SupportsShouldProcess = true, 
+        DefaultParameterSetName = "IdentityAndPassword")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(Credential))]
     public class NewCredential : BaseCredentialCmdlet
@@ -24,12 +25,15 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = true, Position = 0)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, Position = 1)]
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = "IdentityAndPassword")]
         public string Identity { get; set; }
 
-        [Parameter(Mandatory = true, Position = 2)]
-        [Alias("Password", "Credential")]
-        public PassOrCreds PasswordOrCredential { get; set; }
+        [Parameter(Mandatory = true, Position = 2, ParameterSetName = "IdentityAndPassword")]
+        public SecureString Password { get; set; }
+
+        [Parameter(Mandatory = true, Position = 1, ParameterSetName = "ByCredential")]
+        [Alias("PSCredential")]
+        public AnyCredential Credential { get; set; }
 
         [Parameter(Mandatory = false)]
         public MappedClassType MappedClassType = MappedClassType.None;
@@ -40,14 +44,27 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing() => base.BeginProcessing();
+        protected override void BeginProcessing()
+        {
+            base.BeginProcessing();
+            if (ParameterSetName == "IdentityAndPassword")
+                this.Credential = new AnyCredential(this.Identity, this.Password);
+            
+        }
 
         protected override void ProcessRecord()
         {
             Credential cred = this.FormatCredentialObject();
             if (base.ShouldProcess(_server.Name, "Creating credential '" + cred.Name + "'"))
             {
-                cred.Create(this.Identity, (SecureString)this.PasswordOrCredential);
+                try
+                {
+                    cred.Create(this.Credential.UserName, this.Credential.Password);
+                }
+                catch (FailedOperationException foe)
+                {
+                    base.ThrowInnerException(foe);
+                }
                 _server.Credentials.Refresh();
 
                 base.WriteObject(cred);

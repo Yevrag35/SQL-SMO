@@ -116,6 +116,7 @@
     <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
+    <Compile Include="Objects\AnyCredential.cs" />
     <Compile Include="Objects\CredentialIdentity.cs" />
     <Compile Include="Objects\LoginIdentity.cs" />
     <Compile Include="Backend\SmoContext-Test.cs" />
