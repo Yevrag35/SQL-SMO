@@ -5,6 +5,7 @@ using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Data.SqlClient;
 using System.Management.Automation;
+using System.Threading.Tasks;
 
 namespace MG.Sql.Smo.PowerShell.Cmdlets
 {
@@ -106,6 +107,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
                     SmoDatabase.SetOwner(ref newDb, this.Owner);
 
                 newDb.Create();
+                _server.Databases.Refresh();
                 WriteObject(newDb);
             }
         }
@@ -113,7 +115,6 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
         #endregion
 
         #region CMDLET METHODS
-
 
         #endregion
     }

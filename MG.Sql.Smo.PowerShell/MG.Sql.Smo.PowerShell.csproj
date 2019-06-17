@@ -103,6 +103,7 @@
     <Compile Include="Cmdlets\Bases\BaseCredentialCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <Compile Include="Cmdlets\Credentials\NewCredential.cs" />
     <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
     <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
     <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />

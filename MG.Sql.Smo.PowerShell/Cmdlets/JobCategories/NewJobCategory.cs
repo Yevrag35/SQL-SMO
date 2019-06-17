@@ -50,8 +50,7 @@ namespace MG.Sql.Smo.PowerShell
                     CategoryType = this.Type
                 };
                 jobCat.Create();
-
-                _js.Refresh();
+                _js.JobCategories.Refresh();
                 WriteObject(jobCat);
             }
         }
