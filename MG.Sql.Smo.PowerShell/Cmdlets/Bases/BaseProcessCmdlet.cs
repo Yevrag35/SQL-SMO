@@ -1,15 +1,21 @@
-﻿using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
+﻿using Microsoft.SqlServer.Management.Smo;
 using System;
-using System.Data.SqlClient;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation;
+using System.Reflection;
 using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Get, "", ConfirmImpact = ConfirmImpact.None)]
-    public abstract class BaseLoginCmdlet : BaseSqlCmdlet
+    public abstract class BaseProcessCmdlet : BaseSqlCmdlet
     {
+        #region FIELDS/CONSTANTS
+
+
+        #endregion
+
         #region PARAMETERS
         [Parameter(Mandatory = false, DontShow = true)]
         public virtual Server SqlServer { get; set; }
@@ -19,7 +25,6 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         protected override void BeginProcessing()
         {
-            base.BeginProcessing();
             if (this.SqlServer == null)
             {
                 base.BeginProcessing();
@@ -28,11 +33,6 @@ namespace MG.Sql.Smo.PowerShell
             else
                 _server = this.SqlServer;
         }
-
-        #endregion
-
-        #region METHODS
-        
 
         #endregion
     }

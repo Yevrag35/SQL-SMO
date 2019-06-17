@@ -21,16 +21,13 @@ namespace MG.Sql.Smo.PowerShell
         internal static readonly Type STRARR_TYPE = typeof(string[]);
         internal const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
 
+        protected private Server _server;
+
         protected override void BeginProcessing()
         {
             if (!SmoContext.IsSet || !SmoContext.IsConnected)
                 throw new SmoContextNotSetException();
         }
-
-        internal static T GetChosenValue<T>(string parameterName, RuntimeDefinedParameterDictionary rtDict) => 
-            (T)rtDict[parameterName].Value;
-        internal static T[] GetChosenValues<T>(string parameterName, RuntimeDefinedParameterDictionary rtDict) => 
-            (T[])rtDict[parameterName].Value;
 
         public void ChangeValues(object objectToSet, IDictionary newProps, IEnumerable<PropertyInfo> objProps)
         {
@@ -41,6 +38,21 @@ namespace MG.Sql.Smo.PowerShell
                 PropertyInfo pi = objProps.Single(x => x.Name.Equals(key));
                 pi.SetValue(objectToSet, newProps[key]);
             }
+        }
+
+        internal static T GetChosenValue<T>(string parameterName, RuntimeDefinedParameterDictionary rtDict) => 
+            (T)rtDict[parameterName].Value;
+        internal static T[] GetChosenValues<T>(string parameterName, RuntimeDefinedParameterDictionary rtDict) => 
+            (T[])rtDict[parameterName].Value;
+
+        protected private bool GetLoginFromName(string loginName, out SmoLogin outLogin)
+        {
+            bool contains = _server.Logins.Contains(loginName);
+            outLogin = null;
+            if (contains)
+                outLogin = _server.Logins[loginName];
+
+            return contains;
         }
     }
 }

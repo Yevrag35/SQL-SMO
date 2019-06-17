@@ -26,7 +26,7 @@ namespace MG.Sql.Smo
         public string Name { get; private set; }
         public string Program { get; private set; }
         public int Spid { get; private set; }
-        public string Status { get; private set; }
+        public ProcessStatus? Status { get; private set; }
         public string Urn { get; private set; }
 
         #endregion

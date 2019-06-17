@@ -15,11 +15,6 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(SmoLogin))]
     public class RenameLogin : BaseLoginCmdlet
     {
-        #region FIELDS/CONSTANTS
-
-
-        #endregion
-
         #region PARAMETERS
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = "FromPipelineInput", DontShow = true)]
         public SmoLogin InputObject { get; set; }
@@ -48,6 +43,12 @@ namespace MG.Sql.Smo.PowerShell
 
             if (_server == null)
                 throw new SmoContextNotSetException();
+
+            if (!string.IsNullOrEmpty(this.LoginName) && base.GetLoginFromName(this.LoginName, out SmoLogin found))
+                this.InputObject = found;
+
+            if (this.InputObject == null)
+                throw new ArgumentException("The specified login was not found.");
 
             if (this.InputObject.LoginType != LoginType.SqlLogin)
                 throw new ArgumentException("Only SQL logins can be renamed.");

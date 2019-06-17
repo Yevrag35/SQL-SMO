@@ -21,6 +21,14 @@ namespace MG.Sql.Smo
         Deny
     }
 
+    public enum ProcessStatus
+    {
+        background,
+        runnable,
+        running,
+        sleeping
+    }
+
     public enum ReadAccess
     {
         ReadWrite,

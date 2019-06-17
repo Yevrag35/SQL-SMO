@@ -19,12 +19,17 @@ namespace MG.Sql.Smo
         #endregion
 
         #region CONSTRUCTORS
+        private SqlProcessCollection(IEnumerable<SqlProcess> procs)
+            : base(procs) { }
+
         private SqlProcessCollection(DataTable dt)
             : base(dt) { }
 
         #endregion
 
         #region PUBLIC METHODS
+        public static explicit operator SqlProcessCollection(List<SqlProcess> list) => new SqlProcessCollection(list);
+
         public static SqlProcess GetProcess(int processId, Server server)
         {
             DataTable dt = server.EnumProcesses(processId);
