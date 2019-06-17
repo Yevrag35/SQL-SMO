@@ -115,6 +115,16 @@ namespace MG.Sql.Smo
             _lg.Refresh();
             this.PasswordExpirationEnabled = _lg.PasswordExpirationEnabled;
         }
+        public void SetPasswordExpiration(BinaryChoice choice) => this.SetPasswordExpiration(Convert.ToBoolean(choice));
+
+        public void SetPasswordPolicy(bool enabled)
+        {
+            _lg.PasswordPolicyEnforced = enabled;
+            this.Alter();
+            _lg.Refresh();
+            this.PasswordPolicyEnforced = _lg.PasswordPolicyEnforced;
+        }
+        public void SetPasswordPolicy(BinaryChoice choice) => this.SetPasswordPolicy(Convert.ToBoolean(choice));
 
         #endregion
 

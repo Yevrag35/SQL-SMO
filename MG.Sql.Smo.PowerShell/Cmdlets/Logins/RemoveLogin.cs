@@ -32,6 +32,10 @@ namespace MG.Sql.Smo.PowerShell
             if (!string.IsNullOrEmpty(this.LoginName) && this.GetLoginFromName(this.LoginName, out SmoLogin found))
                 this.InputObject = found;
 
+            if (this.InputObject == null)
+                throw new ArgumentException("The specified login was not found.");
+                
+
             if (this.Force || base.ShouldProcess(this.InputObject.Name + " on " + _server.Name, "Remove"))
             {
                 var activeProcs = SqlProcessCollection.GetProcesses(this.InputObject.Name, _server);

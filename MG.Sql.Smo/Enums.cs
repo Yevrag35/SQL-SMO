@@ -15,10 +15,28 @@ namespace MG.Sql.Smo
         Detached
     }
 
+    public enum LoginStatus
+    {
+        Grant,
+        Deny
+    }
+
     public enum ReadAccess
     {
         ReadWrite,
         ReadOnly
+    }
+
+    public enum SqlRole
+    {
+        bulkadmin = 0,
+        dbcreator = 1,
+        diskadmin = 2,
+        processadmin = 3,
+        securityadmin = 4,
+        serveradmin = 5,
+        setupadmin = 6,
+        sysadmin = 7
     }
 
     public enum SQLYearVersion

@@ -14,7 +14,7 @@ namespace MG.Sql.Smo.PowerShell
 
         #region PARAMETERS
         [Parameter(Mandatory = false, DontShow = true)]
-        public Server SqlServer { get; set; }
+        public virtual Server SqlServer { get; set; }
 
         #endregion
 
@@ -29,6 +29,19 @@ namespace MG.Sql.Smo.PowerShell
             }
             else
                 _server = this.SqlServer;
+        }
+
+        #endregion
+
+        #region METHODS
+        protected private bool GetLoginFromName(string loginName, out SmoLogin outLogin)
+        {
+            bool contains = _server.Logins.Contains(loginName);
+            outLogin = null;
+            if (contains)
+                outLogin = _server.Logins[loginName];
+
+            return contains;
         }
 
         #endregion
