@@ -15,7 +15,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "Process", ConfirmImpact = ConfirmImpact.None, DefaultParameterSetName = "None")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(SqlProcess))]
-    public class GetProcess : BaseProcessCmdlet, IDynamicParameters
+    public class GetProcess : BaseServerSqlCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         protected private DynamicLibrary _dynLib = null;

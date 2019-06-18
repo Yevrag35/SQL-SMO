@@ -10,33 +10,57 @@ using System.Management.Automation;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class GetDatabaseBase : BaseSqlProgressCmdlet, IDynamicParameters
+    public abstract class BaseDatabaseCmdlet : BaseSqlProgressCmdlet, IDynamicParameters
     {
         #region FIELDS/CONSTANTS
         protected private DynamicLibrary _dynLib;
         internal const string DBNAME = "Database" + BaseSqlCmdlet.NAME;
+        protected private List<Database> _dbs;
 
         #endregion
+
+        [Parameter(Mandatory = false, DontShow = true)]
+        public virtual Server SqlServer { get; set; }
 
         #region CMDLET PROCESSING
         public object GetDynamicParameters()
         {
-            if (SmoContext.IsSet && SmoContext.IsConnected && _dynLib == null)
+            if (_dynLib == null && SmoContext.IsSet && SmoContext.IsConnected)
             {
                 _dynLib = new DynamicLibrary();
                 IDynParam param = new DynamicParameter<Database>(DBNAME, SmoContext.Connection.Databases.Cast<Database>(), x => x.Name, "Name", true)
                 {
                     Mandatory = false,
                     Position = 0,
-                    SupportsWildcards = true
                 };
                 param.Aliases.Add("n");
                 _dynLib.Add(param);
             }
+            else if (_dynLib == null)
+            {
+                _dynLib = new DynamicLibrary();
+                _dynLib.Add(DBNAME, new RuntimeDefinedParameter(DBNAME, typeof(string[]), new Collection<Attribute>
+                {
+                    new ParameterAttribute
+                    {
+                        Mandatory = false,
+                        Position = 0
+                    }
+                }));
+            }
             return _dynLib;
         }
 
-        protected override void BeginProcessing() => base.BeginProcessing();
+        protected override void BeginProcessing()
+        {
+            if (this.SqlServer == null)
+            {
+                base.BeginProcessing();
+                _server = SmoContext.Connection;
+            }
+            else
+                _server = this.SqlServer;
+        }
 
         #endregion
 
@@ -45,7 +69,7 @@ namespace MG.Sql.Smo.PowerShell
         {
             return _dynLib != null && _dynLib.ParameterHasValue(DBNAME)
                 ? _dynLib.GetUnderlyingValues<Database>(DBNAME)
-                : SmoContext.Connection.Databases.Cast<Database>();
+                : _dynLib.GetBackingItems<Database>(DBNAME);
         }
 
         #endregion

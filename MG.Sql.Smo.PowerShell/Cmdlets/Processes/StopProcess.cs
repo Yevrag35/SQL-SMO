@@ -12,7 +12,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Processes
     [Cmdlet(VerbsLifecycle.Stop, "Process", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, DefaultParameterSetName = "ByProcessId")]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(void))]
-    public class StopProcess : BaseProcessCmdlet
+    public class StopProcess : BaseServerSqlCmdlet
     {
         #region FIELDS/CONSTANTS
         private List<int> _ids;

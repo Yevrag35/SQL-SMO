@@ -13,7 +13,7 @@ namespace MG.Sql.Smo.PowerShell
     [Cmdlet(VerbsCommon.Get, "DatabaseLog", ConfirmImpact = ConfirmImpact.None)]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(LogFile))]
-    public class GetDatabaseLog : GetDatabaseBase, IDynamicParameters
+    public class GetDatabaseLog : BaseDatabaseCmdlet, IDynamicParameters
     {
         private List<Database> _dbs;
 

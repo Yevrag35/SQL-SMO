@@ -9,8 +9,12 @@ using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseProcessCmdlet : BaseSqlCmdlet
+    public abstract class BaseServerSqlCmdlet : BaseSqlCmdlet
     {
+        #region FIELDS/CONSTANTS
+
+        #endregion
+
         #region PARAMETERS
         [Parameter(Mandatory = false, DontShow = true)]
         public virtual Server SqlServer { get; set; }
@@ -28,6 +32,11 @@ namespace MG.Sql.Smo.PowerShell
             else
                 _server = this.SqlServer;
         }
+
+        #endregion
+
+        #region METHODS
+
 
         #endregion
     }

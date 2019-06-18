@@ -102,11 +102,13 @@
   <ItemGroup>
     <Compile Include="Cmdlets\Bases\BaseCredentialCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
-    <Compile Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <None Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseServerSqlCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseUserCmdlet.cs" />
     <Compile Include="Cmdlets\Credentials\NewCredential.cs" />
     <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
     <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
+    <Compile Include="Cmdlets\JobSteps\GetJobStep.cs" />
     <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
     <Compile Include="Cmdlets\Logins\RemoveLogin.cs" />
     <Compile Include="Cmdlets\Logins\RenameLogin.cs" />
@@ -136,14 +138,14 @@
     <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseSqlProgressCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\HighMemoryCmdlet.cs" />
-    <Compile Include="Cmdlets\Bases\JobBaseCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseJobCmdlet.cs" />
     <Compile Include="Cmdlets\Connections\ConnectServer.cs" />
     <Compile Include="Cmdlets\Connections\DisconnectServer.cs" />
     <Compile Include="Cmdlets\Jobs\GetJob.cs" />
     <Compile Include="Cmdlets\JobServer\GetJobServer.cs" />
     <Compile Include="Cmdlets\Columns\GetColumn.cs" />
     <Compile Include="Cmdlets\Databases\GetDatabase.cs" />
-    <Compile Include="Cmdlets\Bases\GetDatabaseBase.cs" />
+    <Compile Include="Cmdlets\Bases\BaseDatabaseCmdlet.cs" />
     <Compile Include="Cmdlets\Servers\GetServer.cs" />
     <Compile Include="Cmdlets\Servers\GetServerConfig.cs" />
     <Compile Include="Cmdlets\Connections\FindSqlInstance.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Objects\SmoBrowserResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Backend\SmoContext.cs" />
+    <None Include="TypeFormats\SmoDatabase.ps1xml" />
     <None Include="TypeFormats\SmoUser.ps1xml" />
   </ItemGroup>
   <ItemGroup>
