@@ -11,11 +11,17 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    [Cmdlet(VerbsCommon.Add, "DbUser", ConfirmImpact = ConfirmImpact.Low, SupportsShouldProcess = true, DefaultParameterSetName = "ByUserName")]
+    [Cmdlet(VerbsCommon.Remove, "DbUser", ConfirmImpact = ConfirmImpact.High, SupportsShouldProcess = true, DefaultParameterSetName = "ByUserName")]
     [CmdletBinding(PositionalBinding = false)]
-    [OutputType(typeof(SmoUser))]
-    public class AddDbUser : BaseUserCmdlet, IDynamicParameters
+    [OutputType(typeof(void))]
+    public class RemoveDbUser : BaseUserCmdlet, IDynamicParameters
     {
+        #region PARAMETERS
+        [Parameter(Mandatory = false)]
+        public SwitchParameter Force { get; set; }
+
+        #endregion
+
         #region CMDLET PROCESSING
         protected override void BeginProcessing() => base.BeginProcessing();
 
@@ -26,12 +32,12 @@ namespace MG.Sql.Smo.PowerShell
             for (int i = 0; i < _users.Count; i++)
             {
                 SqlUserBase sub = _users[i];
+                IEnumerable<Database> _onlyThese = _dbs.Where(x => x.Users.Contains(sub.Name));
                 foreach (Database db in _dbs)
                 {
-                    if (base.ShouldProcess(db.Name + " within " + _server.Name, "Adding " + sub.Name))
+                    if (this.Force || base.ShouldProcess(db.Name + " within " + _server.Name, "Removing " + sub.Name))
                     {
-                        SmoUser user = this.AddToDb(db, sub);
-                        base.WriteObject(user);
+                        this.RemoveFromDb(db, sub);
                     }
                 }
             }
@@ -40,19 +46,23 @@ namespace MG.Sql.Smo.PowerShell
 
         #endregion
 
-        #region CMDLET METHODS
-        private SmoUser AddToDb(Database db, SqlUserBase sub)
+        #region METHODS
+        private void CheckForOwnedObjects(User user)
         {
-            var user = new User(db, sub.Name);
+
+        }
+
+        private void RemoveFromDb(Database db, SqlUserBase sub)
+        {
             try
             {
-                user.Create();
+                User u = db.Users[sub.Name];
+                //u.Drop();
             }
             catch (FailedOperationException foe)
             {
                 base.ThrowInnerException(foe);
             }
-            return user;
         }
 
         #endregion

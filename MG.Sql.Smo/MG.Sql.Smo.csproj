@@ -85,11 +85,14 @@
     <Compile Include="Enums.cs" />
     <Compile Include="EqualityComparers.cs" />
     <Compile Include="Exceptions\Exceptions.cs" />
-    <Compile Include="DataRowClasses\IDataRowClass.cs" />
+    <Compile Include="Interfaces\IDataRowClass.cs" />
     <Compile Include="DataRowClasses\Collections\JobHistoryCollection.cs" />
     <Compile Include="DataRowClasses\JobHistoryItem.cs" />
+    <Compile Include="Interfaces\IFindable.cs" />
+    <Compile Include="Interfaces\ISortable.cs" />
     <Compile Include="MgSmoCollection.cs" />
     <Compile Include="Objects\Bases\SqlUserBase.cs" />
+    <Compile Include="Objects\Collections\SmoUserCollection.cs" />
     <Compile Include="Objects\Password.cs" />
     <Compile Include="Objects\SmoUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

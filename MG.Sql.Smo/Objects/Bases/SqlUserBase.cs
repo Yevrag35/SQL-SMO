@@ -69,9 +69,15 @@ namespace MG.Sql.Smo
         public void Touch() => _smo.Touch();
         public ValidationState Validate(string methodName, params object[] arguments) => _smo.Validate(methodName, arguments);
 
-        public static SqlUserBase Convert(Login login)
+        public static SqlUserBase ConvertFromSql(Login login)
         {
-            return new Login;
+            SmoLogin smo = login;
+            return smo;
+        }
+        public static SqlUserBase ConvertFromSql(User user)
+        {
+            SmoUser smo = user;
+            return smo;
         }
 
         #endregion

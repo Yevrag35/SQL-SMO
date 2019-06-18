@@ -93,7 +93,7 @@ namespace MG.Sql.Smo
         }
         public void KillAllThatMatch(Predicate<SqlProcess> match)
         {
-            List<SqlProcess> procs = base.FindAll(match);
+            IFindable<SqlProcess> procs = base.FindAll(match);
             for (int i = 0; i < procs.Count; i++)
             {
                 try
