@@ -89,12 +89,14 @@
     <Compile Include="DataRowClasses\Collections\JobHistoryCollection.cs" />
     <Compile Include="DataRowClasses\JobHistoryItem.cs" />
     <Compile Include="MgSmoCollection.cs" />
-    <Compile Include="Password.cs" />
+    <Compile Include="Objects\Bases\SqlUserBase.cs" />
+    <Compile Include="Objects\Password.cs" />
+    <Compile Include="Objects\SmoUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server\SmoConfiguration.cs" />
     <Compile Include="Server\SmoServer.cs" />
-    <Compile Include="SmoJob.cs" />
-    <Compile Include="SmoLogin.cs" />
+    <Compile Include="Objects\SmoJob.cs" />
+    <Compile Include="Objects\SmoLogin.cs" />
     <None Include="SmoPropertyCollection.cs" />
   </ItemGroup>
   <ItemGroup>

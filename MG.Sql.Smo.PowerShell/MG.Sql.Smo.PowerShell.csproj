@@ -103,6 +103,7 @@
     <Compile Include="Cmdlets\Bases\BaseCredentialCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseUserCmdlet.cs" />
     <Compile Include="Cmdlets\Credentials\NewCredential.cs" />
     <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
     <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Cmdlets\Logins\SetLoginPassword.cs" />
     <Compile Include="Cmdlets\Processes\GetProcess.cs" />
     <Compile Include="Cmdlets\Processes\StopProcess.cs" />
+    <Compile Include="Cmdlets\Users\AddDbUser.cs" />
     <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
