@@ -13,7 +13,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.JobSteps
     [Cmdlet(VerbsCommon.Get, "JobStep", ConfirmImpact = ConfirmImpact.None)]
     [CmdletBinding(PositionalBinding = false)]
     [OutputType(typeof(JobStep))]
-    public class GetJobStep : BaseSqlCmdlet
+    public class GetJobStep : BaseServerSqlCmdlet
     {
         #region FIELDS/CONSTANTS
 

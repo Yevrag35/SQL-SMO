@@ -1,4 +1,5 @@
 ﻿using MG.Dynamic;
+using MG.Sql.Smo.Exceptions;
 using MG.Progress.PowerShell;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
@@ -19,14 +20,17 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
         private static readonly string[] Aliases = new string[2] { "tab", "tbname" };
 
         //private DynamicLibrary _dynLib;
+        protected private int _count;
         protected private List<Table> _tables;
+        private MgSmoCollection<Database> _dbs;
         //private List<string> _names;
         //private string[] chosenNames = null;
         //private bool OneDB = false;
         protected override string Activity => "SQL Table Retrieval";
+        protected override string StatusFormat => "Processing Database {0}/{1}...";
         protected private const string TABNAME = "Table" + BaseSqlCmdlet.NAME;
         protected override ICollection<string> Items => _tables.Select(x => x.Name).ToArray();
-        protected override int TotalCount => _tables.Count;
+        protected override int TotalCount => _count;
 
         #region PARAMETERS
         [Parameter(Mandatory = false, ValueFromPipeline = true)]
@@ -75,67 +79,128 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets
         #region CMDLET PROCESSING
         protected override void BeginProcessing()
         {
-            base.BeginProcessing();
-            _tables = new List<Table>();
+
+            if (this.Database != null)
+                _server = this.Database.Parent;
+
+            else if (SmoContext.IsSet && SmoContext.IsConnected)
+                _server = SmoContext.Connection;
+
+            else
+                throw new SmoContextNotSetException();
+
+            _dbs = new MgSmoCollection<Database>();
         }
 
         protected override void ProcessRecord()
         {
-            IEnumerable<Table> tbs = null;
-            if (this.MyInvocation.BoundParameters.ContainsKey("Database"))
-                tbs = this.Database.Tables.Cast<Table>();
+            if (this.Database != null)
+                _dbs.Add(this.Database);
+
+            else if (SmoContext.Databases != null && SmoContext.Databases.Count > 0)
+                _dbs.AddRange(SmoContext.Databases);
 
             else
             {
-                var list = new List<Table>();
-                foreach (Database db in SmoContext.Connection.Databases)
-                {
-                    list.AddRange(db.Tables.Cast<Table>());
-                }
-                tbs = list;
+                SmoContext.SetDatabases(_server.Databases);
+                _dbs.AddRange(SmoContext.Databases);
             }
-            if (this.MyInvocation.BoundParameters.ContainsKey(TABNAME))
-                _tables.AddRange(this.GetTablesFromWildcard(TableName, tbs));
-
-            else
-                _tables.AddRange(tbs);
         }
 
         protected override void EndProcessing()
         {
-            for (int i = 0; i < _tables.Count; i++)
+            _count = _dbs.Count;
+            var tbs = new List<Table>(_count);
+            if (this.TableName != null && this.TableName.Length > 0)
             {
-                base.UpdateProgress(0, i);
-                WriteObject(_tables[i]);
+                WildcardPattern[] pats = this.GetPatterns(this.TableName);
+                    
+                for (int d = 0; d < _dbs.Count; d++)
+                {
+                    this.UpdateProgress(0, d);
+                    Database db = _dbs[d];
+                    for (int t = 0; t < db.Tables.Count; t++)
+                    {
+                        this.UpdateSubProgress(t, db.Tables.Count);
+                        Table tab = db.Tables[t];
+
+                        if (this.MatchesPatterns(tab.Name, pats))
+                            base.WriteObject(tab);
+                    }
+                    this.UpdateProgress(1);
+                }
+                this.UpdateProgress(0);
+            }
+            else
+            {
+                for (int d = 0; d < _dbs.Count; d++)
+                {
+                    this.UpdateProgress(0, d);
+
+                    Database db = _dbs[d];
+                    for (int t = 0; t < db.Tables.Count; t++)
+                    {
+                        this.UpdateSubProgress(t, db.Tables.Count);
+                        base.WriteObject(db.Tables[t]);
+                    }
+                    this.UpdateProgress(1);
+                }
+                this.UpdateProgress(0);
             }
         }
 
         #endregion
 
         #region BACKEND METHODS
-        protected private virtual IEnumerable<Table> GetTablesFromName(string[] names)
+
+        private WildcardPattern[] GetPatterns(string[] names)
         {
-            IEnumerable<Table> tables = this.Database.Tables.Cast<Table>();
-            return names != null && names.Length > 0
-                ? tables.Where(x => names.Any(s => s.Equals(x.Name, StringComparison.CurrentCultureIgnoreCase)))
-                : tables;
+            var pats = new WildcardPattern[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                pats[i] = new WildcardPattern(names[i], WildcardOptions.IgnoreCase);
+            }
+            return pats;
+        }
+        private bool MatchesPatterns(string str, WildcardPattern[] wcps)
+        {
+            bool result = false;
+
+            for (int i = 0; i < wcps.Length; i++)
+            {
+                if (wcps[i].IsMatch(str))
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
         }
 
-        protected private virtual IEnumerable<Table> GetTablesFromWildcard(string[] names, IEnumerable<Table> reference)
+        protected override void UpdateProgress(int id, int on)
         {
-            if (names != null && names.Length > 0)
-            {
-                var tbs = new List<Table>();
-                for (int i = 0; i < names.Length; i++)
-                {
-                    var wcp = new WildcardPattern(names[i], WildcardOptions.IgnoreCase);
-                    tbs.AddRange(reference.Where(x => wcp.IsMatch(x.Name)));
-                }
-                return tbs.Distinct(new TableEquality());
-            }
-            else
-                return null;
+            string status = string.Format(this.StatusFormat, on, _count);
+            var pr = new ProgressRecord(id, this.Activity, status);
+            this.WriteTheProgress(pr, on, _count);
         }
+        protected private void UpdateSubProgress(int on, int total)
+        {
+            string status = string.Format("Retrieving Table {0}/{1}...", on, total);
+            var pr = new ProgressRecord(1, "Gathering Sql Tables", status)
+            {
+                ParentActivityId = 0
+            };
+            this.WriteTheProgress(pr, on, total);
+        }
+
+        protected private void WriteTheProgress(ProgressRecord pr, int on, int count)
+        {
+            double num = Math.Round(on / (double)count * HUNDRED, this.RoundDigits, this.MidpointRounding);
+            pr.PercentComplete = Convert.ToInt32(num);
+            base.WriteProgress(pr);
+        }
+
         #endregion
     }
 }
