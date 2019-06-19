@@ -9,25 +9,15 @@ using System.Security;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseCredentialCmdlet : BaseSqlCmdlet
+    public abstract class BaseCredentialCmdlet : BaseServerSqlCmdlet
     {
         #region PARAMETERS
-        [Parameter(Mandatory = false, DontShow = true)]
-        public virtual Server SqlServer { get; set; }
+
 
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing()
-        {
-            if (this.SqlServer == null)
-            {
-                base.BeginProcessing();
-                _server = SmoContext.Connection;
-            }
-            else
-                _server = this.SqlServer;
-        }
+        protected override void BeginProcessing() => base.BeginProcessing();
 
         #endregion
 

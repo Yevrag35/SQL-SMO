@@ -50,8 +50,11 @@ namespace MG.Sql.Smo.PowerShell
         {
             if (!string.IsNullOrEmpty(this.SortBy) && this.SortBy == "Id")
             {
-                _dynLib = new DynamicLibrary();
-                _dynLib.Add("Ascending", new RuntimeDefinedParameter("Ascending", typeof(SwitchParameter), new Collection<Attribute>
+                _dynLib = new DynamicLibrary
+                {
+                    {
+                        "Ascending",
+                        new RuntimeDefinedParameter("Ascending", typeof(SwitchParameter), new Collection<Attribute>
                     {
                         new ParameterAttribute
                         {
@@ -69,7 +72,9 @@ namespace MG.Sql.Smo.PowerShell
                             ParameterSetName = "ByLoginName"
                         }
                     }
-                ));
+                )
+                    }
+                };
             }
             return _dynLib;
         }

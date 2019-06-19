@@ -42,17 +42,18 @@ namespace MG.Sql.Smo.PowerShell
             set
             {
                 _con = value;
-                DatabaseNames = _con.Databases.Cast<Database>().Select(x => x.Name).ToArray();
-                JobNames = _con.JobServer.Jobs.Cast<Job>().Select(x => x.Name).ToArray();
                 DataTable dt = _con.EnumCollations();
                 DataColumn dc = dt.Columns[BaseSqlCmdlet.NAME];
                 ServerCollations = new List<string>(dt.Rows.Cast<DataRow>().Select(x => x.Field<string>(dc)));
             }
         }
-        public static string[] DatabaseNames { get; private set; }
+        //public static List<string> DatabaseNames { get; private set; }
+        public static MgSmoCollection<Database> Databases { get; private set; }
+        public static MgSmoCollection<Job> Jobs { get; private set; }
+        public static MgSmoCollection<User> Users { get; private set; }
         public static bool IsSet => Connection != null;
         public static bool IsConnected => Connection.ConnectionContext.IsOpen;
-        public static string[] JobNames { get; private set; }
+        //public static List<string> JobNames { get; private set; }
         public static List<string> ServerCollations { get; private set; }
 
         #endregion
@@ -74,9 +75,65 @@ namespace MG.Sql.Smo.PowerShell
         public static void Disconnect()
         {
             Connection.ConnectionContext.Disconnect();
-            //Connection = null;
+            if (Databases != null && Databases.Count > 0)
+                Databases.Clear();
+
+            if (Jobs != null && Jobs.Count > 0)
+                Jobs.Clear();
+
+            if (Users != null && Users.Count > 0)
+                Users.Clear();
+
+            //DatabaseNames.Cl
+
             GC.Collect();
         }
+
+        public static CaseInsensitiveComparer GetComparer() => new CaseInsensitiveComparer();
+        public static bool GetNullOrEmpty<T>(IFindable<T> col) => col == null || (col != null || col.Count == 0);
+
+        public static void SetDatabases(IEnumerable<Database> dbs) => Databases = new MgSmoCollection<Database>(dbs);
+        public static void SetDatabases(DatabaseCollection dbCol)
+        {
+            Databases = new MgSmoCollection<Database>(dbCol.Count);
+            for (int i = 0; i < dbCol.Count; i++)
+            {
+                Databases.Add(dbCol[i]);
+            }
+        }
+
+        public static void SetJobs(IEnumerable<Job> jobs) => new MgSmoCollection<Job>(jobs);
+        public static void SetJobs(JobCollection jobCol)
+        {
+            Jobs = new MgSmoCollection<Job>(jobCol.Count);
+            for (int i = 0; i < jobCol.Count; i++)
+            {
+                Jobs.Add(jobCol[i]);
+            }
+        }
+
+        public static void SetUsers(IEnumerable<User> users) => new MgSmoCollection<User>(users);
+        public static void SetUsers(UserCollection userCol)
+        {
+            Users = new MgSmoCollection<User>(userCol.Count);
+            for (int i = 0; i < userCol.Count; i++)
+            {
+                Users.Add(userCol[i]);
+            }
+        }
+        public static void SetUsers(IEnumerable<UserCollection> userCols)
+        {
+            Users = new MgSmoCollection<User>(userCols.Sum(x => x.Count));
+            foreach (UserCollection col in userCols)
+            {
+                for (int i = 0; i < col.Count; i++)
+                {
+                    Users.Add(col[i]);
+                }
+            }
+        }
+
+        #region AD METHODS
 
         public static LoginType? FindADLoginFromObjectClass(string className)
         {
@@ -196,6 +253,8 @@ namespace MG.Sql.Smo.PowerShell
             else
                 throw new ArgumentException(distinguishedName + " is not a valid distinguishedName.");
         }
+
+        #endregion
 
         #endregion
 

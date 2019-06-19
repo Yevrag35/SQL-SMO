@@ -92,7 +92,7 @@ namespace MG.Sql.Smo.PowerShell
         #region BACKEND METHODS
         private bool HasSetValues(Dictionary<string, object> parameters)
         {
-            IEqualityComparer<string> comparer = new SmoContext.CaseInsensitiveComparer();
+            IEqualityComparer<string> comparer = SmoContext.GetComparer();
             return parameters.Any(x => !SkipThese.Contains(x.Key, comparer));
         }
 

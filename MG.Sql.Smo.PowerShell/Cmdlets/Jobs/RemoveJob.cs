@@ -15,8 +15,6 @@ namespace MG.Sql.Smo.PowerShell
         private JobServer _js;
 
         #region PARAMETERS
-        [Parameter(Mandatory = false, DontShow = true)]
-        public JobServer JobServer { get; set; }
 
         #endregion
 
@@ -24,9 +22,9 @@ namespace MG.Sql.Smo.PowerShell
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            _js = !this.MyInvocation.BoundParameters.ContainsKey("JobServer") 
-                ? SmoContext.Connection.JobServer 
-                : this.JobServer;
+            _js = !this.MyInvocation.BoundParameters.ContainsKey("SqlServer")
+                ? SmoContext.Connection.JobServer
+                : this.SqlServer.JobServer;
         }
 
         protected override void ProcessRecord()

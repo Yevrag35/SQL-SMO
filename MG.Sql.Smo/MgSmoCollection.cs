@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace MG.Sql.Smo
 {
-    public class MgSmoCollection<T> : IList<T> where T : SqlSmoObject
+    public class MgSmoCollection<T> : IFindable<T>, ISortable<T>, IList<T> where T : SqlSmoObject
     {
         private List<T> _list;
 
@@ -44,7 +44,7 @@ namespace MG.Sql.Smo
         public void CopyTo(T[] array, int arrayIndex) => _list.CopyTo(array, arrayIndex);
         public IEnumerator<T> GetEnumerator() => _list.GetEnumerator();
         public T Find(Predicate<T> match) => _list.Find(match);
-        public MgSmoCollection<T> FindAll(Predicate<T> match) => _list.FindAll(match);
+        public IFindable<T> FindAll(Predicate<T> match) => (MgSmoCollection<T>)_list.FindAll(match);
         public T GetItemById(object id, string idProperty = null)
         {
             T obj = null;
@@ -76,6 +76,8 @@ namespace MG.Sql.Smo
         public void Insert(int index, T item) => _list.Insert(index, item);
         public bool Remove(T item) => _list.Remove(item);
         public void RemoveAt(int index) => _list.RemoveAt(index);
+        public void Sort(IComparer<T> comparer) => _list.Sort(comparer);
+
         IEnumerator IEnumerable.GetEnumerator() => _list.GetEnumerator();
 
         public bool TryFind(Predicate<T> match, out T matched)

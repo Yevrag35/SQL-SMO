@@ -4,6 +4,7 @@ using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Management.Automation;
@@ -11,7 +12,7 @@ using System.Reflection;
 
 namespace MG.Sql.Smo.PowerShell
 {
-    public abstract class BaseUserCmdlet : BaseSqlCmdlet, IDynamicParameters
+    public abstract class BaseUserCmdlet : BaseServerSqlCmdlet, IDynamicParameters
     {
         protected private DynamicLibrary _dynLib;
         protected private IEnumerable<Database> _dbs;
@@ -24,28 +25,22 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "ByUserName")]
         public string[] UserName { get; set; }
 
-        [Parameter(Mandatory = false, DontShow = true)]
-        public Server SqlServer { get; set; }
-
         #endregion
 
         #region DYNAMIC PARAMETERS
         public virtual object GetDynamicParameters()
         {
-            if (_dynLib == null && (this.SqlServer != null || (SmoContext.IsSet && SmoContext.IsConnected)))
+            if (_dynLib == null && SmoContext.IsSet && SmoContext.IsConnected)
             {
-                Server s = this.SqlServer != null
-                    ? this.SqlServer
-                    : SmoContext.Connection;
+                if (SmoContext.GetNullOrEmpty(SmoContext.Databases))
+                    SmoContext.SetDatabases(SmoContext.Connection.Databases);
 
-                _dynLib = new DynamicLibrary();
-
-                var dp = new DynamicParameter<Database>("Database", s.Databases.Cast<Database>(), x => x.Name, "Name", true)
-                {
-                    Mandatory = true
-                };
-                _dynLib.Add(dp);
+                _dynLib = this.NewDynamicLibrary(SmoContext.Databases);
             }
+            else if (_dynLib == null)
+                _dynLib = this.NewDynamicLibrary();
+
+
             return _dynLib;
         }
 
@@ -54,13 +49,7 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         protected override void BeginProcessing()
         {
-            if (this.SqlServer == null)
-            {
-                base.BeginProcessing();
-                _server = SmoContext.Connection;
-            }
-            else
-                _server = this.SqlServer;
+            base.BeginProcessing();
 
             if (_dynLib.ParameterHasValue("Database"))
                 _dbs = _dynLib.GetUnderlyingValues<Database>("Database");
@@ -90,6 +79,34 @@ namespace MG.Sql.Smo.PowerShell
             return _server.Logins.Contains(userName)
                 ? SqlUserBase.ConvertFromSql(_server.Logins[userName])
                 : null;
+        }
+
+        protected private DynamicLibrary NewDynamicLibrary()
+        {
+            var dl = new DynamicLibrary
+            {
+                {
+                    BaseDatabaseCmdlet.DBNAME,
+                    new RuntimeDefinedParameter(BaseDatabaseCmdlet.DBNAME, typeof(string[]), new Collection<Attribute>
+            {
+                new ParameterAttribute
+                {
+                    Mandatory = false
+                }
+            })
+                }
+            };
+            return dl;
+        }
+        protected private DynamicLibrary NewDynamicLibrary(MgSmoCollection<Database> dbCol)
+        {
+            var dl = new DynamicLibrary();
+            var dp = new DynamicParameter<Database>(BaseDatabaseCmdlet.DBNAME, SmoContext.Databases, x => x.Name, "Name", true)
+            {
+                Mandatory = true
+            };
+            dl.Add(dp);
+            return dl;
         }
 
         protected private void Refresh(IEnumerable<IRefreshable> refreshables)

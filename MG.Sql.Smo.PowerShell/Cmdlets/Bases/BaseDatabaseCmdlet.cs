@@ -22,7 +22,7 @@ namespace MG.Sql.Smo.PowerShell
         [Parameter(Mandatory = false, DontShow = true)]
         public virtual Server SqlServer { get; set; }
 
-        #region CMDLET PROCESSING
+        #region DYNAMIC PARAMETERS
         public object GetDynamicParameters()
         {
             if (_dynLib == null && SmoContext.IsSet && SmoContext.IsConnected)
@@ -38,18 +38,28 @@ namespace MG.Sql.Smo.PowerShell
             }
             else if (_dynLib == null)
             {
-                _dynLib = new DynamicLibrary();
-                _dynLib.Add(DBNAME, new RuntimeDefinedParameter(DBNAME, typeof(string[]), new Collection<Attribute>
+                _dynLib = new DynamicLibrary
+                {
+                    {
+                        DBNAME,
+                        new RuntimeDefinedParameter(DBNAME, typeof(string[]), new Collection<Attribute>
                 {
                     new ParameterAttribute
                     {
                         Mandatory = false,
                         Position = 0
                     }
-                }));
+                })
+                    }
+                };
             }
             return _dynLib;
         }
+
+        #endregion
+
+        #region CMDLET PROCESSING
+
 
         protected override void BeginProcessing()
         {
