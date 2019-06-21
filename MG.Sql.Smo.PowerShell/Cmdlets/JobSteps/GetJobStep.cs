@@ -16,11 +16,6 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(JobStep))]
     public class GetJobStep : BaseSqlCmdlet
     {
-        #region FIELDS/CONSTANTS
-        //private List<SmoJob> _jobs;
-
-        #endregion
-
         #region PARAMETERS
         [Parameter(Mandatory = true, ValueFromPipeline = true)]
         public SmoJob Job { get; set; }
@@ -36,34 +31,25 @@ namespace MG.Sql.Smo.PowerShell
 
         protected override void ProcessRecord()
         {
-            
+            if (this.Identity != null)
+            {
+                if (this.Identity.IsNumeric && this.Job.JobSteps.TryFind(x => x.ID.Equals((int)this.Identity), out JobStep jStep))
+                {
+                    base.WriteObject(jStep);
+                }
+                else
+                {
+                    base.WriteObject(this.Job.JobSteps.WildcardMatch("Name", (string)this.Identity), true);
+                }
+            }
+            else
+            {
+                base.WriteObject(this.Job.JobSteps, true);
+            }
+            NoEnd = true;
         }
 
-        #endregion
-
-        #region METHODS
-        protected private JobStep GetJobStep(NumStrIdentity input)
-        {
-            JobStep jobStep = null;
-            if (input.IsNumeric && this.Job.JobSteps.TryFind(x => x.ID.Equals((int)input), out JobStep jStep))
-            {
-                jobStep = jStep;
-            }
-
-            else if (input.IsString)
-            {
-                var newCol = this.Job.JobSteps.WildcardMatch("Name", (string)input);
-            }
-
-            //if (input is int jobStepId && _input.JobSteps.TryFind(x => x.ID.Equals(jobStepId), out JobStep jsId))
-            //    jobStep = jsId;
-
-            //else if (input is string jobStepName && _input.JobSteps.TryFind(
-            //    x => x.Name.Equals(jobStepName, StringComparison.CurrentCultureIgnoreCase), out JobStep jsName))
-            //    jobStep = jsName;
-
-            //return jobStep;
-        }
+        protected override void EndProcessing() { }
 
         #endregion
     }

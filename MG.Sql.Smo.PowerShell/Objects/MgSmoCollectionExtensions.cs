@@ -11,7 +11,7 @@ namespace MG.Sql.Smo.PowerShell.Extensions
     {
         private const BindingFlags PUB_INST = BindingFlags.Instance | BindingFlags.Public;
 
-        public static void WildcardMatch<T>(this MgSmoCollection<T> col, string propertyName, string propertyValue) where T : SqlSmoObject
+        public static MgSmoCollection<T> WildcardMatch<T>(this MgSmoCollection<T> col, string propertyName, string propertyValue) where T : SqlSmoObject
         {
             var wcp = new WildcardPattern(propertyValue, WildcardOptions.IgnoreCase);
             var list = new MgSmoCollection<T>(col.Count);
@@ -22,10 +22,11 @@ namespace MG.Sql.Smo.PowerShell.Extensions
             for (int i = 0; i < col.Count; i++)
             {
                 T item = col[i];
-                string piVal = pi.GetValue(col[i]) as string;
-                if (!wcp.IsMatch(piVal))
-                    col.Remove(item);
+                string piVal = pi.GetValue(item) as string;
+                if (wcp.IsMatch(piVal))
+                    list.Add(item);
             }
+            return list;
         }
     }
 }
