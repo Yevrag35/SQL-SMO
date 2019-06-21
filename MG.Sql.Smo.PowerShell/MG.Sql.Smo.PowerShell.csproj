@@ -125,7 +125,8 @@
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
     <Compile Include="Objects\AnyCredential.cs" />
     <Compile Include="Objects\CredentialIdentity.cs" />
-    <Compile Include="Objects\Identity.cs" />
+    <Compile Include="Objects\MgSmoCollectionExtensions.cs" />
+    <Compile Include="Objects\NumStrIdentity.cs" />
     <Compile Include="Objects\LoginIdentity.cs" />
     <Compile Include="Backend\SmoContext-Test.cs" />
     <Compile Include="Backend\SmoDatabase.cs" />
