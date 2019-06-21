@@ -34,9 +34,20 @@ namespace MG.Sql.Smo
         public void AddRange(IEnumerable<T> items) => _list.AddRange(items);
         public void AddRange(SmoCollectionBase smoCol)
         {
-            foreach (T tItem in smoCol)
+            try
             {
-                _list.Add(tItem);
+                foreach (T tItem in smoCol)
+                {
+                    _list.Add(tItem);
+                }
+            }
+            catch (ExecutionFailureException exe)
+            {
+                this.ThrowInnerException(exe);
+            }
+            catch (FailedOperationException foe)
+            {
+                this.ThrowInnerException(foe);
             }
         }
         public void Clear() => _list.Clear();
@@ -79,6 +90,15 @@ namespace MG.Sql.Smo
         public void Sort(IComparer<T> comparer) => _list.Sort(comparer);
 
         IEnumerator IEnumerable.GetEnumerator() => _list.GetEnumerator();
+
+        private void ThrowInnerException(Exception e)
+        {
+            while (e.InnerException != null)
+            {
+                e = e.InnerException;
+            }
+            throw e;
+        }
 
         public bool TryFind(Predicate<T> match, out T matched)
         {

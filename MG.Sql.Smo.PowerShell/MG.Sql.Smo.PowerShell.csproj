@@ -105,6 +105,7 @@
     <None Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseServerSqlCmdlet.cs" />
     <Compile Include="Cmdlets\Bases\BaseUserCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseViewCmdlet.cs" />
     <Compile Include="Cmdlets\Credentials\NewCredential.cs" />
     <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
     <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Cmdlets\Users\AddDbUser.cs" />
     <Compile Include="Cmdlets\Users\GetDbUser.cs" />
     <Compile Include="Cmdlets\Users\RemoveDbUser.cs" />
+    <Compile Include="Cmdlets\Views\GetView.cs" />
     <Compile Include="Objects\ADAllowableInputObject.cs" />
     <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
     <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />

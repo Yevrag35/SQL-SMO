@@ -30,10 +30,11 @@ namespace MG.Sql.Smo.PowerShell
         {
             if (SmoContext.IsSet && SmoContext.IsConnected && _dynLib == null)
             {
+                if (SmoContext.GetNullOrEmpty(SmoContext.Jobs))
+                    SmoContext.SetJobs(SmoContext.Connection.JobServer.Jobs);
+
                 _dynLib = new DynamicLibrary();
-                var dp = new DynamicParameter<Microsoft.SqlServer.Management.Smo.Agent.Job>(
-                    "JobName", SmoContext.Connection.JobServer.Jobs.Cast<Microsoft.SqlServer.Management.Smo.Agent.Job>(),
-                    x => x.Name, "Name", true)
+                var dp = new DynamicParameter<Microsoft.SqlServer.Management.Smo.Agent.Job>("JobName", SmoContext.Jobs, x => x.Name, "Name", true)
                 {
                     Position = 0,
                     Mandatory = false,

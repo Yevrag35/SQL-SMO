@@ -27,8 +27,11 @@ namespace MG.Sql.Smo.PowerShell
         {
             if (_dynLib == null && SmoContext.IsSet && SmoContext.IsConnected)
             {
+                if (SmoContext.GetNullOrEmpty(SmoContext.Databases))
+                    SmoContext.SetDatabases(SmoContext.Connection.Databases);
+
                 _dynLib = new DynamicLibrary();
-                IDynParam param = new DynamicParameter<Database>(DBNAME, SmoContext.Connection.Databases.Cast<Database>(), x => x.Name, "Name", true)
+                IDynParam param = new DynamicParameter<Database>(DBNAME, SmoContext.Databases, x => x.Name, "Name", true)
                 {
                     Mandatory = false,
                     Position = 0,
@@ -59,7 +62,6 @@ namespace MG.Sql.Smo.PowerShell
         #endregion
 
         #region CMDLET PROCESSING
-
 
         protected override void BeginProcessing()
         {
