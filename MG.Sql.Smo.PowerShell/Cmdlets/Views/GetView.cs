@@ -9,15 +9,17 @@ using System.Reflection;
 namespace MG.Sql.Smo.PowerShell.Cmdlets.Views
 {
     [Cmdlet(VerbsCommon.Get, "View", ConfirmImpact = ConfirmImpact.None)]
-    public class GetView : BaseViewCmdlet
+    public class GetView : BaseSqlCmdlet
     {
         private MgSmoCollection<View> _views;
-        private bool NoEnd = false;
 
         #region PARAMETERS
-        [Parameter(Mandatory = false, Position = 1)]
+        [Parameter(Mandatory = false, Position = 0)]
         [SupportsWildcards]
         public string[] ViewName { get; set; }
+
+        [Parameter(Mandatory = false, ValueFromPipeline = true)]
+        public Database Database { get; set; }
 
         #endregion
 
@@ -25,7 +27,7 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Views
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            _views = new List<View>();
+            _views = new MgSmoCollection<View>();
         }
 
         protected override void ProcessRecord()
@@ -47,11 +49,11 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Views
                 NoEnd = true;
                 if (this.HasNames())
                 {
-                    WildcardPattern[] patterns = this.PatternsFromNames(this.ViewName);
+                    WildcardPattern[] patterns = base.PatternsFromNames(this.ViewName);
                     for (int i = 0; i < this.Database.Views.Count; i++)
                     {
                         View v = this.Database.Views[i];
-                        if (this.MatchesPattern(v, patterns))
+                        if (base.NameMatchesPatterns(v.Name, patterns))
                             base.WriteObject(v);
                     }
                 }
@@ -83,37 +85,12 @@ namespace MG.Sql.Smo.PowerShell.Cmdlets.Views
             for (int i = 0; i < db.Views.Count; i++)
             {
                 View v = db.Views[i];
-                if (this.MatchesPattern(v, pats))
+                if (base.NameMatchesPatterns(v.Name, pats))
                     views.Add(v);
             }
         }
 
         private bool HasNames() => this.ViewName != null && this.ViewName.Length > 0;
-
-        private bool MatchesPattern(View view, WildcardPattern[] pats)
-        {
-            bool result = false;
-            for (int i = 0; i < pats.Length; i++)
-            {
-                if (pats[i].IsMatch(view.Name))
-                {
-                    result = true;
-                    break;
-                }
-            }
-
-            return result;
-        }
-
-        private WildcardPattern[] PatternsFromNames(string[] names)
-        {
-            var wcps = new WildcardPattern[names.Length];
-            for (int i = 0; i < names.Length; i++)
-            {
-                wcps[i] = new WildcardPattern(names[i], WildcardOptions.IgnoreCase);
-            }
-            return wcps;
-        }
 
         #endregion
     }

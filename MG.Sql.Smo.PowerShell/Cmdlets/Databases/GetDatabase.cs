@@ -19,7 +19,7 @@ namespace MG.Sql.Smo.PowerShell
         {
             base.BeginProcessing();
             if (_dynLib != null)
-                _dbs = new List<Database>(base.RetrieveDatabases());
+                _dbs = new MgSmoCollection<Database>(base.RetrieveDatabases());
         }
 
         protected override void ProcessRecord()

@@ -16,7 +16,7 @@ namespace MG.Sql.Smo.PowerShell
     public class RemoveDatabase : BaseForceSqlCmdlet
     {
         #region FIELDS/CONSTANTS
-        private List<Database> _dbs;
+        private MgSmoCollection<Database> _dbs;
 
         #endregion
 
@@ -26,9 +26,6 @@ namespace MG.Sql.Smo.PowerShell
 
         [Parameter(Mandatory = true, Position = 0, ParameterSetName = "ByDatabaseName")]
         public string[] Name { get; set; }
-
-        [Parameter(Mandatory = false, DontShow = true)]
-        public Server SqlServer { get; set; }
 
         #endregion
 
@@ -43,7 +40,7 @@ namespace MG.Sql.Smo.PowerShell
             else
                 _server = this.SqlServer;
 
-            _dbs = new List<Database>();
+            _dbs = new MgSmoCollection<Database>();
         }
 
         protected override void ProcessRecord()

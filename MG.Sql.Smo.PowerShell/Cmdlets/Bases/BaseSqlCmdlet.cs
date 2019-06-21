@@ -22,6 +22,7 @@ namespace MG.Sql.Smo.PowerShell
         internal static readonly Type STRARR_TYPE = typeof(string[]);
         internal const BindingFlags FLAGS = BindingFlags.Public | BindingFlags.Instance;
 
+        protected private bool NoEnd = false;
         protected private Server _server;
 
         protected override void BeginProcessing()
@@ -54,6 +55,33 @@ namespace MG.Sql.Smo.PowerShell
                 outLogin = _server.Logins[loginName];
 
             return contains;
+        }
+
+        protected private bool NameMatchesPatterns(string name, params WildcardPattern[] pats)
+        {
+            bool result = false;
+            for (int i = 0; i < pats.Length; i++)
+            {
+                if (pats[i].IsMatch(name))
+                {
+                    result = true;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        protected private WildcardPattern PatternFromName(string name) => new WildcardPattern(name, WildcardOptions.IgnoreCase);
+
+        protected private WildcardPattern[] PatternsFromNames(string[] names)
+        {
+            var wcps = new WildcardPattern[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                wcps[i] = new WildcardPattern(names[i], WildcardOptions.IgnoreCase);
+            }
+            return wcps;
         }
 
         protected private void ThrowInnerException(Exception e)

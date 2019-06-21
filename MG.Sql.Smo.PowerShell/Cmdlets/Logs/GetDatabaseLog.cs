@@ -15,8 +15,6 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(LogFile))]
     public class GetDatabaseLog : BaseDatabaseCmdlet, IDynamicParameters
     {
-        private List<Database> _dbs;
-
         protected override string Activity => null;
         protected override ICollection<string> Items => null;
 
@@ -31,7 +29,7 @@ namespace MG.Sql.Smo.PowerShell
         protected override void BeginProcessing()
         {
             base.BeginProcessing();
-            _dbs = new List<Database>();
+            _dbs = new MgSmoCollection<Database>();
         }
 
         protected override void ProcessRecord() => _dbs.AddRange(base.RetrieveDatabases());
