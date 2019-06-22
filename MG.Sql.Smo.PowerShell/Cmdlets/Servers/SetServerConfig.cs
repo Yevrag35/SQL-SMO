@@ -149,6 +149,10 @@ namespace MG.Sql.Smo.PowerShell
         public int MinMemoryPerQuery { get; set; }
 
         [Parameter(Mandatory = false)]
+        [ValidateRange(0, 2147483647)]
+        public int MinServerMemory { get; set; }
+
+        [Parameter(Mandatory = false)]
         public BinaryChoice NestedTriggers { get; set; }
 
         [Parameter(Mandatory = false)]

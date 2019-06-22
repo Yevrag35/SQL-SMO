@@ -7,6 +7,7 @@ using System.Management.Automation;
 namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommunications.Disconnect, "Server", ConfirmImpact = ConfirmImpact.None)]
+    [Alias("dissmo")]
     public class DisconnectServer : Cmdlet
     {
         #region CMDLET PROCESSING

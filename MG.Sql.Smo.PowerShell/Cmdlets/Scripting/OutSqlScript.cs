@@ -10,8 +10,9 @@ namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsData.Out, "SqlScript", ConfirmImpact = ConfirmImpact.None)]
     [CmdletBinding(PositionalBinding = false)]
+    [Alias("outsql")]
     [OutputType(typeof(void))]
-    public class OutSqlScript : WriteToSqlScript, IDynamicParameters
+    public class OutSqlScript : WriteSqlScript, IDynamicParameters
     {
         #region PARAMETERS
         [Parameter(Mandatory = true, Position = 0)]

@@ -30,38 +30,43 @@ $References = Join-Path "$ModuleFileDirectory\.." "Assemblies";
 
 [string[]]$verbs = Get-Verb | Select-Object -ExpandProperty Verb;
 $patFormat = '^({0})(\S{{1,}})\.cs';
-$pattern = $patFormat -f ($verbs -join '|')
+$pattern = $patFormat -f ($verbs -join '|');
 $cmdletFormat = "{0}-{1}";
 
-$baseCmdletDir = Join-Path "$ModuleFileDirectory\.." "Cmdlets"
+$baseCmdletDir = Join-Path "$ModuleFileDirectory\.." "Cmdlets";
 [string[]]$folders = [System.IO.Directory]::EnumerateDirectories($baseCmdletDir, "*", [System.IO.SearchOption]::TopDirectoryOnly) | Where-Object { -not $_.EndsWith('Bases') };
 
-[string[]]$Cmdlets = foreach ($cs in $(Get-ChildItem -Path $folders *.cs -File))
+$aliasPat = '\[alias\(\"(.{1,})\"\)\]'
+$csFiles = @(Get-ChildItem -Path $folders *.cs -File);
+$Cmdlets = New-Object System.Collections.Generic.List[string] $csFiles.Count;
+$Aliases = New-Object System.Collections.Generic.List[string];
+foreach ($cs in $csFiles)
 {
 	$match = [regex]::Match($cs.Name, $pattern)
-	$cmdletFormat -f $match.Groups[1].Value, $match.Groups[2].Value;
+    $Cmdlets.Add(($cmdletFormat -f $match.Groups[1].Value, $match.Groups[2].Value));
+    $content = Get-Content -Path $file -Raw;
+    $aliasMatch = [regex]::Match($content, $aliasPat, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase);
+    if ($aliasMatch.Success)
+    {
+        $Aliases.Add($aliasMatch.Groups[1].Value);
+    }
 }
 
 [string[]]$allDlls = Get-ChildItem $References -Include *.dll -Exclude 'System.Management.Automation.dll' -Recurse | Select-Object -ExpandProperty Name;
-# Import-Module $(Join-Path $DebugDirectory $TargetFileName);
-# $moduleInfo = Get-Command -Module $($TargetFileName.Replace('.dll', ''));
-# [string[]]$allCmd = $moduleInfo | ? { $_.CommandType -eq "Cmdlet" } | Select -ExpandProperty Name;
-# [string[]]$allAlias = $moduleInfo | ? { $_.CommandType -eq "Alias" } | Select -ExpandProperty Name;
 [string[]]$allFormats = $allFiles | Where-Object -FilterScript { $_.Extension -eq ".ps1xml" } | Select-Object -ExpandProperty Name;
 
 $manifestFile = "SQL-SMO.psd1"
-# $allNames = @($($allFiles | Select -ExpandProperty Name), $manifestFile);
 
 $allFiles | Copy-Item -Destination $DebugDirectory -Force;
-$modPath = Join-Path $DebugDirectory $manifestFile
+$modPath = Join-Path $DebugDirectory $manifestFile;
 
 $manifest = @{
     Path                   = $modPath
     Guid                   = 'd2f53583-045a-4939-a12b-bd446e0b7fcd';
     Description            = 'A module for gathering and editing SQL Server Instance properties utilizing SQL Management Objects without the need for SQL Management Studio to be installed.'
     Author                 = 'Mike Garvey'
-    CompanyName            = 'DGR Systems, LLC.'
-    Copyright              = '(c) 2019 DGR Systems, LLC.  All rights reserved.'
+    CompanyName            = 'Yevrag35, LLC.'
+    Copyright              = '(c) 2019 Yevrag35, LLC.  All rights reserved.'
     ModuleVersion          = $($vers.Trim() -split '\.' | Select-Object -First 3) -join '.'
     PowerShellVersion      = '4.0'
     DotNetFrameworkVersion = '4.7'
@@ -69,15 +74,11 @@ $manifest = @{
     DefaultCommandPrefix   = "Smo"
     RequiredAssemblies     = $allDlls
 	CmdletsToExport		   = $Cmdlets
-#    CmdletsToExport        = @( 'Connect-Server', 'Disconnect-Server', 'Find-SqlInstance',
-#                                'Get-Column', 'Get-ServerConfig', 'Get-Server', 'Get-SystemMessages',
-#                                'Get-Connection', 'Remove-AgentJob', 'New-Database', 'Get-ServerErrorLog'
-#                                'Get-Database', 'Get-DatabaseState', 'Get-AgentJob', 'Get-Table',
-#                                'Get-AgentServer', 'Start-AgentJob', 'Set-ServerConfig', 'Set-AgentJob', 
-#                                'Set-AgentServer', 'Stop-AgentJob')
-    VariablesToExport      = ''
+#    VariablesToExport      = ''
     FormatsToProcess       = if ($allFormats.Length -gt 0) { $allFormats } else { @() };
     ProjectUri             = 'https://github.com/Yevrag35/SQL-SMO'
+	LicenseUri			   = 'https://raw.githubusercontent.com/Yevrag35/SQL-SMO/master/LICENSE'
+	HelpInfoUri			   = 'https://github.com/Yevrag35/SQL-SMO/issues'
     Tags                   = @( 'SQL', 'Server', 'Instance', 'Property', 'Setting', 'Settings',
                                 'Set', 'Change', 'Smo', 'Management', 'Object', 'Memory', 'Tables',
                                 'Columns', 'Max', 'Min', 'MB', 'Megabyte', 'Feature', 'Microsoft',
@@ -86,6 +87,10 @@ $manifest = @{
                                 'default', 'connection', 'string', 'data', 'context', 'format', 'Database',
                                 'Query', 'Progress', 'bar', 'find', 'db', 'instance' )
 };
+if ($Aliases.Count -gt 0)
+{
+    $manifest.AliasesToExport = $Aliases.ToArray();
+}
 
 New-ModuleManifest @manifest;
-Update-ModuleManifest -Path $modPath -Prerelease 'alpha'
+Update-ModuleManifest -Path $modPath -Prerelease 'beta';

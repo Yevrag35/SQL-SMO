@@ -9,6 +9,8 @@ namespace MG.Sql.Smo.PowerShell
 {
     [Cmdlet(VerbsCommon.Get, "Database", ConfirmImpact = ConfirmImpact.None)]
     [OutputType(typeof(Database))]
+    [Alias("getdb")]
+    [CmdletBinding(PositionalBinding = false)]
     public class GetDatabase : BaseDatabaseCmdlet
     {
         protected override string Activity => null;

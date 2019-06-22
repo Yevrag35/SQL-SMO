@@ -29,12 +29,6 @@
 								<PropertyName>ComputedText</PropertyName>
 							</ListItem>
 							<ListItem>
-								<PropertyName>DatabaseEngineEdition</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>DatabaseEngineType</PropertyName>
-							</ListItem>
-							<ListItem>
 								<PropertyName>DataType</PropertyName>
 							</ListItem>
 							<ListItem>
@@ -57,12 +51,6 @@
 							</ListItem>
 							<ListItem>
 								<PropertyName>EncryptionType</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>ExecutionManager</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>ExtendedProperties</PropertyName>
 							</ListItem>
 							<ListItem>
 								<PropertyName>GeneratedAlwaysType</PropertyName>
@@ -134,10 +122,9 @@
 								<PropertyName>Nullable</PropertyName>
 							</ListItem>
 							<ListItem>
-								<PropertyName>Parent</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>Properties</PropertyName>
+								<!--<PropertyName>Parent</PropertyName>-->
+								<Label>Parent</Label>
+								<ScriptBlock>$_.Parent.Name</ScriptBlock>
 							</ListItem>
 							<ListItem>
 								<PropertyName>RowGuidCol</PropertyName>
@@ -149,16 +136,7 @@
 								<PropertyName>RuleSchema</PropertyName>
 							</ListItem>
 							<ListItem>
-								<PropertyName>State</PropertyName>
-							</ListItem>
-							<ListItem>
 								<PropertyName>StatisticalSemantics</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>Urn</PropertyName>
-							</ListItem>
-							<ListItem>
-								<PropertyName>UserData</PropertyName>
 							</ListItem>
 						</ListItems>
 					</ListEntry>

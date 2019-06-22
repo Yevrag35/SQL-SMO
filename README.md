@@ -10,7 +10,7 @@ This is a module for gathering and editing SQL Server Instance properties utiliz
 
 ---
 
-## What's new in 1.0.0-alpha?
+## What's new in 1.0.0-beta?
 
 I have been re-working the module (yet again...) to a new one.  As such, I'm eliminating the following commands:
 __New-SMO__
@@ -26,8 +26,52 @@ Like so:
 
 ```Get-ADComputer -Filter * | Find-SmoSqlInstance -SearchMethod WMI```
 
-## New Cmdlets in 1.0.0-alpha
+## All Cmdlets as of 1.0.0-beta
 
+*Cmdlets in __bold__ are new or renamed.*
+
+* __Add-SmoDbUser__
+* Connect-SmoServer
+* Disconnect-SmoServer
+* __Find-SmoSqlInstance__
+* Get-SmoColumn
+* __Get-SmoCredential__
+* Get-SmoDatabase
+* __Get-SmoDatabaseLog__
+* __Get-SmoDbUser__
+* __Get-SmoJob__
+* __Get-SmoJobCategory__
+* __Get-SmoJobServer__
+* __Get-SmoJobStep__
+* __Get-SmoLogin__
+* __Get-SmoProcess__
+* Get-SmoServer
+* __Get-SmoServerCollation__
+* __Get-SmoServerConfig__
+* __Get-SmoServerErrorLog__
 * __Get-SmoSystemMessages__
-* __Start-SmoAgentJob__
-* __Stop-SmoAgentJob__
+* Get-SmoTable
+* __Get-SmoUserDefinedMessages__
+* __Get-SmoView__
+* __New-SmoCredential__
+* __New-SmoJobCategory__
+* __New-SmoSqlLogin__
+* __New-SmoWindowsLogin__
+* __Out-SmoSqlScript__
+* __Remove-SmoDatabase__
+* __Remove-SmoDbUser__
+* __Remove-SmoJob__
+* __Remove-SmoJobCategory__
+* __Remove-SmoLogin__
+* __Rename-SmoLogin__
+* __Set-SmoDatabaseState__
+* __Set-SmoJob__
+* __Set-SmoJobCategory__
+* __Set-SmoJobServer__
+* __Set-SmoLogin__
+* __Set-SmoLoginPassword__
+* __Set-SmoServerConfig__
+* __Start-SmoJob__
+* __Stop-SmoJob__
+* __Stop-SmoProcess__
+* __Write-SmoSqlScript__
