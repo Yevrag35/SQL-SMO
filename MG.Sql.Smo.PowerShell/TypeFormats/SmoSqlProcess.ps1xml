@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<ViewDefinitions>
+		<View>
+			<Name>SmoSqlProcess ListView</Name>
+			<ViewSelectedBy>
+				<TypeName>MG.Sql.Smo.SqlProcess</TypeName>
+			</ViewSelectedBy>
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<Label>Id</Label>
+						<Alignment>Center</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- Host -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- Login -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- Program -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- Status -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>Spid</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Host</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Login</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Program</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Status</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>

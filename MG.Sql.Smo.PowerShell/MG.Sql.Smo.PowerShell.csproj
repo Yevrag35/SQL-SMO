@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D455F644-7D5A-4AA7-857D-DF2C9C9640B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MG.Sql.Smo.PowerShell</RootNamespace>
+    <AssemblyName>MG.Sql.Smo.PowerShell</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MG.Dynamic">
+      <HintPath>Assemblies\MG.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="MG.Progress.PowerShell, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assemblies\MG.Progress.PowerShell.dll</HintPath>
+    </Reference>
+    <Reference Include="MG.Swappable.Dictionary">
+      <HintPath>Assemblies\MG.Swappable.Dictionary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ActiveDirectory.Management, Version=10.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>Assemblies\Microsoft.ActiveDirectory.Management.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.LocalAccounts">
+      <HintPath>Assemblies\Microsoft.PowerShell.LocalAccounts.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.PowerShell.LocalAccounts.Resources">
+      <HintPath>Assemblies\Microsoft.PowerShell.LocalAccounts.Resources.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.ConnectionInfo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Diagnostics.STrace, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.Diagnostics.STrace.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Dmf.Common, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.Dmf.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.Management.Sdk.Sfc.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.ServiceBrokerEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.ServiceBrokerEnum.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Smo, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.Smo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.SqlEnum, Version=14.100.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MG.Sql.Smo\Assemblies\Microsoft.SqlServer.SqlEnum.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cmdlets\Bases\BaseCredentialCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseLoginCmdlet.cs" />
+    <None Include="Cmdlets\Bases\BaseProcessCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseServerSqlCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseUserCmdlet.cs" />
+    <Compile Include="Cmdlets\Credentials\NewCredential.cs" />
+    <Compile Include="Cmdlets\Databases\RemoveDatabase.cs" />
+    <Compile Include="Cmdlets\Credentials\GetCredential.cs" />
+    <Compile Include="Cmdlets\JobSteps\GetJobStep.cs" />
+    <Compile Include="Cmdlets\Logins\NewSqlLogin.cs" />
+    <Compile Include="Cmdlets\Logins\RemoveLogin.cs" />
+    <Compile Include="Cmdlets\Logins\RenameLogin.cs" />
+    <Compile Include="Cmdlets\Logins\SetLogin.cs" />
+    <Compile Include="Cmdlets\Logins\SetLoginPassword.cs" />
+    <Compile Include="Cmdlets\Processes\GetProcess.cs" />
+    <Compile Include="Cmdlets\Processes\StopProcess.cs" />
+    <Compile Include="Cmdlets\Scripting\OutSqlScript.cs" />
+    <Compile Include="Cmdlets\Scripting\WriteToSqlScript.cs" />
+    <Compile Include="Cmdlets\Users\AddDbUser.cs" />
+    <Compile Include="Cmdlets\Users\GetDbUser.cs" />
+    <Compile Include="Cmdlets\Users\RemoveDbUser.cs" />
+    <Compile Include="Cmdlets\Views\GetView.cs" />
+    <Compile Include="Objects\ADAllowableInputObject.cs" />
+    <Compile Include="Cmdlets\Bases\BaseNewLoginCmdlet.cs" />
+    <Compile Include="Cmdlets\Logins\NewWindowsLogin.cs" />
+    <Compile Include="Objects\AnyCredential.cs" />
+    <Compile Include="Objects\CredentialIdentity.cs" />
+    <Compile Include="Objects\MgSmoCollectionExtensions.cs" />
+    <Compile Include="Objects\NumStrIdentity.cs" />
+    <Compile Include="Objects\LoginIdentity.cs" />
+    <Compile Include="Backend\SmoContext-Test.cs" />
+    <Compile Include="Backend\SmoDatabase.cs" />
+    <Compile Include="Cmdlets\Logins\GetLogin.cs" />
+    <Compile Include="Cmdlets\Logs\GetDatabaseLog.cs" />
+    <Compile Include="Cmdlets\JobCategories\GetJobCategory.cs" />
+    <Compile Include="Cmdlets\Servers\GetServerCollation.cs" />
+    <Compile Include="Cmdlets\Servers\GetServerErrorLog.cs" />
+    <Compile Include="Cmdlets\Servers\GetUserDefinedMessages.cs" />
+    <Compile Include="Cmdlets\Databases\NewDatabase.cs" />
+    <Compile Include="Cmdlets\Bases\BaseForceCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseSqlCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseSqlProgressCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\HighMemoryCmdlet.cs" />
+    <Compile Include="Cmdlets\Bases\BaseJobCmdlet.cs" />
+    <Compile Include="Cmdlets\Connections\ConnectServer.cs" />
+    <Compile Include="Cmdlets\Connections\DisconnectServer.cs" />
+    <Compile Include="Cmdlets\Jobs\GetJob.cs" />
+    <Compile Include="Cmdlets\JobServer\GetJobServer.cs" />
+    <Compile Include="Cmdlets\Columns\GetColumn.cs" />
+    <Compile Include="Cmdlets\Databases\GetDatabase.cs" />
+    <Compile Include="Cmdlets\Bases\BaseDatabaseCmdlet.cs" />
+    <Compile Include="Cmdlets\Servers\GetServer.cs" />
+    <Compile Include="Cmdlets\Servers\GetServerConfig.cs" />
+    <Compile Include="Cmdlets\Connections\FindSqlInstance.cs" />
+    <Compile Include="Cmdlets\Servers\GetSystemMessages.cs" />
+    <Compile Include="Cmdlets\JobCategories\NewJobCategory.cs" />
+    <Compile Include="Cmdlets\JobCategories\RemoveJobCategory.cs" />
+    <Compile Include="Cmdlets\JobCategories\SetJobCategory.cs" />
+    <Compile Include="Cmdlets\Jobs\StopJob.cs" />
+    <Compile Include="Cmdlets\Jobs\RemoveJob.cs" />
+    <Compile Include="Cmdlets\Jobs\SetJob.cs" />
+    <Compile Include="Cmdlets\Tables\GetTable.cs" />
+    <Compile Include="Cmdlets\JobServer\SetJobServer.cs" />
+    <None Include="Cmdlets\Databases\SetDatabaseState.cs" />
+    <Compile Include="Cmdlets\Servers\SetServerConfig.cs" />
+    <Compile Include="Cmdlets\Jobs\StartJob.cs" />
+    <None Include="Objects\ModifyObject.cs" />
+    <Compile Include="Objects\PassOrCreds.cs" />
+    <Compile Include="Objects\SmoBrowserResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Backend\SmoContext.cs" />
+    <None Include="TypeFormats\SmoDatabase.ps1xml" />
+    <None Include="TypeFormats\SmoJobStep.ps1xml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="TypeFormats\SmoUser.ps1xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assemblies\" />
+    <Folder Include="Module\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DebugScript.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GenerateManifest.ps1" />
+    <None Include="packages.config" />
+    <None Include="TypeFormats\SmoCredential.ps1xml" />
+    <None Include="TypeFormats\SmoJob.ps1xml" />
+    <None Include="TypeFormats\AgentServer.ps1xml" />
+    <None Include="TypeFormats\SmoColumn.ps1xml" />
+    <None Include="TypeFormats\SmoConfiguration.ps1xml" />
+    <None Include="TypeFormats\SmoJobCategory.ps1xml" />
+    <None Include="TypeFormats\SmoLogFile.ps1xml" />
+    <None Include="TypeFormats\SmoLogin.ps1xml" />
+    <None Include="TypeFormats\SmoServer.ps1xml" />
+    <None Include="TypeFormats\SmoSqlProcess.ps1xml" />
+    <None Include="TypeFormats\SmoTable.ps1xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MG.Sql.Smo\MG.Sql.Smo.csproj">
+      <Project>{3c946a30-8121-46de-9609-2c1629035ea4}</Project>
+      <Name>MG.Sql.Smo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -NonInteractive -WindowStyle Hidden -File "$(ProjectDir)GenerateManifest.ps1" -DebugDirectory "$(ProjectDir)bin\$(ConfigurationName)" -ModuleFileDirectory "$(ProjectDir)TypeFormats" -AssemblyInfo "$(ProjectDir)Properties\AssemblyInfo.cs" -TargetFileName "$(TargetFileName)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

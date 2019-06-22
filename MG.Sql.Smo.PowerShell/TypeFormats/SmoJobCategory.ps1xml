@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<ViewDefinitions>
+		<View>
+			<Name>SmoJobCategory ListView</Name>
+			<ViewSelectedBy>
+				<TypeName>Microsoft.SqlServer.Management.Smo.Agent.JobCategory</TypeName>
+			</ViewSelectedBy>
+			<TableControl>
+				<TableHeaders>
+					<TableColumnHeader>
+						<!-- ID -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- Name -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<Label>Type</Label>
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<TableColumnHeader>
+						<!-- State -->
+						<Alignment>Left</Alignment>
+					</TableColumnHeader>
+					<!-- <TableColumnHeader>
+						<Label>Parent</Label>
+						<Alignment>Left</Alignment>
+					</TableColumnHeader> -->
+				</TableHeaders>
+				<TableRowEntries>
+					<TableRowEntry>
+						<TableColumnItems>
+							<TableColumnItem>
+								<PropertyName>ID</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>Name</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>CategoryType</PropertyName>
+							</TableColumnItem>
+							<TableColumnItem>
+								<PropertyName>State</PropertyName>
+							</TableColumnItem>
+						</TableColumnItems>
+					</TableRowEntry>
+				</TableRowEntries>
+			</TableControl>
+		</View>
+	</ViewDefinitions>
+</Configuration>
