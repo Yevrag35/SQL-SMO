@@ -116,6 +116,7 @@
     <Compile Include="Cmdlets\Logins\SetLoginPassword.cs" />
     <Compile Include="Cmdlets\Processes\GetProcess.cs" />
     <Compile Include="Cmdlets\Processes\StopProcess.cs" />
+    <Compile Include="Cmdlets\ProductKey\GetProductKey.cs" />
     <Compile Include="Cmdlets\Scripting\OutSqlScript.cs" />
     <Compile Include="Cmdlets\Scripting\WriteSqlScript.cs" />
     <Compile Include="Cmdlets\Users\AddDbUser.cs" />
@@ -168,7 +169,9 @@
     <Compile Include="Cmdlets\Jobs\StartJob.cs" />
     <None Include="Objects\ModifyObject.cs" />
     <Compile Include="Objects\PassOrCreds.cs" />
+    <Compile Include="Objects\ProductRegistry.cs" />
     <Compile Include="Objects\SmoBrowserResult.cs" />
+    <Compile Include="Objects\SmoLicense.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Backend\SmoContext.cs" />
     <None Include="TypeFormats\SmoDatabase.ps1xml" />
@@ -182,7 +185,9 @@
     <Folder Include="Module\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DebugScript.ps1" />
+    <Content Include="DebugScript.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateManifest.ps1" />

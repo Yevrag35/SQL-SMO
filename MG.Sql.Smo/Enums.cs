@@ -49,6 +49,7 @@ namespace MG.Sql.Smo
 
     public enum SQLYearVersion
     {
+        Unknown = 0,
         SQLServer2008R2 = 1,
         SQLServer2005 = 9,
         SQLServer2008 = 10,
