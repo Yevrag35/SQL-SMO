@@ -24,36 +24,48 @@ namespace MG.Sql.Smo.PowerShell
         #region CMDLET PROCESSING
         public override object GetDynamicParameters() => base.GetDynamicParameters();
 
-        protected override void BeginProcessing() => base.BeginProcessing();
+        protected override void BeginProcessing()
+        {
+            string parentDir = Path.GetDirectoryName(this.FilePath);
+
+            if (string.IsNullOrEmpty(parentDir))
+                this.FilePath = Path.Combine(this.SessionState.Path.CurrentLocation.Path, this.FilePath);
+            
+            else if (parentDir.Equals("."))
+            {
+                string fileName = Path.GetFileName(this.FilePath);
+                this.FilePath = Path.Combine(this.SessionState.Path.CurrentLocation.Path, fileName);
+            }
+            else if (!Directory.Exists(parentDir))
+            {
+                string msg = string.Format("The specified folder path \"{0}\" does not exist", parentDir);
+                throw new ArgumentException(msg);
+            }
+
+            base.BeginProcessing();
+        }
 
         protected override void ProcessRecord()
         {
             _so.FileName = this.FilePath;
             _so.ToFileOnly = true;
-            StringCollection script = this.InputObject.Script(_so);
+            this.InputObject.Script(_so);
+            NoEnd = true;
         }
-
-        #endregion
-
-        #region CMDLET METHODS
-
 
         #endregion
     }
 
     public class ValidateFilePathAttribute : ValidateArgumentsAttribute
     {
+        private static readonly string[] acceptable = new string[2] { ".sql", ".txt" };
+
         protected override void Validate(object arguments, EngineIntrinsics engineIntrinsics)
         {
-            string[] acceptable = new string[2] { ".sql", ".txt" };
-
             if (arguments is string str)
             {
                 if (!acceptable.Contains(Path.GetExtension(str)))
                     throw new ArgumentException("FilePath must end in \".sql\" or \".txt\"");
-
-                else if (!Directory.Exists(Path.GetDirectoryName(str)))
-                    throw new ArgumentException("The specified folder path does not exist.");
             }
             else
                 throw new ArgumentException("FilePath must be a string.");
