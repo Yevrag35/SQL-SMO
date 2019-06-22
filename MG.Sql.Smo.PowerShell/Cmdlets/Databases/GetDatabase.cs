@@ -39,6 +39,7 @@ namespace MG.Sql.Smo.PowerShell
                     for (int i = 0; i < dbCol.Count; i++)
                     {
                         Database db = dbCol[i];
+
                         if (names.Contains(db.Name, new SmoContext.CaseInsensitiveComparer()))
                         {
                             base.WriteObject(db);
