@@ -17,6 +17,8 @@ namespace MG.Sql.Smo.PowerShell
     [OutputType(typeof(SmoLicense))]
     public class GetProductKey : PSCmdlet
     {
+        #region PRIVATE FIELDS/CONSTANTS
+
         private const string BASE_KEY = "SOFTWARE\\Microsoft\\Microsoft SQL Server";
         private const string CLIENT_SETUP = "ClientSetup";
         private const string DEF_INST = "MSSQLSERVER";
@@ -32,38 +34,27 @@ namespace MG.Sql.Smo.PowerShell
             "B", "C", "D", "F", "G", "H", "J", "K", "M", "P", "Q", "R", "T", "V", "W", "X", "Y", "2", "3", "4", "6", "7", "8", "9"
         };
 
+        #endregion
+
         #region PARAMETERS
-        [Parameter(Mandatory = false, Position = 0)]
+
+        [Parameter(Mandatory = false, Position = 0, ValueFromPipelineByPropertyName = true)]
         [Alias("ServerName")]
         public string[] ComputerName { get; set; }
 
-        [Parameter(Mandatory = false, Position = 1)]
+        [Parameter(Mandatory = false, Position = 1, ValueFromPipelineByPropertyName = true)]
         [Alias("Instance")]
         public string[] InstanceName { get; set; }
 
         #endregion
 
         #region CMDLET PROCESSING
-        protected override void BeginProcessing()
-        {
-            if (!this.MyInvocation.BoundParameters.ContainsKey("ComputerName") &&
-                SmoContext.IsSet && SmoContext.IsConnected)
-            {
-                this.ComputerName = new string[1] { SmoContext.Connection.Name };
-            }
-            else if (!this.MyInvocation.BoundParameters.ContainsKey("ComputerName"))
-                throw new SmoContextNotSetException();
-
-            if (!this.MyInvocation.BoundParameters.ContainsKey("InstanceName"))
-            {
-                this.InstanceName = new string[1] { DEF_INST };
-            }
-
-            CharArray = GetCharArray(STR_ARRAY);
-        }
+        protected override void BeginProcessing() => CharArray = GetCharArray(STR_ARRAY);
 
         protected override void ProcessRecord()
         {
+            this.GetEverythingReady();
+
             for (int c = 0; c < this.ComputerName.Length; c++)
             {
                 string cn = this.ComputerName[c];
@@ -74,7 +65,9 @@ namespace MG.Sql.Smo.PowerShell
                 }
                 catch (IOException ex)
                 {
-                    throw new IOException("The remote computer's remote registry service is not running.", ex);
+                    string msg = string.Format("The remote registry service on {0} is not running or the server is offline.", cn);
+                    var errRec = new ErrorRecord(new IOException(msg), typeof(IOException).FullName, ErrorCategory.ConnectionError, cn);
+                    base.WriteError(errRec);
                 }
 
                 if (haveLicenses != null)
@@ -89,6 +82,22 @@ namespace MG.Sql.Smo.PowerShell
         }
 
         #endregion
+
+        private void GetEverythingReady()
+        {
+            if (!this.MyInvocation.BoundParameters.ContainsKey("ComputerName") &&
+                SmoContext.IsSet && SmoContext.IsConnected)
+            {
+                this.ComputerName = new string[1] { SmoContext.Connection.Name };
+            }
+            else if (!this.MyInvocation.BoundParameters.ContainsKey("ComputerName"))
+                throw new SmoContextNotSetException();
+
+            if (!this.MyInvocation.BoundParameters.ContainsKey("InstanceName"))
+            {
+                this.InstanceName = new string[1] { DEF_INST };
+            }
+        }
 
         #region CMDLET METHODS
         private static char[] GetCharArray(string[] chars)
